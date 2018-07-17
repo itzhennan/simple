@@ -4,20 +4,23 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd ">
-
+	<context:annotation-config />
 	<context:component-scan base-package="cn.zznlin.simple" />
-	<context:property-placeholder location="classpath:app.properties" />
-
-    <bean name="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="jdbcUrl" value="${url}" ></property>
-        <property name="driverClass" value="${driverClassName}" ></property>
-        <property name="user" value="${username}" ></property>
-        <property name="password" value="${password}" ></property>
-        <!--<property name="initialPoolSize" value="${initialPoolSize}"/>-->
-        <!--<property name="maxIdleTime" value="${maxIdleTime}"/>-->
-        <!--<property name="maxPoolSize" value="${maxPoolSize}"/>-->
-        <!--<property name="minPoolSize" value="${minPoolSize}"/>-->
-        <!--<property name="maxStatements" value="${maxStatements}"/>-->
+	<context:property-placeholder location="classpath:app.properties"
+        file-encoding="utf-8" ignore-unresolvable="true" />
+        
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="jdbcUrl" value="${jdbc.url}" ></property>
+        <property name="driverClass" value="${jdbc.driverClassName}" ></property>
+        <property name="user" value="${jdbc.username}" ></property>
+        <property name="password" value="${jdbc.password}" ></property>
+        <property name="testConnectionOnCheckout" value="${jdbc.c3p0.testConnectionOnCheckout}" ></property>
+        <property name="testConnectionOnCheckin" value="${jdbc.c3p0.testConnectionOnCheckin}" ></property>
+        <property name="idleConnectionTestPeriod" value="${jdbc.c3p0.idleConnectionTestPeriod}" ></property>
+        <property name="initialPoolSize" value="${jdbc.c3p0.initialPoolSize}"/>
+        <property name="minPoolSize" value="${jdbc.c3p0.minPoolSize}"/>
+        <property name="maxPoolSize" value="${jdbc.c3p0.maxPoolSize}"/>
+        <property name="maxIdleTime" value="${jdbc.c3p0.maxIdleTime}"/>
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
@@ -45,66 +48,66 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<!-- Configure the multipart resolver -->
-	<!--<bean id="multipartResolver"-->
-		  <!--class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>-->
+	<bean id="multipartResolver"
+		  class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
 
 	<!-- Mail Configure -->
-	<!--<bean id="mail" class="org.springframework.mail.javamail.JavaMailSenderImpl">-->
-		<!--&lt;!&ndash; SMTP发送邮件的服务器的IP和端口 &ndash;&gt;-->
-		<!--<property name="host" value="${mail.host}" />-->
-		<!--<property name="port" value="${mail.port}" />-->
+	<bean id="mail" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<!-- SMTP发送邮件的服务器的IP和端口  -->
+		<property name="host" value="${mail.host}" />
+		<property name="port" value="${mail.port}" />
 
-		<!--&lt;!&ndash; 登陆SMTP邮件发送服务器的用户名和密码 &ndash;&gt;-->
-		<!--<property name="username" value="${mail.username}" />-->
-		<!--<property name="password" value="${mail.password}" />-->
+		<!-- 登陆SMTP邮件发送服务器的用户名和密码 -->
+		<property name="username" value="${mail.username}" />
+		<property name="password" value="${mail.password}" />
 
-		<!--&lt;!&ndash; 获得邮件会话属性,验证登录邮件服务器是否成功 &ndash;&gt;-->
-		<!--<property name="javaMailProperties">-->
-			<!--<props>-->
-				<!--<prop key="mail.smtp.auth">true</prop>-->
-				<!--<prop key="prop">true</prop>-->
-				<!--<prop key="mail.smtp.timeout">25000</prop>-->
-			<!--</props>-->
-		<!--</property>-->
-	<!--</bean>-->
+		<!-- 获得邮件会话属性,验证登录邮件服务器是否成功 -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="prop">true</prop>
+				<prop key="mail.smtp.timeout">25000</prop>
+			</props>
+		</property>
+	</bean>
 	<!-- Kaptcha Configure -->
-	<!--<bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">-->
-		<!--<property name="config">-->
-			<!--<bean class="com.google.code.kaptcha.util.Config">-->
-				<!--<constructor-arg>-->
-					<!--<props>-->
-						<!--<prop key="kaptcha.border">no</prop>-->
-						<!--<prop key="kaptcha.border.color">105,179,90</prop>-->
-						<!--<prop key="kaptcha.noise.color">gray</prop>-->
-						<!--<prop key="kaptcha.textproducer.font.color">blue</prop>-->
-						<!--<prop key="kaptcha.image.width">92</prop>-->
-						<!--<prop key="kaptcha.image.height">40</prop>-->
-						<!--<prop key="kaptcha.textproducer.font.size">37</prop>-->
-						<!--<prop key="kaptcha.session.key">code</prop>-->
-						<!--<prop key="kaptcha.textproducer.char.length">4</prop>-->
-						<!--<prop key="kaptcha.textproducer.font.names">Courier</prop>-->
-						<!--<prop key="kaptcha.textproducer.char.string">abcde2345678fkntux</prop>-->
-					<!--</props>-->
-				<!--</constructor-arg>-->
-			<!--</bean>-->
-		<!--</property>-->
-	<!--</bean>-->
+	<bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha"> 
+		<property name="config">
+			<bean class="com.google.code.kaptcha.util.Config">
+				<constructor-arg>
+					<props>
+						<prop key="kaptcha.border">no</prop>
+						<prop key="kaptcha.border.color">105,179,90</prop>
+						<prop key="kaptcha.noise.color">gray</prop>
+						<prop key="kaptcha.textproducer.font.color">blue</prop>
+						<prop key="kaptcha.image.width">92</prop>
+						<prop key="kaptcha.image.height">40</prop>
+						<prop key="kaptcha.textproducer.font.size">37</prop>
+						<prop key="kaptcha.session.key">code</prop>
+						<prop key="kaptcha.textproducer.char.length">4</prop>
+						<prop key="kaptcha.textproducer.font.names">Courier</prop>
+						<prop key="kaptcha.textproducer.char.string">abcde2345678fkntux</prop>
+					</props>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
 
-	<!--<bean class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">-->
-		<!--<property name="favorPathExtension" value="true" />-->
-		<!--<property name="favorParameter" value="true" />-->
-		<!--<property name="ignoreAcceptHeader" value="true"></property>-->
-		<!--<property name="defaultContentType" value="text/html" />-->
-		<!--<property name="mediaTypes">-->
-		<!--<map>-->
-			<!--&lt;!&ndash; 告诉视图解析器，返回的类型为json格式 &ndash;&gt;-->
-			<!--<entry key="json" value="application/json" />-->
-			<!--<entry key="xml" value="application/xml" />-->
-			<!--<entry key="html" value="text/html" />-->
-			<!--<entry key="file" value="application/octet-stream" />-->
-			<!--<entry key="img" value="img/*" />-->
-		<!--</map>-->
-		<!--</property>-->
-	<!--</bean>-->
+	<bean class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="favorPathExtension" value="true" />
+		<property name="favorParameter" value="true" />
+		<property name="ignoreAcceptHeader" value="true"></property>
+		<property name="defaultContentType" value="text/html" />
+		<property name="mediaTypes">
+		<map>
+			<!--告诉视图解析器，返回的类型为json格式 -->
+			<entry key="json" value="application/json" />
+			<entry key="xml" value="application/xml" />
+			<entry key="html" value="text/html" />
+			<entry key="file" value="application/octet-stream" />
+			<entry key="img" value="img/*" />
+		</map>
+		</property>
+	</bean>
 
 </beans>
