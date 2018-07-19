@@ -9,6 +9,7 @@
 build/
 target/
 out
+.project
 gen### Java template
 # Compiled class file
 *.class

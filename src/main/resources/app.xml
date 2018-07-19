@@ -110,4 +110,11 @@
 		</property>
 	</bean>
 
+	<!--freemarker-->
+	<bean id="freemarkerConfig"	class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/freemarker/" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+
 </beans>
