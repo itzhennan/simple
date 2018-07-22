@@ -139,61 +139,33 @@
 
 						<!-- Posts List -->
 							<section>
-								<ul class="posts">
-									<li>
-										<article>
-											<header>
-												<h3><a href="#">热门阅读1热门阅读1热门阅读1热门阅读1热门阅读1热门阅读1热门阅读1</a></h3>
-												<footer>
-													<time class="published" datetime="2015-10-20">2018年7月18日</time>
-													<ul class="stats">
-														<li><a href="javascript:void(0);" class="icon fa-heart">999999</a></li>
-														<li><a href="javascript:void(0);" class="icon fa-comment">999999</a></li>
-													</ul>
-												</footer>
-											</header>
-											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
-										</article>
-									</li>
-									<li>
-										<article>
-											<header>
-												<h3><a href="#">热门阅读1热门阅读1热门阅读1热门阅读1热门阅读1热门阅读1热门阅读1</a></h3>
-												<footer>
-													<time class="published" datetime="2015-10-20">2018年7月18日</time>
-													<ul class="stats">
-														<li><a href="javascript:void(0);" class="icon fa-heart">999999</a></li>
-														<li><a href="javascript:void(0);" class="icon fa-comment">999999</a></li>
-													</ul>
-												</footer>
-											</header>
-											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
-										</article>
-									</li>
-									<li>
-										<article>
-											<header>
-												<h3><a href="#">热门阅读1热门阅读1热门阅读1热门阅读1热门阅读1热门阅读1热门阅读1</a></h3>
-												<footer>
-													<time class="published" datetime="2015-10-20">2018年7月18日</time>
-													<ul class="stats">
-														<li><a href="#" class="icon fa-heart">999999</a></li>
-														<li><a href="#" class="icon fa-comment">999999</a></li>
-													</ul>
-												</footer>
-											</header>
-											<a href="#" class="image"><img src="images/pic10.jpg" alt="" /></a>
-										</article>
-									</li>
+                                <ul class="posts">
+									<#list hotReader as h>
+                                        <li>
+                                            <article>
+                                                <header>
+                                                    <h3><a href="${h.url}">${h.title}</a></h3>
+                                                    <footer>
+                                                        <time class="published" datetime="${h.time}">${h.time}</time>
+                                                        <ul class="stats">
+                                                            <li><a href="javascript:void(0);" class="icon fa-heart">${h.love.text}</a></li>
+                                                            <li><a href="javascript:void(0);" class="icon fa-comment">${h.comment.text}</a></li>
+                                                        </ul>
+                                                    </footer>
+                                                </header>
+                                                <a href="${h.url}" class="image"><img src="${h.imageUrl}" alt="" /></a>
+                                            </article>
+                                        </li>
+									</#list>
 								</ul>
 							</section>
 
 						<!-- About -->
 							<section class="blurb">
-								<h2>About</h2>
-								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod amet placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at phasellus sed ultricies.</p>
+								<h2>${about.title}</h2>
+								<p>${about.text}</p>
 								<ul class="actions">
-									<li><a href="#" class="button">Learn More</a></li>
+									<li><a href="${about.url}" class="button">${about.content}</a></li>
 								</ul>
 							</section>
 
@@ -206,7 +178,7 @@
 									<li><a href="#" class="fa-rss"><span class="label">RSS</span></a></li>
 									<li><a href="#" class="fa-envelope"><span class="label">Email</span></a></li>
 								</ul>
-								<p class="copyright">&copy; Untitled. Design: <a rel="nofollow" href="http://html5up.net">HTML5 UP</a>. Images: <a rel="nofollow" href="http://unsplash.com">Unsplash</a>.</p>
+								<p class="copyright">Copyright &copy; 2018. Zznlin. | <a rel="nofollow" href="#">All rights reserved</a>. </p>
 							</section>
 
 					</section>

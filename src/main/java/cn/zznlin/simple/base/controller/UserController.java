@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/admin")
 public class UserController extends CommonController{
 
-    @RequestMapping("doLogin")
+    @RequestMapping("/doLogin")
     public String doLogin(User user, HttpSession session){
         String password = user.getPassword();
         Long userPhone = user.getUserPhone();

@@ -1,12 +1,5 @@
 package cn.zznlin.simple.common.utils;
 
-import java.io.BufferedReader;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -16,6 +9,12 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
 /** 
 * 
@@ -125,7 +124,7 @@ public class HttpUtils {
 	
 
 	/**
-	 * TODO Use HttpGet to get response message
+	 *  Use HttpGet to get response message
 	 * 
 	 * @param url
 	 * @return
