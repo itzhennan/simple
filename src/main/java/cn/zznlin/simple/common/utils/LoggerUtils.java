@@ -13,7 +13,7 @@ public class LoggerUtils {
 
     private static Logger logger = LoggerFactory.getLogger(LoggerUtils.class);
     public static boolean IS_LOG = SystemPropertyInit.getInstance().getBooleanProperty("isLog",true);
-    public static boolean IS_OPEN = false;
+    public static boolean IS_OPEN = true;
     public static boolean IS_LINE = true;
 
     /**

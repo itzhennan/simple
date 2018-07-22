@@ -1,25 +1,22 @@
 package cn.zznlin.simple.common.controller;
 
-import java.awt.image.BufferedImage;
+import cn.zznlin.simple.common.helper.KaptchaHelper;
+import cn.zznlin.simple.common.utils.CommonJsonFlagBean;
+import cn.zznlin.simple.common.utils.HttpUtils;
+import cn.zznlin.simple.common.utils.JsonUtils;
+import cn.zznlin.simple.common.utils.LoggerUtils;
+import com.google.code.kaptcha.Producer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.google.code.kaptcha.Producer;
-
-import cn.zznlin.simple.common.helper.KaptchaHelper;
-import cn.zznlin.simple.common.utils.CommonJsonFlagBean;
-import cn.zznlin.simple.common.utils.HttpUtils;
-import cn.zznlin.simple.common.utils.JsonUtils;
-import cn.zznlin.simple.common.utils.LoggerUtils;
+import java.awt.image.BufferedImage;
 
 /** 
 * 
@@ -89,6 +86,4 @@ public class CodeController {
 			}
 		}
 	}
-	
-	
 }
