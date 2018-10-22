@@ -17,7 +17,7 @@ public class User extends BaseEntity {
     @Id
     @GeneratedValue(generator = "identity")
     @GenericGenerator(name = "identity", strategy = "identity")
-    @Column(name = "user_id",columnDefinition = "bigint(11) COMMENT '基础用户ID'")
+    @Column(name = "user_id",columnDefinition = "bigint(11) COMMENT '主键基础用户ID'")
     private Long userId;
 
     @Column(name = "user_name",columnDefinition = "varchar(50) COMMENT '基础用户姓名'")

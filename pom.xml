@@ -254,6 +254,11 @@
             <artifactId>freemarker</artifactId>
             <version>2.3.23</version>
         </dependency>
+        <dependency>
+            <groupId>com.upyun</groupId>
+            <artifactId>java-sdk</artifactId>
+            <version>4.0.1</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>simple</finalName>
@@ -268,6 +273,7 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
+
             <!-- maven内置 的tomcat6插件 -->
             <!--<plugin>-->
                 <!--<groupId>org.codehaus.mojo</groupId>-->
@@ -282,5 +288,4 @@
             <!--</plugin>-->
         </plugins>
     </build>
-
 </project>

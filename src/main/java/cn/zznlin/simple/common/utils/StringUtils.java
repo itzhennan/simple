@@ -434,6 +434,21 @@ public class StringUtils {
         }
         return repl;
     }
+    public static boolean isBlank(String str){
+        return StringUtils.isBlank(str);
+    }
+
+    public static boolean isEmpty(String str){
+        return StringUtils.isEmpty(str);
+    }
+    public static boolean isNotEmpty(String str){
+        return !StringUtils.isEmpty(str);
+    }
+    public static String getFilenameExtension(String str){
+        int i = str.lastIndexOf(".");
+        return str.substring(i+1,str.length());
+    }
+
     public static void main(String[] args) {
         System.out.println(!StringUtils.isPhone("121212"));
     }
