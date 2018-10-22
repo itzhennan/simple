@@ -14,7 +14,7 @@
     </listener>
 
     <!-- 指定spring配置文件路径 -->
-    <context-param>
+    <context-param>`
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:app.xml</param-value>
     </context-param>
@@ -39,13 +39,13 @@
         <!--
             springmvc加载默认核心配置文件,此配置文件必须满足以下规范:
             1,路径规范:springmvc核心配置文件必须放在WEB-INF/下面
-            2,命名规范:springmvc核心配置文件名称必须是:<servlet-name>-servlet.xml 例如: springmvc-servlet.xml
+            2,命名规范:springmvc核心配置文件名称必须是:<servlet-name>-servlet.xml 例如: dispatcher-servlet.xml
          -->
         <!-- 加载自定义springmvc核心配置文件 -->
-        <init-param>
-            <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:dispatcher-servlet.xml</param-value>
-        </init-param>
+        <!--<init-param>-->
+            <!--<param-name>contextConfigLocation</param-name>-->
+            <!--<param-value>classpath:/WEB-INF/dispatcher-servlet.xml</param-value>-->
+        <!--</init-param>-->
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="robots" content="noindex, nofollow">
+	<title>所见即所得编辑器</title>
+	<script src="https://cdn.ckeditor.com/4.10.0/standard-all/ckeditor.js"></script>
+	<script src="../js/jquery-3.1.1.min.js"></script>
+	<link rel="stylesheet"  href="../css/contents.css"/>
+</head>
+
+<body>
+	主题：<select id="select" onchange="selectSheet(this.value)"><option value="monokai_sublime">monokai_sublime</option><option value="default">default</option><option value="arta">arta</option><option value="ascetic">ascetic</option><option value="atelier-dune.dark">atelier-dune.dark</option><option value="atelier-dune.light">atelier-dune.light</option><option value="atelier-forest.dark">atelier-forest.dark</option><option value="atelier-forest.light">atelier-forest.light</option><option value="atelier-heath.dark">atelier-heath.dark</option><option value="atelier-heath.light">atelier-heath.light</option><option value="atelier-lakeside.dark">atelier-lakeside.dark</option><option value="atelier-lakeside.light">atelier-lakeside.light</option><option value="atelier-seaside.dark">atelier-seaside.dark</option><option value="atelier-seaside.light">atelier-seaside.light</option><option value="brown_paper">brown_paper</option><option value="dark">dark</option><option value="docco">docco</option><option value="far">far</option><option value="foundation">foundation</option><option value="github">github</option><option value="googlecode">googlecode</option><option value="idea">idea</option><option value="ir_black">ir_black</option><option value="magula">magula</option><option value="mono-blue">mono-blue</option><option value="monokai">monokai</option><option value="obsidian">obsidian</option><option value="paraiso.dark">paraiso.dark</option><option value="paraiso.light">paraiso.light</option><option value="pojoaque">pojoaque</option><option value="railscasts">railscasts</option><option value="rainbow">rainbow</option><option value="school_book">school_book</option><option value="solarized_dark">solarized_dark</option><option value="solarized_light">solarized_light</option><option value="sunburst">sunburst</option><option value="tomorrow-night-blue">tomorrow-night-blue</option><option value="tomorrow-night-bright">tomorrow-night-bright</option><option value="tomorrow-night-eighties">tomorrow-night-eighties</option><option value="tomorrow-night">tomorrow-night</option><option value="tomorrow">tomorrow</option><option value="vs">vs</option><option value="xcode">xcode</option><option value="zenburn">zenburn</option></select>
+	
+	<textarea id="editor1" name="editor1" >
+&lt;p&gt;JavaScript code:&lt;/p&gt;
+
+&lt;pre&gt;
+&lt;code class="language-javascript"&gt;var cow = new Mammal( "moo", {
+	legs: 4
+} );&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Unknown markup:&lt;/p&gt;
+
+&lt;pre&gt;
+&lt;code&gt; ________________
+/                \
+| How about moo? |  ^__^
+\________________/  (oo)\_______
+                  \ (__)\       )\/\
+                        ||----w |
+                        ||     ||
+&lt;/code&gt;&lt;/pre&gt;
+	</textarea>
+
+	<script>
+		var config = {
+			extraPlugins: 'autoembed,embedsemantic,image2,mathjax,codesnippet,font',
+			removeButtons: 'Font',
+			height: 300,
+			mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML',
+			codeSnippet_theme: 'monokai_sublime',
+			height: 356
+		};
+
+		CKEDITOR.replace( 'editor1', config );
+		
+		function selectSheet(sheetval){
+			var sheet = $("#select").val();
+			if ( CKEDITOR.instances.editor1 )
+				CKEDITOR.instances.editor1.destroy();
+
+			CKEDITOR.replace( 'editor1', CKEDITOR.tools.extend( {}, config, {
+				codeSnippet_theme: sheet
+			}, true ) );
+		}
+	</script>
+
+	<div>
+		<button onclick="btn_sub()" value="提交">点我提交</button>
+	</div>
+
+	<div id="test">
+	</div>
+	<script>
+		function btn_sub(){
+            var str = CKEDITOR.instances.editor1.getData();
+            var str_ = '<h1><img alt="Saturn V carrying Apollo 11" class="right" src="../assets/sample.jpg" /> Apollo 11</h1>'+
+
+                '<p><strong>Apollo 11</strong> was the spaceflight that landed the first humans, Americans <a href="http://en.wikipedia.org/wiki/Neil_Armstrong">Neil Armstrong</a> and <a href="http://en.wikipedia.org/wiki/Buzz_Aldrin">Buzz Aldrin</a>, on the Moon on July 20, 1969, at 20:18 UTC. Armstrong became the first to step onto the lunar surface 6 hours later on July 21 at 02:56 UTC.</p>'+
+
+            '<p>Armstrong spent about <s>three and a half</s> two and a half hours outside the spacecraft, Aldrin slightly less; and together they collected 47.5 pounds (21.5&nbsp;kg) of lunar material for return to Earth. A third member of the mission, <a href="http://en.wikipedia.org/wiki/Michael_Collins_(astronaut)">Michael Collins</a>, piloted the <a href="http://en.wikipedia.org/wiki/Apollo_Command/Service_Module">command</a> spacecraft alone in lunar orbit until Armstrong and Aldrin returned to it for the trip back to Earth.</p>';
+			$("#test").append($(str));
+		}
+
+	</script>
+</body>
+
+</html>
