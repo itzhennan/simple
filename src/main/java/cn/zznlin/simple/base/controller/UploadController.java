@@ -5,6 +5,7 @@ import cn.zznlin.simple.base.entity.UploadFiles;
 import cn.zznlin.simple.base.service.UploadService;
 import cn.zznlin.simple.common.controller.CommonController;
 import cn.zznlin.simple.common.helper.UploadHelper;
+import cn.zznlin.simple.common.init.SystemPropertyInit;
 import cn.zznlin.simple.common.utils.ImageUtils;
 import cn.zznlin.simple.common.utils.StringUtils;
 import com.google.common.collect.Maps;
@@ -45,9 +46,8 @@ public class UploadController extends CommonController {
 			uploadFiles.setFileExt(fileMap.get(UploadHelper.FILE_EXT));
 //			uploadFilesService.save(uploadFiles);
 			responseMap.put("uploaded","1");
-			responseMap.put("fileName",fileName);
-			responseMap.put("url",fileName + StringUtils.UNDERLINE
-					+ ImageUtils.EXT_MEDIUM_SIZE);
+            String imageHost = SystemPropertyInit.getInstance().getProperty("image.host");
+            responseMap.put("url",imageHost + fileName + fileMap.get(UploadHelper.FILE_EXT));
 		} catch (Exception e) {
 			responseMap.put("uploaded","0");
 			e.printStackTrace();
