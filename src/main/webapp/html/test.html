@@ -41,7 +41,13 @@
 			height: 300,
 			mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML',
 			codeSnippet_theme: 'monokai_sublime',
-			height: 356
+
+
+            // Configure your file manager integration. This example uses CKFinder 3 for PHP.
+            filebrowserBrowseUrl: 'http://localhost:8082/',
+            filebrowserImageBrowseUrl: 'http://localhost:8082/',
+            filebrowserUploadUrl: '/simple/upload/uploadFile?file=file',
+            filebrowserImageUploadUrl: '/simple/upload/uploadFile?type=image'
 		};
 
 		CKEDITOR.replace( 'editor1', config );

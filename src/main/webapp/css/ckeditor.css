@@ -145,13 +145,14 @@ div.dro-box::after {
 #txtTitle {
   display: block;
   width: 100%;
-  height: 40px;
+  height: 45px;
   line-height: 40px;
   box-sizing: border-box;
   padding: 0 16px;
   border: none;
   background-color: #efefef;
   color: #4f4f4f;
+  font-size: large;
 }
 .btn_area_1 {
   padding-top: 32px;

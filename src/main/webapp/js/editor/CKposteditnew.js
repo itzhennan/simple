@@ -123,10 +123,10 @@ function getCodePlugin() {
                     }
                     _this.hidePanel();
                     document.cookie = "postedit_code=" + sel_code + "; expires=" + function() {
-                        var d = new Date();
-                        d.setFullYear(d.getFullYear() + 1);
-                        return d.toGMTString();
-                    }();
+                            var d = new Date();
+                            d.setFullYear(d.getFullYear() + 1);
+                            return d.toGMTString();
+                        }();
                     return false;
                 });
                 _this.saveBookmark();
@@ -302,7 +302,7 @@ function getPostData() {
     var tag2 = $('#hidTags').val(); // encodeURIComponent(function () { var s = []; $('#d_tag2 span').each(function () { s.push(this.innerHTML); }); return s.join(','); }());
     //GetResult();
     var data = "titl=" + titl + "&typ=" + type + "&cont=" + cont; // + "&desc=" + desc;
-    data += "&categories=" + categories + "&chnl=" + chnl + "&level=" + leve; //"&tags=" + tags + 
+    data += "&categories=" + categories + "&chnl=" + chnl + "&level=" + leve; //"&tags=" + tags +
     data += "&tag2=" + tag2;
     data += "&artid=" + artId;
     data += "&private=" + $('#chkIsHasNotify').is(':checked');
@@ -355,11 +355,11 @@ function decodeURIComponent(txt) {
 function edit_init() {
     if (jsonData.articleId == '0' || jsonData.isDraft == 'True') {
         /*自动保存策略：
-        1、修改文章不自动保存（修改草稿自动保存）；
-        2、点击发布按钮后不自动保存；
-        3、文章内容字数小于100不自动保存；
-        4、自动保存后离开页面不弹出提示；
-        */
+         1、修改文章不自动保存（修改草稿自动保存）；
+         2、点击发布按钮后不自动保存；
+         3、文章内容字数小于100不自动保存；
+         4、自动保存后离开页面不弹出提示；
+         */
         saveInter = setInterval("autoSave()", 30 * 1000);
         $("#txtTitle").focus();
     }
@@ -377,7 +377,7 @@ function edit_init() {
             var tags = decodeURIComponent(jsonData.tag2).split(',');
             var tagHtml = "";
             for (var i = 0; i < tags.length; i++) {
-                tagHtml += '<div class="tag"><span class="name uneditable" contenteditable="false">' + tags[i] + '</span><i class="xheIcon icon-guanbi"></i></div>';
+                tagHtml += '<div class="tag"><span class="name uneditable" contenteditable="false">' + tags[i] + '</span><i class="xheIcon icon-guanbi"><?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1535953077191" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3356" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12"><defs><style type="text/css"></style></defs><path d="M896 0L512 384 128 0 0 128l384 384L0 896l128 128 384-384 384 384 128-128-384-384 384-384z" p-id="3357"></path></svg></i></i></div>';
             }
             $("#addTag").before(tagHtml);
             if (tags.length >= 5) {
