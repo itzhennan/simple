@@ -87,6 +87,7 @@ public class SystemPropertyInit {
 			inputStreamLocal = new FileInputStream(propertyFile);
 			propObject.load(inputStreamLocal);
 			lastModifiedData = propertyFile.lastModified();
+			LoggerUtils.debug(CLASS_NAME, "Load System property file SUCCESS !");
 		} catch (FileNotFoundException e) {
 			LoggerUtils.debug(CLASS_NAME, "No Local Properties File Found");
 		} catch (IOException e) {
