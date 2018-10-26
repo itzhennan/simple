@@ -193,7 +193,7 @@ main.container {
 #content-body {
   padding: 1.5rem;
   background-color: #fff;
-  min-width: 1018px;
+  min-width: 100%;
 }
 @media screen and (max-width: 768px) {
   header .navbar {
@@ -1237,7 +1237,7 @@ div.dark-mask {
   margin-bottom: 16px;
 }
 div.tag-box {
-  max-width: 880px;
+  max-width: 715px;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
@@ -1301,5 +1301,28 @@ div.tag-box div.tag i.icon-guanbi svg {
 div.tag-box div.tag i.icon-guanbi:hover {
   color: #C92027;
 }
-
+.btn-outline-danger:hover,.btn-outline-secondary:hover{
+	background:none;
+	border:none;
+}
+.btn-outline-danger:not(:disabled):not(.disabled).active, .btn-outline-danger:not(:disabled):not(.disabled):active, .show>.btn-outline-danger.dropdown-toggle{
+	box-shadow: inset 0 0 0 1px #2ebaae;
+	background:none;
+	border:none;
+}
+.btn-outline-danger:not(:disabled):not(.disabled).active:focus, .btn-outline-danger:not(:disabled):not(.disabled):active:focus, .show>.btn-outline-danger.dropdown-toggle:focus{
+	box-shadow: inset 0 0 0 1px #2ebaae;
+	background:none;
+	border:none;
+}
+.btn-outline-secondary:not(:disabled):not(.disabled).active, .btn-outline-secondary:not(:disabled):not(.disabled):active, .show>.btn-outline-secondary.dropdown-toggle{
+	box-shadow: inset 0 0 0 1px #2ebaae;
+	background:none;
+	border:none;
+}
+.btn-outline-secondary:not(:disabled):not(.disabled).active:focus, .btn-outline-secondary:not(:disabled):not(.disabled):active:focus, .show>.btn-outline-secondary.dropdown-toggle:focus{
+	box-shadow: inset 0 0 0 1px #2ebaae;
+	background:none;
+	border:none;
+}
 /*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJjb21tb25zLjg0YWNmOGUuY3NzIiwic291cmNlUm9vdCI6IiJ9*/

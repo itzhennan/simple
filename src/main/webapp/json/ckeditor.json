@@ -1,12 +1,12 @@
 {
   "extraPlugins": "autoembed,embedsemantic,image2,mathjax,codesnippet,font",
   "removeButtons": "Font",
-  "height": "300",
+  "height": "800",
   "mathJaxLib": "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML",
   "codeSnippet_theme": "monokai_sublime",
 
   "filebrowserBrowseUrl": "http://localhost:8082/",
   "filebrowserImageBrowseUrl": "http://localhost:8082/",
-  "filebrowserUploadUrl": "http://localhost:8080/simple/upload/uploadFile?file=file",
-  "filebrowserImageUploadUrl": "http://localhost:8080/simple/upload/uploadFile?type=image"
+  "filebrowserUploadUrl": "http://localhost:8080/upload/uploadFile?file=file",
+  "filebrowserImageUploadUrl": "http://localhost:8080/upload/uploadFile?type=image"
 }
