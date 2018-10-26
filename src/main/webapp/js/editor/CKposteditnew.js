@@ -47,7 +47,7 @@ function pageInit() {
     });
     window.onbeforeunload = function() {
         if (showConfirm) {
-            if (csdn.val2("editor").replace(/<.+?>/g, "").length > 0) {
+            if (simple.val2("editor").replace(/<.+?>/g, "").length > 0) {
                 try {
                     return "您的文章尚未保存！";
                 } catch (err) {}
@@ -88,7 +88,7 @@ function getCodePlugin() {
     var codeArr2 = ["HTML/XML", "Objective-C", "JavaScript", "CSS", "PHP", "C#", "C++", "Java", "Python", "Ruby", "Visual Basic", "Delphi", "SQL", "其它"];
     var opts = '';
     for (var i = 0; i < codeArr1.length; i++) {
-        opts += csdn.format('<option value="{0}">{1}</option>', codeArr1[i], codeArr2[i]);
+        opts += simple.format('<option value="{0}">{1}</option>', codeArr1[i], codeArr2[i]);
     }
     var htmlCode = '<div>编程语言: <select id="xheCodeType">' + opts + '</select></div>' +
         '<div><textarea id="xheCodeCon" rows=6 cols=40></textarea></div>' +
@@ -107,7 +107,7 @@ function getCodePlugin() {
                 var jSave = $('#xheSave', jTest);
                 jSave.click(function() {
                     var sel_code = $("#xheCodeType").val();
-                    //var str = csdn.format('<pre name="code" class="{0}">{1}</pre><br />', sel_code, _this.domEncode($("#xheCodeCon").val()));
+                    //var str = simple.format('<pre name="code" class="{0}">{1}</pre><br />', sel_code, _this.domEncode($("#xheCodeCon").val()));
                     var xheCodeConContent = $("#xheCodeCon").val() + "";
                     xheCodeConContent = xheCodeConContent.replace(/&reg/g, "&amp;reg").replace(/&copy/g, "&amp;copy");
                     var pNode = _this.getParent('p');
@@ -183,7 +183,7 @@ var artId = 0;
 var saveInter = null;
 var saving = false; /*标识文章正在保存*/
 function save(isPub, isPubToBole) {
-    if (csdn.doing) { /*有其它操作（如保存草稿），等其完成再保存*/
+    if (simple.doing) { /*有其它操作（如保存草稿），等其完成再保存*/
         setTimeout("save(" + isPub + "," + isPubToBole + ")", 500);
         return;
     }
@@ -221,7 +221,7 @@ function save(isPub, isPubToBole) {
         data: data,
         success: function(ret) {
             saving = false;
-            ret = csdn.toJSON(ret);
+            ret = simple.toJSON(ret);
             if (ret.result == 0) {
                 //$("div.alert-mask").addClass("d-none");
                 //$('.html-editor-box').show();
@@ -231,7 +231,7 @@ function save(isPub, isPubToBole) {
                 showConfirm = false;
                 if (!isPub) {
                     artId = ret.data;
-                    notice.success(csdn.format("文章已保存{0} {1}", (jsonData.articleId == '0' ? "为草稿" : ""), (new Date()).format("hh:mm:ss")));
+                    notice.success(simple.format("文章已保存{0} {1}", (jsonData.articleId == '0' ? "为草稿" : ""), (new Date()).format("hh:mm:ss")));
                     $("#autosave_note").html('');
                 } else {
                     saving = true; //保存后避免再次保存
@@ -256,21 +256,21 @@ function save(isPub, isPubToBole) {
 var old_con = null;
 
 function autoSave() {
-    if (csdn.doing || saving) return;
-    // var con = csdn.val2("editor");
+    if (simple.doing || saving) return;
+    // var con = simple.val2("editor");
     var con = CKEDITOR.instances.editor.getData();
     if (con.replace(/<.+?>/g, "").length < 100) return;
     if (con == old_con) return;
     old_con = con;
-    csdn.doing = true;
+    simple.doing = true;
     var data = getPostData() + "&stat=draft&isauto=1";
     $.ajax({
         type: 'POST',
         url: '/postedit/saveArticle',
         data: data,
         success: function(ret) {
-            csdn.doing = false;
-            ret = csdn.toJSON(ret);
+            simple.doing = false;
+            ret = simple.toJSON(ret);
             if (ret.result == 1) {
                 artId = ret.data;
                 showConfirm = false;
@@ -282,19 +282,19 @@ function autoSave() {
             }
         },
         error: function() {
-            csdn.doing = false;
+            simple.doing = false;
         }
     });
 }
 
 function getPostData() {
     var type = $("#selType").val();
-    var titl = csdn.val2("txtTitle");
+    var titl = simple.val2("txtTitle");
     var cont = "";
     cont = encodeURIComponent(CKEDITOR.instances.editor.getData());
-    //var desc = csdn.val2("txtDesc");
-    var categories = csdn.val2("hidCategories");
-    //var flnm = csdn.val2("txtFileName");
+    //var desc = simple.val2("txtDesc");
+    var categories = simple.val2("hidCategories");
+    //var flnm = simple.val2("txtFileName");
     var chnl = $('#radChl').val() || 0;
     //var comm = $("input[name=radComment]:checked").val();
     var leve = 0; // $("#chkHome").attr("checked") ? 1 : 0;
@@ -322,7 +322,7 @@ function checkForm(isPubToBole) {
         notice.error("请选择文章类型");
         return false;
     }
-    if (!csdn.hasVal("txtTitle")) {
+    if (!simple.hasVal("txtTitle")) {
         notice.error("请输入文章标题。");
         return false;
     }
@@ -786,7 +786,7 @@ function fullCloseMoreDiv() {
 }
 
 $('body').on('click',".btn-fabu",function() {
-    var title = csdn.val2("txtTitle");
+    var title = simple.val2("txtTitle");
     var content = encodeURIComponent(CKEDITOR.instances.editor.getData());
     if (!title) {
         notice.error("文章标题不能为空。")

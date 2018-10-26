@@ -14,7 +14,7 @@
     </listener>
 
     <!-- 指定spring配置文件路径 -->
-    <context-param>`
+    <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:app.xml</param-value>
     </context-param>
@@ -52,6 +52,18 @@
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+    <!-- 初始化加载常用数据到内存 -->
+    <servlet>
+        <servlet-name>ApplicationServlet</servlet-name>
+        <servlet-class>cn.zznlin.simple.common.init.ApplicationServlet</servlet-class>
+        <load-on-startup>3</load-on-startup>
+    </servlet>
 
+    <!-- 初始化加载配置文件(system.properties)信息 -->
+    <servlet>
+        <servlet-name>Initializer</servlet-name>
+        <servlet-class>cn.zznlin.simple.common.init.Initializer</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
 
 </web-app>
