@@ -30,22 +30,28 @@ function AutoTag(asks,index) {
         });
     }
     var _this = this;
+    var tagBox;
     var hidTags;
     var addTag;
+    var maxTagLen;
     if(index == 1){
+    	tagBox = "articleTagBox";
         hidTags = "hidTags";
         addTag = "addTag";
+        maxTagLen = 5;
     }else{
+    	tagBox = "categorieBox";
         hidTags = "hidCategories";
         addTag = "addCategorie";
+        maxTagLen = 0;
     }
 
     var settings = {
-        tagBox: $("div.tag-box"), //标签层
+        tagBox: $("#"+tagBox), //标签层
         iptTags: $("#"+hidTags), //标签集合隐藏域
         addBtn: $("#"+addTag), //触发增加标签button
         splitStr: ',', //标签连接符，hidTags用
-        maxTagLen: 5, //最多可设置几个标签 0 为无需设置个数
+        maxTagLen: maxTagLen, //最多可设置几个标签 0 为无需设置个数
         funAfterEditor: null, //回调方法编辑tag后，参数:当前编辑标签，value
         funAfterDel: null, //回调方法删除tag后,参数:删除标签value
         isEditorble: true, //标签是否可编辑

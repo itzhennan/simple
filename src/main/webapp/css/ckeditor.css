@@ -181,6 +181,7 @@ div.dro-box::after {
 }
 #moreDiv {
   margin-top: 24px;
+  margin-left: 12px;
 }
 #moreDiv div.fullscreen {
   display: none;
@@ -189,14 +190,14 @@ div.dro-box::after {
   margin-bottom: 0;
 }
 #moreDiv div.categorie-list {
-  margin-top: 16px;
-  padding: 8px 8px 0 16px;
-  width: 480px;
-  max-height: 200px;
-  background: #FAFAFA;
-  border: 1px solid #DDDDDD;
-  overflow-x: hidden;
-  overflow-y: auto;
+  margin: 16px 0 16px 0;
+	padding: 8px 8px 0 16px;
+	width: 715px;
+	max-height: 200px;
+	background: #FAFAFA;
+	border: 1px solid #DDDDDD;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 #moreDiv div.categorie-list div.form-check {
   float: left;
