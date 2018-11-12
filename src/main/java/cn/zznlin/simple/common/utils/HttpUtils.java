@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 /** 
 * 
@@ -158,4 +159,13 @@ public class HttpUtils {
 		HttpGet get = new HttpGet(url);
 		return get;
 	}
+
+	public static String getReqJson() throws Exception {
+        HttpServletRequest request = ToolUtils.getRequest();
+        return getReqJson(request);
+    }
+
+    public static Map<String,String> getPostMap() throws Exception {
+        return JsonUtils.parseMap(getReqJson());
+    }
 }
