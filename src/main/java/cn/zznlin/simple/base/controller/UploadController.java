@@ -6,8 +6,6 @@ import cn.zznlin.simple.base.service.UploadService;
 import cn.zznlin.simple.common.controller.CommonController;
 import cn.zznlin.simple.common.helper.UploadHelper;
 import cn.zznlin.simple.common.init.SystemPropertyInit;
-import cn.zznlin.simple.common.utils.ImageUtils;
-import cn.zznlin.simple.common.utils.StringUtils;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,12 +36,12 @@ public class UploadController extends CommonController {
 			String fileName = fileMap.get(UploadHelper.FILE_NAME);
 
 			UploadFiles uploadFiles = new UploadFiles();
-			uploadFiles.setFilepath(fileName);
-			uploadFiles.setMediumpath(fileName + StringUtils.UNDERLINE
-					+ ImageUtils.EXT_MEDIUM_SIZE);
-			uploadFiles.setSmallpath(fileName + StringUtils.UNDERLINE
-					+ ImageUtils.EXT_SMALL_SIZE);
-			uploadFiles.setFileExt(fileMap.get(UploadHelper.FILE_EXT));
+//			uploadFiles.setFilepath(fileName);
+//			uploadFiles.setMediumpath(fileName + StringUtils.UNDERLINE
+//					+ ImageUtils.EXT_MEDIUM_SIZE);
+//			uploadFiles.setSmallpath(fileName + StringUtils.UNDERLINE
+//					+ ImageUtils.EXT_SMALL_SIZE);
+//			uploadFiles.setFileExt(fileMap.get(UploadHelper.FILE_EXT));
 //			uploadFilesService.save(uploadFiles);
 			responseMap.put("uploaded","1");
             String imageHost = SystemPropertyInit.getInstance().getProperty("image.host");

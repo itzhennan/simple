@@ -22,7 +22,7 @@ public class UserController extends CommonController{
     @RequestMapping("/doLogin")
     public String doLogin(User user, HttpSession session){
         String password = user.getPassword();
-        Long userPhone = user.getUserPhone();
+        String userPhone = user.getUserPhone();
         List<User> userLists = userService.findDatas("userPhone", userPhone);
         if(userLists != null && userLists.size() > 0){
             User currentUser = userLists.get(0);

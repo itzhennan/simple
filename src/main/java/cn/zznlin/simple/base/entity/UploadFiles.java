@@ -17,10 +17,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 /**
- * @author Jiafa Lv
- * @date Apr 21, 2014 10:58:37 AM
- * @email simon-jiafa@126.com
- * 
+ * 文件实体类
  */
 @SuppressWarnings("serial")
 @Entity
@@ -29,84 +26,58 @@ public class UploadFiles extends BaseEntity {
 	@Id
 	@GeneratedValue(generator = "identity")
 	@GenericGenerator(name = "identity", strategy = "identity")
-	@Column(name = "upload_id", columnDefinition = "bigint")
-	private Long uploadid;
-	
-	private String filepath;
-	
-	private String mediumpath;
-	
-	private String smallpath;
-	
+	@Column(name = "upload_id",columnDefinition = "BIGINT(11) COMMENT '文件ID' ")
+	private Long uploadId;
+
+	@Column(name = "file_name",columnDefinition = "VARCHAR(255) NOT NULL COMMENT '文件名称'")
+	private String fileName;
+
+	@Column(name = "file_ext",columnDefinition = "VARCHAR(20) NOT NULL COMMENT '文件后缀名'")
 	private String fileExt;
 
-	/**
-	 * @return the uploadid
-	 */
-	public Long getUploadid() {
-		return uploadid;
+	@Column(name = "file_path",columnDefinition = "VARCHAR(255) NOT NULL COMMENT '文件路径'")
+	private String filePath;
+
+	@Column(name = "is_del",columnDefinition = "int(11) DEFAULT 0 NOT NULL COMMENT'是否作废 0:否  1:是'")
+	private Integer isDel=0;
+
+	public Long getUploadId() {
+		return uploadId;
 	}
 
-	/**
-	 * @param uploadid the uploadid to set
-	 */
-	public void setUploadid(Long uploadid) {
-		this.uploadid = uploadid;
+	public void setUploadId(Long uploadId) {
+		this.uploadId = uploadId;
 	}
 
-	/**
-	 * @return the filepath
-	 */
-	public String getFilepath() {
-		return filepath;
+	public String getFileName() {
+		return fileName;
 	}
 
-	/**
-	 * @param filepath the filepath to set
-	 */
-	public void setFilepath(String filepath) {
-		this.filepath = filepath;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
-	/**
-	 * @return the mediumpath
-	 */
-	public String getMediumpath() {
-		return mediumpath;
-	}
-
-	/**
-	 * @param mediumpath the mediumpath to set
-	 */
-	public void setMediumpath(String mediumpath) {
-		this.mediumpath = mediumpath;
-	}
-
-	/**
-	 * @return the smallpath
-	 */
-	public String getSmallpath() {
-		return smallpath;
-	}
-
-	/**
-	 * @param smallpath the smallpath to set
-	 */
-	public void setSmallpath(String smallpath) {
-		this.smallpath = smallpath;
-	}
-
-	/**
-	 * @return the fileExt
-	 */
 	public String getFileExt() {
 		return fileExt;
 	}
 
-	/**
-	 * @param fileExt the fileExt to set
-	 */
 	public void setFileExt(String fileExt) {
 		this.fileExt = fileExt;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	public Integer getIsDel() {
+		return isDel;
+	}
+
+	public void setIsDel(Integer isDel) {
+		this.isDel = isDel;
 	}
 }
