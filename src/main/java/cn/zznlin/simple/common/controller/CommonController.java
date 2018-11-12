@@ -3,17 +3,21 @@ package cn.zznlin.simple.common.controller;
 import cn.zznlin.simple.base.entity.User;
 import cn.zznlin.simple.base.pojo.SessionBean;
 import cn.zznlin.simple.base.pojo.ValidateResult;
+import cn.zznlin.simple.base.service.SMDService;
 import cn.zznlin.simple.base.service.UserService;
 import cn.zznlin.simple.common.config.ResultPath;
 import cn.zznlin.simple.common.config.ViewName;
+import cn.zznlin.simple.common.cons.AuthorCons;
 import cn.zznlin.simple.common.cons.Cons;
 import cn.zznlin.simple.common.init.SystemPropertyInit;
+import cn.zznlin.simple.common.orm.dao.BaseDao;
 import cn.zznlin.simple.common.utils.LoggerUtils;
 import cn.zznlin.simple.common.utils.StringUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -29,6 +33,7 @@ public abstract class CommonController
 {
     protected final String CLASS_NAME = getClass().getName();
     protected final String SIMPLE_CLASS_NAME = getClass().getSimpleName();
+
 
     protected abstract String getModule();
     protected String show = "show";
@@ -65,7 +70,7 @@ public abstract class CommonController
      * @param functionName
      * @param e
      */
-    protected void saveException(String authorName, String modelName,
+    protected void saveException(AuthorCons authorName, String modelName,
                                  String functionName, Exception e) {
         try {
             // Exception的具体说明
@@ -75,7 +80,7 @@ public abstract class CommonController
 
             String mailContent = StringUtils.getRandomCode()+"Language:[("
                     + SystemPropertyInit.getInstance().getProperty("server.host") + ")]"
-                    + authorName + ":" + modelName + "==>" + functionName;
+                    + authorName.getName() + ":" + modelName + "==>" + functionName;
             if(isSendMail){
                 // 发送错误的邮件
 //                mailSendUtil.sendSyncErrorMail("18519149312@163.com", mailContent, exception);
@@ -171,6 +176,12 @@ public abstract class CommonController
 
     @Autowired
     protected UserService userService;
+
+    @Resource(name = "UserDao")
+    protected BaseDao<User> userDao;
+
+    @Autowired
+    protected SMDService smdService;
 
 }
 

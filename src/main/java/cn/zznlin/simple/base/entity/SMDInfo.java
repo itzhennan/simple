@@ -17,7 +17,7 @@ public class SMDInfo extends BaseEntity {
     @Id
     @GeneratedValue(generator = "identity")
     @GenericGenerator(name="identity",strategy = "identity")
-    @Column(name = "smd_id",columnDefinition = "BIGINT(11) COMMENT '字典ID' ")
+    @Column(name = "smd_id",columnDefinition = "BIGINT(11) AUTO_INCREMENT COMMENT '字典ID' ")
     private Long smdId;
 
     @Column(name = "smd_name",columnDefinition = "VARCHAR(255) NOT NULL COMMENT '名称'")
@@ -36,7 +36,7 @@ public class SMDInfo extends BaseEntity {
     private Integer sort = 0;
 
     @ManyToOne
-    @JoinColumn(name = "parent_id",columnDefinition = "BIGINT(11) NOT NULL COMMENT '父ID'")
+    @JoinColumn(name = "parent_id",columnDefinition = "BIGINT(11) COMMENT '父ID'")
     private SMDInfo parent;
 
     public Long getSmdId() {

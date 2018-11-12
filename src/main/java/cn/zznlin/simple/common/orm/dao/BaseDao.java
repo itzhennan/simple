@@ -1,6 +1,8 @@
 package cn.zznlin.simple.common.orm.dao;
 
 import cn.zznlin.simple.base.entity.BaseEntity;
+import cn.zznlin.simple.common.bean.Page;
+import cn.zznlin.simple.common.orm.filter.PropertyFilter;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 
@@ -18,7 +20,6 @@ public interface BaseDao <T extends BaseEntity> {
     T get(Serializable id);
 
     void insert(Object entity);
-
 
     void save(T entity);
 
@@ -41,7 +42,20 @@ public interface BaseDao <T extends BaseEntity> {
     List<T> findAll();
 
     List<T> findDatas(String propertyName, Object value);
+
     List<T> findDatas(Map<String, Object> map);
+
+    List<T> findPage(Page page);
+
+    List<T> findPage(Object object, Page page);
+
+    List<T> findDatas(String propertyName, Object value, Page page);
+
+    List<T> findPage(DetachedCriteria detachedCriteria, Page page);
+
+    List<T> findPage(final Page page, final List<PropertyFilter> filters);
+
+    List<T> findPage(DetachedCriteria detachedCriteria, final Page page, final List<PropertyFilter> filters);
 
     Long count(String propertyName, Object value);
 
@@ -52,5 +66,6 @@ public interface BaseDao <T extends BaseEntity> {
     DetachedCriteria createDetachedCriteria();
 
     DetachedCriteria createDetachedCriteria(String alias);
+
 
 }

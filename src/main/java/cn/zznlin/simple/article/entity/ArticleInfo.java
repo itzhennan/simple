@@ -22,7 +22,7 @@ public class ArticleInfo extends BaseEntity {
     @Id
     @GeneratedValue(generator = "identity")
     @GenericGenerator(name="identity",strategy = "identity")
-    @Column(name = "article_id",columnDefinition = "BIGINT(11) COMMENT '文章Id'")
+    @Column(name = "article_id",columnDefinition = "BIGINT(11) AUTO_INCREMENT COMMENT '文章Id'")
     private Long articleId;
 
     // 发布日期
@@ -65,8 +65,8 @@ public class ArticleInfo extends BaseEntity {
     @Column(name = "is_private",columnDefinition = "INT(1) DEFAULT 0 NOT NULL COMMENT' 0:公开文章  1:私密文章'")
     private Integer isPrivate = 0;
 
-    // 状态
-    @Column(name = "status",columnDefinition = "INT(1) DEFAULT 0 NOT NULL COMMENT' 0:发布博客  1:保存草稿'")
+    // 状态  0:保存草稿  1:发布博客
+    @Column(name = "status",columnDefinition = "INT(1) DEFAULT 0 NOT NULL COMMENT' 0:保存草稿  1:发布博客'")
     private Integer status = 0;
 
     // 是否删除

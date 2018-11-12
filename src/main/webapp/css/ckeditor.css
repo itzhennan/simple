@@ -192,7 +192,7 @@ div.dro-box::after {
 #moreDiv div.categorie-list {
   margin: 16px 0 16px 0;
 	padding: 8px 8px 0 16px;
-	width: 715px;
+	/*width: 715px;*/
 	max-height: 200px;
 	background: #FAFAFA;
 	border: 1px solid #DDDDDD;
