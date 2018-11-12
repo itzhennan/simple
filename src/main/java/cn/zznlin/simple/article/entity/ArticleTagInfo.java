@@ -12,13 +12,13 @@ import javax.persistence.*;
  *    文章标签 一个文章可以有多个标签
  */
 @Entity
-@Table(name = "simple_article_tar")
+@Table(name = "simple_article_tag")
 public class ArticleTagInfo extends BaseEntity {
 
     @Id
     @GeneratedValue(generator = "identity")
     @GenericGenerator(name="identity",strategy = "identity")
-    @Column(name = "article_tag_id",columnDefinition = "BIGINT(11) COMMENT '文章标签Id'")
+    @Column(name = "article_tag_id",columnDefinition = "BIGINT(11) AUTO_INCREMENT COMMENT '文章标签Id'")
     private Long articleTagId;
 
     // 文章标签

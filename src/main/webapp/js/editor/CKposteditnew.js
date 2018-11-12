@@ -203,7 +203,7 @@ function save(isPub, isPubToBole) {
     data += "&stat=" + (isPub ? "publish" : "draft");
     saving = true;
     // $("div.alert-mask").removeClass("d-none");
-    var link = '/postedit/saveArticle';
+    var link = '/article/saveArticle';
     if (isPub) {
         link += "?isPub=1";
     }
@@ -266,7 +266,7 @@ function autoSave() {
     var data = getPostData() + "&stat=draft&isauto=1";
     $.ajax({
         type: 'POST',
-        url: '/postedit/saveArticle',
+        url: '/article/saveArticle',
         data: data,
         success: function(ret) {
             simple.doing = false;

@@ -7,7 +7,7 @@
 <script type="text/javascript" src="${jshost}/js/editor/CKposteditnew.js" ></script>
 <script>
     var config;
-    $.getJSON('../json/ckeditor.json',function(result){
+    $.getJSON('../../json/ckeditor.json',function(result){
         config = result;
         CKEDITOR.replace( 'editor', config);
     });

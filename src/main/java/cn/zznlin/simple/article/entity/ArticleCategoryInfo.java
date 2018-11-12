@@ -18,7 +18,7 @@ public class ArticleCategoryInfo extends BaseEntity {
     @Id
     @GeneratedValue(generator = "identity")
     @GenericGenerator(name="identity",strategy = "identity")
-    @Column(name = "article_category_id",columnDefinition = "BIGINT(11) COMMENT '文章个人分类Id'")
+    @Column(name = "article_category_id",columnDefinition = "BIGINT(11) AUTO_INCREMENT COMMENT '文章个人分类Id'")
     private Long articleCategoryId;
 
     // 分类名称
