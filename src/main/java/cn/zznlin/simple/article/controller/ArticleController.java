@@ -1,5 +1,6 @@
 package cn.zznlin.simple.article.controller;
 
+import cn.zznlin.simple.article.entity.ArticleInfo;
 import cn.zznlin.simple.article.pojo.ArticleBean;
 import cn.zznlin.simple.article.service.ArticleService;
 import cn.zznlin.simple.base.entity.SMDInfo;
@@ -40,8 +41,10 @@ public class ArticleController extends CommonController {
         return "/article/article-edit";
     }
 
-    @RequestMapping("/articleId")
-    public String detail(@PathVariable String articleId, HttpServletRequest request, HttpServletResponse response){
+    @RequestMapping("/articleId/{articleId}")
+    public String detail(@PathVariable String articleId, HttpServletRequest request, HttpServletResponse response, Model model){
+        ArticleInfo bean =  articleService.get(articleId);
+        model.addAttribute("bean",bean);
         return "/article/article-detail";
     }
 

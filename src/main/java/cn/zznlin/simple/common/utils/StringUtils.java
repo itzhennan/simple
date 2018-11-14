@@ -98,7 +98,7 @@ public class StringUtils {
         StringTokenizer st = new StringTokenizer(value);
         while (st.hasMoreElements()) {
             String str = st.nextElement().toString();
-            if (org.apache.commons.lang3.StringUtils.isNotBlank(str)) {
+            if (!isBlank(str)) {
                 results.add(str);
             }
         }
@@ -123,7 +123,7 @@ public class StringUtils {
 
     public static Set<Long> stringToSet(String str) {
         Set<Long> result = Sets.newHashSet();
-        if (org.apache.commons.lang3.StringUtils.isBlank(str)) {
+        if (isBlank(str)) {
             return result;
         }
         for (String value : str.split(COMMA)) {
@@ -324,7 +324,7 @@ public class StringUtils {
         java.sql.Timestamp dateTime = (java.sql.Timestamp) obj;
         String dateStr = "-";
         if (dateTime != null) {
-            dateStr = StringUtils.getStr(dateTime.toLocaleString());
+            dateStr = getStr(dateTime.toLocaleString());
         }
 
         return dateStr;
@@ -435,14 +435,14 @@ public class StringUtils {
         return repl;
     }
     public static boolean isBlank(String str){
-        return StringUtils.isBlank(str);
+        return org.apache.commons.lang3.StringUtils.isBlank(str);
     }
 
     public static boolean isEmpty(String str){
-        return StringUtils.isEmpty(str);
+        return org.apache.commons.lang3.StringUtils.isEmpty(str);
     }
     public static boolean isNotEmpty(String str){
-        return !StringUtils.isEmpty(str);
+        return !isEmpty(str);
     }
     public static String getFilenameExtension(String str){
         int i = str.lastIndexOf(".");
