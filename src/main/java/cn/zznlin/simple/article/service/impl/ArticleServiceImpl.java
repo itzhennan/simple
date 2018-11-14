@@ -8,6 +8,8 @@ import cn.zznlin.simple.article.service.ArticleTagService;
 import cn.zznlin.simple.base.entity.User;
 import cn.zznlin.simple.base.service.SMDService;
 import cn.zznlin.simple.common.orm.dao.BaseDao;
+import cn.zznlin.simple.common.utils.StringUtils;
+import cn.zznlin.simple.common.utils.ValidateUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -80,6 +82,19 @@ public class ArticleServiceImpl implements ArticleService {
 
         // 个人分类
         articleCategoryService.saveOrUpdateArticleCategory(bean, article);
+    }
+
+    @Override
+    public ArticleInfo get(String articleId) {
+        if(StringUtils.isEmpty(articleId)){
+            return null;
+        }
+        ArticleInfo articleInfo = articleDao.get(StringUtils.getLong(articleId));
+        if(ValidateUtils.isNotEmpty(articleInfo)){
+            return articleInfo;
+        }else{
+            return null;
+        }
     }
 
 }

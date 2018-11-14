@@ -10,6 +10,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * @author Simon Lv
@@ -27,6 +28,11 @@ public class DateUtils {
 	public static final String PATTERN_DATE = "yyyy-MM-dd";
 	public static final String PATTERN_MONTH = "yyyy-MM";
 	public static final String YEAR = "yyyy";
+	public static final String PATTERN_DATETIME_ENGLISH = "MMMM d, yyyy";
+
+	public static final Locale LOCAL_ENGLISH = Locale.ENGLISH;
+	public static final Locale LOCAL_CHINA = Locale.CHINA;
+
 	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
 	public static DateTime toDateTime(String dateTime) {
@@ -1060,13 +1066,7 @@ public class DateUtils {
     }
     
     
-    public static void main(String[] args) {
-    	System.out.println(daysBetween("2018-03-09 15:32:00", "2018-02-28 18:00:00"));
-//    	System.out.println(daysBetween("2018-02-29 16:00:00", "2018-02-28 18:00:00"));
-//    	System.out.println(daysBetween2("2018-03-09 15:32:00", "2018-02-28 18:00:00"));
-	}
-    
-    /**  
+    /**
      * http://blog.csdn.net/wpydaguan/article/details/46235349  java计算两个日期之间相差天数和相隔天数详解
      * 计算两个日期之间相差的天数  
      * @param smdate 较小的时间 
@@ -1126,5 +1126,13 @@ public class DateUtils {
 		}     
         return -99;
     }
-    
+
+	public static String toLocalString(String dateTime, Locale locale, String pattern) {
+        return new DateTime(dateTime).toString(pattern,locale);
+	}
+
+    public static void main(String[] args) {
+        System.out.println(toLocalString("2018-11-14T23:48:02.000+08:00",LOCAL_ENGLISH,PATTERN_DATETIME_ENGLISH));
+    }
+
 }
