@@ -3,6 +3,9 @@ package cn.zznlin.simple.article.entity;
 import cn.zznlin.simple.base.entity.BaseEntity;
 import cn.zznlin.simple.base.entity.SMDInfo;
 import cn.zznlin.simple.base.entity.User;
+import cn.zznlin.simple.common.BaseCons;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -20,9 +23,9 @@ import java.util.List;
 public class ArticleInfo extends BaseEntity {
 
     @Id
-    @GeneratedValue(generator = "identity")
-    @GenericGenerator(name="identity",strategy = "identity")
-    @Column(name = "article_id",columnDefinition = "BIGINT(11) AUTO_INCREMENT COMMENT '文章Id'")
+    @GeneratedValue(generator = "simple_generator")
+    @GenericGenerator(name = "simple_generator", strategy = BaseCons.STRATEGY)
+    @Column(name = "article_id", columnDefinition = "bigint")
     private Long articleId;
 
     // 发布日期
@@ -44,11 +47,12 @@ public class ArticleInfo extends BaseEntity {
     private String cont;
 
     //文章标签
-    @OneToMany(mappedBy = "article",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "article",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @Fetch(FetchMode.SUBSELECT)
     private List<ArticleTagInfo> articleTags;
 
     //文章标签
-    @OneToMany(mappedBy = "article",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "article",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<ArticleCategoryInfo> articleCategorys;
 
     //文章类型  文章类型 2:原创 3:转载  4:翻译

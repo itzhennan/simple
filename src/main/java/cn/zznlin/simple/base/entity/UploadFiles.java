@@ -12,6 +12,7 @@
  *****************************************************************************/
 package cn.zznlin.simple.base.entity;
 
+import cn.zznlin.simple.common.BaseCons;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -24,9 +25,9 @@ import javax.persistence.*;
 @Table(name = "simple_base_upload")
 public class UploadFiles extends BaseEntity {
 	@Id
-	@GeneratedValue(generator = "identity")
-	@GenericGenerator(name = "identity", strategy = "identity")
-	@Column(name = "upload_id",columnDefinition = "BIGINT(11) COMMENT '文件ID' ")
+	@GeneratedValue(generator = "simple_generator")
+	@GenericGenerator(name = "simple_generator", strategy = BaseCons.STRATEGY)
+	@Column(name = "upload_id", columnDefinition = "bigint")
 	private Long uploadId;
 
 	@Column(name = "file_name",columnDefinition = "VARCHAR(255) NOT NULL COMMENT '文件名称'")

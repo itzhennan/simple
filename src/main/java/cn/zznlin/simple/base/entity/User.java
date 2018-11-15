@@ -1,5 +1,6 @@
 package cn.zznlin.simple.base.entity;
 
+import cn.zznlin.simple.common.BaseCons;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -13,9 +14,9 @@ import javax.persistence.*;
 @Table(name = "simple_user")
 public class User extends BaseEntity {
     @Id
-    @GeneratedValue(generator = "identity")
-    @GenericGenerator(name = "identity", strategy = "identity")
-    @Column(name = "user_id",columnDefinition = "BIGINT(11) COMMENT '主键基础用户ID'")
+    @GeneratedValue(generator = "simple_generator")
+    @GenericGenerator(name = "simple_generator", strategy = BaseCons.STRATEGY)
+    @Column(name = "user_id", columnDefinition = "bigint")
     private Long userId;
 
     @Column(name = "user_name",columnDefinition = "VARCHAR(50) COMMENT '基础用户姓名'")
@@ -32,6 +33,10 @@ public class User extends BaseEntity {
 
     @Column(name = "user_email",columnDefinition = "VARCHAR(50) COMMENT'用户邮箱'")
     private String userEmail;
+
+    @OneToOne
+    @JoinColumn(name = "file_id", columnDefinition = "BIGINT COMMENT'用户头像'")
+    private UploadFiles uploadFiles;
 
     public Long getUserId() {
         return userId;
@@ -79,5 +84,13 @@ public class User extends BaseEntity {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    public UploadFiles getUploadFiles() {
+        return uploadFiles;
+    }
+
+    public void setUploadFiles(UploadFiles uploadFiles) {
+        this.uploadFiles = uploadFiles;
     }
 }

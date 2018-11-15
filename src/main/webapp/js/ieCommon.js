@@ -1,22 +1,3 @@
-/*****************************************************************************
- *
- *                      FORNOW PROPRIETARY INFORMATION
- *
- *          The information contained herein is proprietary to ForNow
- *           and shall not be reproduced or disclosed in whole or in part
- *                    or used for any design or manufacture
- *              without direct written authorization from ForNow.
- *
- *            Copyright (c) 2014 by ForNow.  All rights reserved.
- *
- *****************************************************************************/
-/**
- * 公共工具类
- * 
- * @author Jiafa Lv
- * @email simon-jiafa@126.com
- * @date 2014-5-28 下午12:56:19
- */
 var IECommon = function() {
 	function parseJson(text) {
 		try {

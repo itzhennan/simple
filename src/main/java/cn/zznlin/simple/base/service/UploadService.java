@@ -8,5 +8,6 @@ import cn.zznlin.simple.common.orm.dao.BaseDao;
  * @Date 2018/10/22 22:29
  * @Description
  */
-public interface UploadService extends BaseDao<UploadFiles> {
+public interface UploadService {
+    void save(UploadFiles uploadFile);
 }

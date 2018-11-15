@@ -27,8 +27,13 @@
 							<p>文章描述</p>
 						</div>
 						<div class="meta">
-							<time class="published" datetime="2015-10-18"><u:localDateFormat value="${bean.publicDateTime}"></u:localDateFormat></time>
-							<a href="#" class="author"><span class="name">Jane Doe</span><img src="${imgServer}/images/avatar.jpg" alt="" /></a>
+							<time class="published" datetime="<u:dateFormat value="${bean.publicDateTime}" pattern="yyyy-MM-dd"></u:dateFormat>">
+								<u:localDateFormat value="${bean.publicDateTime}"></u:localDateFormat>
+							</time>
+							<a href="#" class="author">
+								<span class="name">${bean.user.userName}</span>
+								<img src="${imgServer}${bean.user.uploadFiles.filePath}${bean.user.uploadFiles.fileExt}" alt="我的头像" />
+							</a>
 						</div>
 					</header>
 
