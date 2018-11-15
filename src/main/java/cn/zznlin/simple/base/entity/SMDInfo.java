@@ -1,5 +1,6 @@
 package cn.zznlin.simple.base.entity;
 
+import cn.zznlin.simple.common.BaseCons;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -15,9 +16,9 @@ import javax.persistence.*;
 public class SMDInfo extends BaseEntity {
 
     @Id
-    @GeneratedValue(generator = "identity")
-    @GenericGenerator(name="identity",strategy = "identity")
-    @Column(name = "smd_id",columnDefinition = "BIGINT(11) AUTO_INCREMENT COMMENT '字典ID' ")
+    @GeneratedValue(generator = "simple_generator")
+    @GenericGenerator(name = "simple_generator", strategy = BaseCons.STRATEGY)
+    @Column(name = "smd_id", columnDefinition = "bigint")
     private Long smdId;
 
     @Column(name = "smd_name",columnDefinition = "VARCHAR(255) NOT NULL COMMENT '名称'")
@@ -35,7 +36,7 @@ public class SMDInfo extends BaseEntity {
     @Column(name="sort",columnDefinition = "INT(11) DEFAULT 0 NOT NULL COMMENT '排序'")
     private Integer sort = 0;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_id",columnDefinition = "BIGINT(11) COMMENT '父ID'")
     private SMDInfo parent;
 

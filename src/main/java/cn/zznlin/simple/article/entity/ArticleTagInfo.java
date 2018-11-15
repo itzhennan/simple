@@ -1,6 +1,7 @@
 package cn.zznlin.simple.article.entity;
 
 import cn.zznlin.simple.base.entity.BaseEntity;
+import cn.zznlin.simple.common.BaseCons;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -16,9 +17,9 @@ import javax.persistence.*;
 public class ArticleTagInfo extends BaseEntity {
 
     @Id
-    @GeneratedValue(generator = "identity")
-    @GenericGenerator(name="identity",strategy = "identity")
-    @Column(name = "article_tag_id",columnDefinition = "BIGINT(11) AUTO_INCREMENT COMMENT '文章标签Id'")
+    @GeneratedValue(generator = "simple_generator")
+    @GenericGenerator(name = "simple_generator", strategy = BaseCons.STRATEGY)
+    @Column(name = "article_tag_id", columnDefinition = "bigint")
     private Long articleTagId;
 
     // 文章标签

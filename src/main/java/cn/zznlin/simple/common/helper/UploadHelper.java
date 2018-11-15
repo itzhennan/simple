@@ -31,7 +31,7 @@ public class UploadHelper {
 	public static final String UPLOAD_PATH = "upload/";
 	public static final String QRCODE_PATH = "qrcode/";
 	public static final String REAL_NAME = "realName";
-	public static final String FILE_NAME = "fileName";
+	public static final String FILE_PATH = "filePath";
 	public static final String FILE_EXT = "fileExt";
 	public static final String VOICE_PATH = "voice/";
 	public static final String UNDERLINE = "_";
@@ -60,24 +60,24 @@ public class UploadHelper {
 			long size = file.getSize();
 			if(size>0){
 				Map<String, String> map = new HashMap<String, String>();
-//				byte[] data = new byte[(int) size];
-//				InputStream input = file.getInputStream();
-//				input.read(data);
+				byte[] data = new byte[(int) size];
+				InputStream input = file.getInputStream();
+				input.read(data);
 				
 				String realName = file.getOriginalFilename().substring(0,file.getOriginalFilename().lastIndexOf("."));
 				map.put(REAL_NAME, realName);
 				
 				LoggerUtils.debug(CLASS_NAME, "file.getContentType() ==> " + file.getContentType());
 				
-				String fileName = getWholeFileName();
-				map.put(FILE_NAME, fileName);
-				LoggerUtils.debug(CLASS_NAME, "fileName ==> " + fileName);
+				String filePath = getWholeFileName();
+				map.put(FILE_PATH, filePath);
+				LoggerUtils.debug(CLASS_NAME, "filePath ==> " + filePath);
 				
 				String fileExt = "." + StringUtils.getFilenameExtension(file.getOriginalFilename());
 				map.put(FILE_EXT, fileExt);
 				LoggerUtils.debug(CLASS_NAME, "fileExt ==> " + fileExt);
 				
-				String wholeFileName = SystemPropertyInit.getInstance().getProperty("file.path") + fileName + fileExt;
+				String wholeFileName = SystemPropertyInit.getInstance().getProperty("file.path") + filePath + fileExt;
 				LoggerUtils.debug(CLASS_NAME, "file WholeName ==> " + wholeFileName);
 				File outFile = new File(wholeFileName);
 
@@ -92,11 +92,11 @@ public class UploadHelper {
 				// 复制文件
 				file.transferTo(outFile);
 				
-//				FileOutputStream outStream = new FileOutputStream(outFile);
+				FileOutputStream outStream = new FileOutputStream(outFile);
 
-//				outStream.write(data);
-//				outStream.close();
-//				input.close();
+				outStream.write(data);
+				outStream.close();
+				input.close();
 				
 				return map;
 			}
@@ -148,13 +148,13 @@ public class UploadHelper {
 		try {
 			String realName = file.getOriginalFilename();
 			
-			String fileName = UploadHelper.getWholeFileName();
+			String filePath = UploadHelper.getWholeFileName();
 			String fileExt = "." + StringUtils.getFilenameExtension(realName);
 
-			String path = SystemPropertyInit.getInstance().getProperty("file.path") + fileName + fileExt;
+			String path = SystemPropertyInit.getInstance().getProperty("file.path") + filePath + fileExt;
 
-			map.put(FILE_NAME, fileName);
-			LoggerUtils.debug(CLASS_NAME, "fileName ==> " + fileName);
+			map.put(FILE_PATH, filePath);
+			LoggerUtils.debug(CLASS_NAME, "fileName ==> " + filePath);
 			map.put(FILE_EXT, fileExt);
 			LoggerUtils.debug(CLASS_NAME, "fileExt ==> " + fileExt);
 			map.put(REAL_NAME, realName);
@@ -302,18 +302,18 @@ public class UploadHelper {
 
 						LoggerUtils.debug(CLASS_NAME, "file.getContentType() ==> "
 								+ file.getContentType());
-						String fileName = getWholeFileName();
-						map.put(FILE_NAME, fileName);
+						String filePath = getWholeFileName();
+						map.put(FILE_PATH, filePath);
 						String realName = file.getOriginalFilename().substring(0,file.getOriginalFilename().lastIndexOf("."));
 						map.put(REAL_NAME, realName);
-						LoggerUtils.debug(CLASS_NAME, "fileName ==> " + fileName);
+						LoggerUtils.debug(CLASS_NAME, "fileName ==> " + filePath);
 						String fileExt = "."
 								+ StringUtils.getFilenameExtension(file
 										.getOriginalFilename());
 						map.put(FILE_EXT, fileExt);
 						LoggerUtils.debug(CLASS_NAME, "fileExt ==> " + fileExt);
 						String wholeFileName = SystemPropertyInit.getInstance()
-								.getProperty("file.path") + fileName + fileExt;
+								.getProperty("file.path") + filePath + fileExt;
 						LoggerUtils.debug(CLASS_NAME, "file WholeName ==> "
 								+ wholeFileName);
 						File outFile = new File(wholeFileName);

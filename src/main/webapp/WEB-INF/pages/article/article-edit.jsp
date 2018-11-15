@@ -11,14 +11,14 @@
 	<body>
 		<div id="wrapper">
 			<jsp:include page="/common/base/header.jsp"   />
-			<!-- Main -->
+			 <%--Main--%>
 			<div id="main">
 				<div class="col-12 col-md-10" id="content-body">
 		            <div class="title-box">
-		                <input type="text" id="txtTitle" maxlength="100" placeholder="输入文章标题">
+		                <input type="text" id="txtTitle" maxlength="100" placeholder="输入文章标题" value="${bean.title}">
 		            </div>
 		            <div class="section">
-		                <textarea id="editor" name="editor" rows="30" style="width: 99.4%; display: none; visibility: hidden;"></textarea>
+		                <textarea id="editor" name="editor" rows="30" style="width: 99.4%; display: none; visibility: hidden;">${bean.cont}</textarea>
 		            </div>
 		
 		            <div id="moreDiv">
@@ -28,13 +28,17 @@
 		                            <label class="labTitle col-form-label">文章标签：</label>
 		                            <div class="txt-box">
 		                                <div class="tag-box d-flex flex-row private-tag" id="articleTagBox">
-		                                    <input type="hidden" name="hidTags" id="hidTags" value="">
-		                                    <!--<div class="tag">-->
-		                                        <!--<span class="name" contenteditable="false">-->
-		                                            <!--<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">小号ASFD</font></font>-->
-		                                        <!--</span>-->
-		                                        <!--<i class="xheIcon icon-guanbi">&lt;!&ndash;?xml version="1.0" standalone="no"?&ndash;&gt;<svg t="1535953077191" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3356" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12"><defs><style type="text/css"></style></defs><path d="M896 0L512 384 128 0 0 128l384 384L0 896l128 128 384-384 384 384 128-128-384-384 384-384z" p-id="3357"></path></svg></i>-->
-		                                    <!--</div>-->
+		                                    <input type="hidden" name="hidTags" id="hidTags" value="${tagStr}">
+
+											<c:forEach items="${bean.articleTags}" var="tag">
+												<div class="tag">
+													<span class="name" contenteditable="false">
+														<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${tag.tagName}</font></font>
+													</span>
+													<i class="xheIcon icon-guanbi"><svg t="1535953077191" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3356" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12"><defs><style type="text/css"></style></defs><path d="M896 0L512 384 128 0 0 128l384 384L0 896l128 128 384-384 384 384 128-128-384-384 384-384z" p-id="3357"></path></svg></i>
+												</div>
+											</c:forEach>
+
 		                                    <button class="btn-add-tag" id="addTag">
 		                                        <i class="xheIcon icon-tianjia mr8" aria-hidden="true">
 		                                        <svg t="1535953779842" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3712" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16"><defs><style type="text/css"></style></defs><path d="M736 64H288C164.8 64 64 164.8 64 288v448c0 123.2 100.8 224 224 224h448c123.2 0 224-100.8 224-224V288c0-123.2-100.8-224-224-224z m-28.8 504h-140.8v140.8c0 30.4-25.6 56-56 56s-56-25.6-56-56v-140.8h-140.8c-30.4 0-56-25.6-56-56s25.6-56 56-56h140.8v-140.8c0-30.4 25.6-56 56-56s56 25.6 56 56v140.8h140.8c30.4 0 56 25.6 56 56s-24 56-56 56z" p-id="3713" fill="#349edf"></path></svg>
@@ -49,7 +53,7 @@
 		                            <label class="labTitle col-form-label">个人分类：</label>
 		                            <div class="txt-box">
 		                                <div class="tag-box d-flex flex-row" id="categorieBox">
-		                                    <input name="hidTags" id="hidCategories" value="" type="hidden">
+		                                    <input name="hidTags" id="hidCategories" value="${catStr}" type="hidden">
 		                                    <button class="btn-add-tag" id="addCategorie">
 		                                        <i class="xheIcon icon-tianjia mr8" aria-hidden="true">
 		                                            <svg t="1535953779842" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3712" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16"><defs><style type="text/css"></style></defs><path d="M736 64H288C164.8 64 64 164.8 64 288v448c0 123.2 100.8 224 224 224h448c123.2 0 224-100.8 224-224V288c0-123.2-100.8-224-224-224z m-28.8 504h-140.8v140.8c0 30.4-25.6 56-56 56s-56-25.6-56-56v-140.8h-140.8c-30.4 0-56-25.6-56-56s25.6-56 56-56h140.8v-140.8c0-30.4 25.6-56 56-56s56 25.6 56 56v140.8h140.8c30.4 0 56 25.6 56 56s-24 56-56 56z" p-id="3713" fill="#349edf"></path></svg>

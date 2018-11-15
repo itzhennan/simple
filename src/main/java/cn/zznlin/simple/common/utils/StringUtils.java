@@ -452,4 +452,8 @@ public class StringUtils {
     public static void main(String[] args) {
         System.out.println(!StringUtils.isPhone("121212"));
     }
+
+    public static String join(List<String> list,String separator) {
+        return org.apache.commons.lang3.StringUtils.join(list.toArray(),separator);
+    }
 }

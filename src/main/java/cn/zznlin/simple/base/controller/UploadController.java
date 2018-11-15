@@ -6,6 +6,8 @@ import cn.zznlin.simple.base.service.UploadService;
 import cn.zznlin.simple.common.controller.CommonController;
 import cn.zznlin.simple.common.helper.UploadHelper;
 import cn.zznlin.simple.common.init.SystemPropertyInit;
+import cn.zznlin.simple.common.utils.ImageUtils;
+import cn.zznlin.simple.common.utils.StringUtils;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,19 +35,20 @@ public class UploadController extends CommonController {
 		try {
 			Map<String, String> fileMap = UploadHelper.getFileNameByUpload(
 					request, "upload");
-			String fileName = fileMap.get(UploadHelper.FILE_NAME);
 
-			UploadFiles uploadFiles = new UploadFiles();
-//			uploadFiles.setFilepath(fileName);
-//			uploadFiles.setMediumpath(fileName + StringUtils.UNDERLINE
-//					+ ImageUtils.EXT_MEDIUM_SIZE);
-//			uploadFiles.setSmallpath(fileName + StringUtils.UNDERLINE
-//					+ ImageUtils.EXT_SMALL_SIZE);
-//			uploadFiles.setFileExt(fileMap.get(UploadHelper.FILE_EXT));
-//			uploadFilesService.save(uploadFiles);
+			String filePath = fileMap.get(UploadHelper.FILE_PATH);
+			String realName = fileMap.get(UploadHelper.REAL_NAME);
+			String ext = fileMap.get(UploadHelper.FILE_EXT);
+			String imageHost = SystemPropertyInit.getInstance().getProperty("image.host");
+
+			UploadFiles uploadFile = new UploadFiles();
+			uploadFile.setFileName(realName);
+			uploadFile.setFilePath(filePath);
+			uploadFile.setFileExt(ext);
+			uploadFilesService.save(uploadFile);
+
 			responseMap.put("uploaded","1");
-            String imageHost = SystemPropertyInit.getInstance().getProperty("image.host");
-            responseMap.put("url",imageHost + fileName + fileMap.get(UploadHelper.FILE_EXT));
+            responseMap.put("url",imageHost + filePath + ext);
 		} catch (Exception e) {
 			responseMap.put("uploaded","0");
 			e.printStackTrace();
