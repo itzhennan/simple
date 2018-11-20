@@ -39,11 +39,11 @@ public class ArticleInfo extends BaseEntity {
     private User user;
 
     // 文章标题
-    @Column(name = "title",columnDefinition = "VARCHAR(255) NOT NULL COMMENT '文章标题'")
+    @Column(name = "title",columnDefinition = "VARCHAR(255) COMMENT '文章标题'")
     private String title;
 
     // 内容
-    @Column(name="cont",columnDefinition = "TEXT NOT NULL COMMENT '文章内容'")
+    @Column(name="cont",columnDefinition = "TEXT COMMENT '文章内容'")
     private String cont;
 
     //文章标签
@@ -55,14 +55,14 @@ public class ArticleInfo extends BaseEntity {
     @OneToMany(mappedBy = "article",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<ArticleCategoryInfo> articleCategorys;
 
-    //文章类型  文章类型 2:原创 3:转载  4:翻译
+    //文章类型  文章类型 1:原创 2:转载  3:翻译
     @ManyToOne
-    @JoinColumn(name = "type",columnDefinition = "BIGINT(11) NOT NULL COMMENT '文章类型 2:原创 3:转载  4:翻译'")
+    @JoinColumn(name = "type",columnDefinition = "BIGINT(11) COMMENT '文章类型 1:原创 2:转载  3:翻译'")
     private SMDInfo type;
 
     //博客分类
     @ManyToOne
-    @JoinColumn(name = "blog_category",columnDefinition = "BIGINT(11) NOT NULL COMMENT '博客分类'")
+    @JoinColumn(name = "blog_category",columnDefinition = "BIGINT(11) COMMENT '博客分类'")
     private SMDInfo blogCategory;
 
     // 是否私密文章

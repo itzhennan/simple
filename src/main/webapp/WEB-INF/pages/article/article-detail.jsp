@@ -7,17 +7,97 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>查看文章</title>
-		<%--<jsp:include page="/common/base/head.jsp"   />--%>
+		<jsp:include page="/common/base/head.jsp"   />
 		<link rel="stylesheet" href="${csshost}/assets/css/main.css"/>
+		<%--代码主题css--%>
+		<link rel="stylesheet" href="${csshost}/js/vendor/ckeditor/4.11.1/plugins/codesnippet/lib/highlight/styles/xcode.css">
+		<style>
+			#scrop{
+				position: fixed;
+				right: 74em;
+			}
+		</style>
 	</head>
 	<body>
 		<div id="wrapper">
 
 			<jsp:include page="/common/base/header.jsp"   />
 
+			<!-- 右侧评论 -->
+			<div id="right-sidebar-div">
+				<div>
+				<section id="right-sidebar">
+				<!-- Posts List -->
+				<section>
+					<ul class="comment">
+						<li>
+							Java程序员-张凯： 您好，请问可以转载您的这篇文章吗？会注明原文作者，原文链接，谢谢！(1个月前)
+						</li>
+						<li>
+							夏天的鼻涕怪： 队友不合作怎么办……(1个月前)
+						</li>
+						<li>
+							qq_42840826： 代码的规范也很重要的(1个月前)
+						</li>
+						<li>
+							Java程序员-张凯： 您好，请问可以转载您的这篇文章吗？会注明原文作者，原文链接，谢谢！(1个月前)
+						</li>
+						<li>
+							夏天的鼻涕怪： 队友不合作怎么办……(1个月前)
+						</li>
+						<li>
+							qq_42840826： 代码的规范也很重要的(1个月前)
+						</li>
+						<li>
+							Java程序员-张凯： 您好，请问可以转载您的这篇文章吗？会注明原文作者，原文链接，谢谢！(1个月前)
+						</li>
+						<li>
+							夏天的鼻涕怪： 队友不合作怎么办……(1个月前)
+						</li>
+						<li>
+							qq_42840826： 代码的规范也很重要的(1个月前)
+						</li>
+						<li>
+							Java程序员-张凯： 您好，请问可以转载您的这篇文章吗？会注明原文作者，原文链接，谢谢！(1个月前)
+						</li>
+						<li>
+							夏天的鼻涕怪： 队友不合作怎么办……(1个月前)
+						</li>
+						<li>
+							qq_42840826： 代码的规范也很重要的(1个月前)
+						</li>
+						<li>
+							Java程序员-张凯： 您好，请问可以转载您的这篇文章吗？会注明原文作者，原文链接，谢谢！(1个月前)
+						</li>
+						<li>
+							夏天的鼻涕怪： 队友不合作怎么办……(1个月前)
+						</li>
+						<li>
+							qq_42840826： 代码的规范也很重要的(1个月前)
+						</li>
+						<li>
+							Java程序员-张凯： 您好，请问可以转载您的这篇文章吗？会注明原文作者，原文链接，谢谢！(1个月前)
+						</li>
+						<li>
+							夏天的鼻涕怪： 队友不合作怎么办……(1个月前)
+						</li>
+						<li>
+							qq_42840826： 代码的规范也很重要的(1个月前)
+						</li>
+						<li id="comment">
+							qq_42840826： 代码的规范也很重要的(1个月前)
+						</li>
+
+
+					</ul>
+				</section>
+
+			</section>
+				</div>
+			</div>
 			<!-- Main -->
-			<!-- Main -->
-			<div id="main">
+			<div id="main-sidebar-div">
+				<div id="main">
 
 				<article class="post">
 					<!--文章头-->
@@ -27,6 +107,8 @@
 							<p>文章描述</p>
 						</div>
 						<div class="meta">
+							<a href="javascript:void(0);" class="icon fa-expand"></a>
+
 							<time class="published" datetime="<u:dateFormat value="${bean.publicDateTime}" pattern="yyyy-MM-dd"></u:dateFormat>">
 								<u:localDateFormat value="${bean.publicDateTime}"></u:localDateFormat>
 							</time>
@@ -50,10 +132,18 @@
 				</ul>
 
 			</div>
-			<jsp:include page="/WEB-INF/pages/common/leftSidebar.jsp"   />
+			</div>
+			<div id="left-sidebar-div" style="display: none;">
+				<jsp:include page="/WEB-INF/pages/common/leftSidebar.jsp"   />
+			</div>
+			<%--<div id="scrop"></div>--%>
 		</div>
 	</body>
 	<jsp:include page="/common/base/footer.jsp"   />
-	<%--<jsp:include page="/common/base/ckfooter.jsp" />--%>
-
+	<%--文章详情--%>
+	<script type="text/javascript" src="${jshost}/assets/js/dmain.js"></script>
+	<%--代码高亮--%>
+	<script type="text/javascript" src="${jshost}/js/vendor/ckeditor/4.11.1/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
+	<%--数学公式--%>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
 </html>

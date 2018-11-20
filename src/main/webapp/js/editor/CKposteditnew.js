@@ -179,7 +179,7 @@ function draft() {
     save(0, false, false);
     checkcodeRefesh();
 }
-var artId = 0;
+var artId = $("#articleId").val();
 var saveInter = null;
 var saving = false; /*标识文章正在保存*/
 function save(isPub, isPubToBole) {
@@ -300,6 +300,7 @@ function getPostData() {
     var leve = 0; // $("#chkHome").attr("checked") ? 1 : 0;
     var Description = $('#summaryCon').val();
     var tag2 = $('#hidTags').val(); // encodeURIComponent(function () { var s = []; $('#d_tag2 span').each(function () { s.push(this.innerHTML); }); return s.join(','); }());
+
     //GetResult();
     var data = "titl=" + titl + "&typ=" + type + "&cont=" + cont; // + "&desc=" + desc;
     data += "&categories=" + categories + "&chnl=" + chnl + "&level=" + leve; //"&tags=" + tags +
@@ -353,7 +354,7 @@ function decodeURIComponent(txt) {
     return result;
 }
 function edit_init() {
-    if (jsonData.articleId == '0' || jsonData.isDraft == 'True') {
+    if (jsonData.articleId == '0' || jsonData.isDraft) {
         /*自动保存策略：
          1、修改文章不自动保存（修改草稿自动保存）；
          2、点击发布按钮后不自动保存；
@@ -387,7 +388,7 @@ function edit_init() {
         if (jsonData.tags.length > 0) {
             myTag.loadTags(decodeURIComponent(jsonData.tags));
         }
-        if (jsonData.isDraft != 'True') {
+        if (!jsonData.isDraft) {
             $("#p_comment,#d_comment").show();
         }
     }

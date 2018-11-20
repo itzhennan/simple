@@ -7,14 +7,16 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<jsp:include page="/common/base/head.jsp"   />
+		<link rel="stylesheet" href="${csshost}/assets/css/ck-main.css"/>
 	</head>
-	<body>
+	<body style="padding-top: 3.5em;">
 		<div id="wrapper">
 			<jsp:include page="/common/base/header.jsp"   />
 			 <%--Main--%>
 			<div id="main">
 				<div class="col-12 col-md-10" id="content-body">
-		            <div class="title-box">
+					<%--主题：<select id="select" onchange="selectSheet(this.value)"><option value="monokai_sublime">monokai_sublime</option><option value="default">default</option><option value="arta">arta</option><option value="ascetic">ascetic</option><option value="atelier-dune.dark">atelier-dune.dark</option><option value="atelier-dune.light">atelier-dune.light</option><option value="atelier-forest.dark">atelier-forest.dark</option><option value="atelier-forest.light">atelier-forest.light</option><option value="atelier-heath.dark">atelier-heath.dark</option><option value="atelier-heath.light">atelier-heath.light</option><option value="atelier-lakeside.dark">atelier-lakeside.dark</option><option value="atelier-lakeside.light">atelier-lakeside.light</option><option value="atelier-seaside.dark">atelier-seaside.dark</option><option value="atelier-seaside.light">atelier-seaside.light</option><option value="brown_paper">brown_paper</option><option value="dark">dark</option><option value="docco">docco</option><option value="far">far</option><option value="foundation">foundation</option><option value="github">github</option><option value="googlecode">googlecode</option><option value="idea">idea</option><option value="ir_black">ir_black</option><option value="magula">magula</option><option value="mono-blue">mono-blue</option><option value="monokai">monokai</option><option value="obsidian">obsidian</option><option value="paraiso.dark">paraiso.dark</option><option value="paraiso.light">paraiso.light</option><option value="pojoaque">pojoaque</option><option value="railscasts">railscasts</option><option value="rainbow">rainbow</option><option value="school_book">school_book</option><option value="solarized_dark">solarized_dark</option><option value="solarized_light">solarized_light</option><option value="sunburst">sunburst</option><option value="tomorrow-night-blue">tomorrow-night-blue</option><option value="tomorrow-night-bright">tomorrow-night-bright</option><option value="tomorrow-night-eighties">tomorrow-night-eighties</option><option value="tomorrow-night">tomorrow-night</option><option value="tomorrow">tomorrow</option><option value="vs">vs</option><option value="xcode">xcode</option><option value="zenburn">zenburn</option></select>--%>
+					<div class="title-box">
 		                <input type="text" id="txtTitle" maxlength="100" placeholder="输入文章标题" value="${bean.title}">
 		            </div>
 		            <div class="section">
@@ -29,15 +31,6 @@
 		                            <div class="txt-box">
 		                                <div class="tag-box d-flex flex-row private-tag" id="articleTagBox">
 		                                    <input type="hidden" name="hidTags" id="hidTags" value="${tagStr}">
-
-											<c:forEach items="${bean.articleTags}" var="tag">
-												<div class="tag">
-													<span class="name" contenteditable="false">
-														<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${tag.tagName}</font></font>
-													</span>
-													<i class="xheIcon icon-guanbi"><svg t="1535953077191" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3356" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12"><defs><style type="text/css"></style></defs><path d="M896 0L512 384 128 0 0 128l384 384L0 896l128 128 384-384 384 384 128-128-384-384 384-384z" p-id="3357"></path></svg></i>
-												</div>
-											</c:forEach>
 
 		                                    <button class="btn-add-tag" id="addTag">
 		                                        <i class="xheIcon icon-tianjia mr8" aria-hidden="true">
@@ -144,10 +137,17 @@
 		        </div>
 			</div>
 
-			<jsp:include page="/WEB-INF/pages/common/leftSidebar.jsp"   />
+			<div id="left-sidebar-div">
+				<jsp:include page="/WEB-INF/pages/common/leftSidebar.jsp"   />
+			</div>
 		</div>
 	</body>
 	<jsp:include page="/common/base/footer.jsp"   />
 	<jsp:include page="/common/base/ckfooter.jsp" />
+	<script>
+		<c:if test="${not empty bean}">
+        	jsonData={"articleId":${articleBean.artid},"fileName":${articleBean.artid},"title":"${articleBean.titl}","isDraft":${articleBean.stat eq 0},"tags":"${articleBean.categories}","tag2":"${articleBean.tag2}","channel":"${articleBean.chnl}","type":"${articleBean.typ}"};   artId = '${empty bean.articleId ? 0:bean.articleId}';
+		</c:if>
 
+	</script>
 </html>

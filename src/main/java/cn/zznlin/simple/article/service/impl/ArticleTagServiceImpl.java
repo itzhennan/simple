@@ -1,10 +1,10 @@
 package cn.zznlin.simple.article.service.impl;
 
+import cn.zznlin.simple.article.dao.ArticleTagDao;
 import cn.zznlin.simple.article.entity.ArticleInfo;
 import cn.zznlin.simple.article.entity.ArticleTagInfo;
 import cn.zznlin.simple.article.pojo.ArticleBean;
 import cn.zznlin.simple.article.service.ArticleTagService;
-import cn.zznlin.simple.common.orm.dao.BaseDao;
 import cn.zznlin.simple.common.utils.ValidateUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -22,8 +22,8 @@ import java.util.List;
 @Service
 public class ArticleTagServiceImpl implements ArticleTagService {
 
-    @Resource(name = "ArticleTagDao")
-    private BaseDao<ArticleTagInfo> articleTagDao;
+    @Resource
+    private ArticleTagDao articleTagDao;
 
     /**
      * 保存或更新个人分类
@@ -32,7 +32,9 @@ public class ArticleTagServiceImpl implements ArticleTagService {
      */
     @Override
     public void saveOrUpdateArticleTag(ArticleBean bean, ArticleInfo article) {
-        List<ArticleTagInfo> articleTags = article.getArticleTags();
+        // 拿到未被删除的
+        List<ArticleTagInfo> articleTags = articleTagDao.getNowArticleTags(article.getArticleId());
+
         if(articleTags == null){
             articleTags = Lists.newArrayList();
         }
@@ -55,7 +57,9 @@ public class ArticleTagServiceImpl implements ArticleTagService {
             }
         }
         for (ArticleTagInfo tag :articleTags ) {
-            articleTagDao.update(tag);
+            if(tag.getIsDel() == 1){
+                articleTagDao.update(tag);
+            }
         }
     }
 }

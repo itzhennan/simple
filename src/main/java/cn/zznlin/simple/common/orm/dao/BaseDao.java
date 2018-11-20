@@ -66,6 +66,4 @@ public interface BaseDao <T extends BaseEntity> {
     DetachedCriteria createDetachedCriteria();
 
     DetachedCriteria createDetachedCriteria(String alias);
-
-
 }

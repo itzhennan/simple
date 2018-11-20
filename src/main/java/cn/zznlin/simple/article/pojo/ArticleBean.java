@@ -17,6 +17,9 @@ public class ArticleBean {
     private Boolean isPrivate;
     private String Description;
     private String stat;
+    
+    private String fileName;
+    private Integer isauto;
 
     public String getTitl() {
         return titl;
@@ -104,5 +107,21 @@ public class ArticleBean {
 
     public void setStat(String stat) {
         this.stat = stat;
+    }
+
+    public Integer getIsauto() {
+        return isauto;
+    }
+
+    public void setIsauto(Integer isauto) {
+        this.isauto = isauto;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

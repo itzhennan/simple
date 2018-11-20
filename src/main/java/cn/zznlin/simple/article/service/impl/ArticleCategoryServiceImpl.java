@@ -1,10 +1,10 @@
 package cn.zznlin.simple.article.service.impl;
 
+import cn.zznlin.simple.article.dao.ArticleCategoryDao;
 import cn.zznlin.simple.article.entity.ArticleCategoryInfo;
 import cn.zznlin.simple.article.entity.ArticleInfo;
 import cn.zznlin.simple.article.pojo.ArticleBean;
 import cn.zznlin.simple.article.service.ArticleCategoryService;
-import cn.zznlin.simple.common.orm.dao.BaseDao;
 import cn.zznlin.simple.common.utils.ValidateUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -22,8 +22,8 @@ import java.util.List;
 @Service
 public class ArticleCategoryServiceImpl implements ArticleCategoryService {
 
-    @Resource(name = "ArticleCategoryDao")
-    private BaseDao<ArticleCategoryInfo> articleCategoryDao;
+    @Resource
+    private ArticleCategoryDao articleCategoryDao;
 
     /**
      * 保存或更新文章标签
@@ -32,7 +32,9 @@ public class ArticleCategoryServiceImpl implements ArticleCategoryService {
      */
     @Override
     public void saveOrUpdateArticleCategory(ArticleBean bean, ArticleInfo article) {
-        List<ArticleCategoryInfo> articleCategorys = article.getArticleCategorys();
+        // 拿到所有未被删除的
+        List<ArticleCategoryInfo> articleCategorys = articleCategoryDao.getNowArticleCategorys(article.getArticleId());
+
         if(articleCategorys == null){
             articleCategorys = Lists.newArrayList();
         }
@@ -54,7 +56,9 @@ public class ArticleCategoryServiceImpl implements ArticleCategoryService {
             }
         }
         for (ArticleCategoryInfo cat :articleCategorys ) {
-            articleCategoryDao.update(cat);
+            if(cat.getIsDel() == 0){
+                articleCategoryDao.update(cat);
+            }
         }
 
     }
