@@ -3,5 +3,4 @@
 <link rel="stylesheet" href="${csshost}/css/ckeditor.css" />
 <link rel="stylesheet" href="${csshost}/css/commons.css" />
 <link rel="stylesheet" href="${csshost}/css/contents.css"/>
-<link rel="stylesheet" href="${csshost}/assets/css/main.css"/>
 

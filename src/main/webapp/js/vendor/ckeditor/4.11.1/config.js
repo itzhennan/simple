@@ -6,8 +6,8 @@ CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here.
 	// For complete reference see:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
-    config.extraPlugins = 'autoembed,embedsemantic,image2,mathjax,codesnippet,font';
-    config.removeButtons = 'Font';
+    config.extraPlugins = 'image2,mathjax,codesnippet,font';
+    config.removeButtons = 'Embedsemantic,Font';
     config.height = '800';
     config.mathJaxLib = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML';
     config.codeSnippet_theme = 'monokai_sublime';
@@ -78,8 +78,8 @@ CKEDITOR.editorConfig = function( config ) {
         styles : { 'color' : '#(color)' }
     };
     //所需要添加的CSS文件 在此添加 可使用相对路径和网站的绝对路径
-    // config.contentsCss = './contents.css';
-    //字体默认大小 plugins/font/plugin.js
+    config.contentsCss = '../../../../assets/css/ck-main.css';
+    // 字体默认大小 plugins/font/plugin.js
     config.fontSize_defaultLabel = '12px';
     //字体编辑时可选的字体大小 plugins/font/plugin.js
     config.fontSize_sizes ='8/8px;9/9px;10/10px;11/11px;12/12px;14/14px;16/16px;18/18px;20/20px;22/22px;24/24px;26/26px;28/28px;36/36px;48/48px;72/72px';
@@ -130,6 +130,6 @@ CKEDITOR.editorConfig = function( config ) {
     //表情的地址 plugins/smiley/plugin.js
     config.smiley_path = './plugins/smiley/images/';
 
-    config.image2_alignClasses = [ 'left', 'fit', 'right' ];
+    config.image2_alignClasses = [ 'image_left', 'image_fit', 'image_right' ];
 
 };

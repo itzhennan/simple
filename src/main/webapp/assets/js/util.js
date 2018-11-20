@@ -114,10 +114,10 @@
 							event.stopPropagation();
 
 						}
-
+                    // show
+                    $("body").css({"overflow":"auto"});
 					// Hide.
 						config.target.removeClass(config.visibleClass);
-
 					// Post-hide stuff.
 						window.setTimeout(function() {
 
@@ -276,9 +276,9 @@
 
 					event.preventDefault();
 					event.stopPropagation();
-
 					config.target.toggleClass(config.visibleClass);
-
+                    // hidden
+                    $("body").css({"overflow":"hidden"});
 				});
 
 		// Window.

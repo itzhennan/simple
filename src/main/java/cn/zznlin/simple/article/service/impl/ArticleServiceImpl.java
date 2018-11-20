@@ -1,5 +1,6 @@
 package cn.zznlin.simple.article.service.impl;
 
+import cn.zznlin.simple.article.dao.ArticleDao;
 import cn.zznlin.simple.article.entity.ArticleInfo;
 import cn.zznlin.simple.article.pojo.ArticleBean;
 import cn.zznlin.simple.article.service.ArticleCategoryService;
@@ -7,7 +8,6 @@ import cn.zznlin.simple.article.service.ArticleService;
 import cn.zznlin.simple.article.service.ArticleTagService;
 import cn.zznlin.simple.base.entity.User;
 import cn.zznlin.simple.base.service.SMDService;
-import cn.zznlin.simple.common.orm.dao.BaseDao;
 import cn.zznlin.simple.common.utils.StringUtils;
 import cn.zznlin.simple.common.utils.ValidateUtils;
 import org.joda.time.DateTime;
@@ -33,8 +33,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ArticleCategoryService articleCategoryService;
 
-    @Resource(name = "ArticleDao")
-    private BaseDao<ArticleInfo> articleDao;
+    @Resource
+    private ArticleDao articleDao;
 
 
     /**
@@ -49,16 +49,21 @@ public class ArticleServiceImpl implements ArticleService {
         ArticleInfo article = null;
         if(artid == 0){
             article = new ArticleInfo();
+            article.setUser(user);
         }else{
             article = articleDao.get(artid);
         }
-        article.setUser(user);
+
         article.setTitle(bean.getTitl());
         article.setCont(bean.getCont());
         // 文章类型
-        article.setType(smdService.get(bean.getTyp()));
+        if(bean.getTyp() != 0){
+            article.setType(smdService.get(bean.getTyp()));
+        }
         // 博客分类
-        article.setBlogCategory(smdService.get(bean.getChnl()));
+        if(bean.getChnl() != 0){
+            article.setBlogCategory(smdService.get(bean.getChnl()));
+        }
         // 私密文章
         article.setIsPrivate(bean.getPrivate() ? 1:0);
         // 文章状态 是否发布
@@ -69,19 +74,20 @@ public class ArticleServiceImpl implements ArticleService {
             DateTime publishDateTime = new DateTime();
             article.setPublicDateTime(publishDateTime);
         }
+        // 发布状态
         article.setStatus( publish ? 1:0);
-//        articleService.saveOrUpdate(article);
-        if(artid == 0){
-            articleDao.save(article);
-        }else{
-            articleDao.update(article);
-        }
+
+        articleDao.saveOrUpdate(article);
 
         //文章标签
-        articleTagService.saveOrUpdateArticleTag(bean, article);
+        if(StringUtils.isNoEmpty(bean.getTag2())){
+            articleTagService.saveOrUpdateArticleTag(bean, article);
+        }
 
         // 个人分类
-        articleCategoryService.saveOrUpdateArticleCategory(bean, article);
+        if(StringUtils.isNoEmpty(bean.getCategories())){
+            articleCategoryService.saveOrUpdateArticleCategory(bean, article);
+        }
     }
 
     @Override

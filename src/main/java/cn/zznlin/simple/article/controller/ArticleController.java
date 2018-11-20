@@ -14,7 +14,6 @@ import cn.zznlin.simple.common.helper.JSONHelper;
 import cn.zznlin.simple.common.utils.LoggerUtils;
 import cn.zznlin.simple.common.utils.StringUtils;
 import com.google.common.collect.Lists;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -87,6 +85,17 @@ public class ArticleController extends CommonController {
         String catStr = StringUtils.join(catList, ",");
         model.addAttribute("catStr",catStr);
 
+        ArticleBean articleBean = new ArticleBean();
+        articleBean.setArtid(bean.getArticleId());
+        articleBean.setFileName(bean.getArticleId().toString());
+        articleBean.setTitl(bean.getTitle());
+        articleBean.setStat(bean.getStatus().toString());
+        articleBean.setTag2(tagStr);
+        articleBean.setCategories(catStr);
+        articleBean.setChnl(bean.getBlogCategory() != null  ? bean.getBlogCategory().getSmdId() : 0L);
+        articleBean.setTyp(bean.getType() != null  ? bean.getType().getSmdId() : 0L);
+
+        model.addAttribute("articleBean",articleBean);
         return "/article/article-edit";
     }
 

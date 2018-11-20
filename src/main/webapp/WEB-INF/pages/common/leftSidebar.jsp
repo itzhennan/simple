@@ -47,7 +47,7 @@
                     <header>
                         <h3><a href="#">热门阅读1热门阅读1热门阅读1热门阅读1热门阅读1热门阅读1热门阅读1</a></h3>
                         <footer>
-                            <time class="published" datetime="2015-10-20">2018年7月18日</time>
+                            <%--<time class="published" datetime="2015-10-20">2018年7月18日</time>--%>
                             <ul class="stats">
                                 <li><a href="javascript:void(0);" class="icon fa-heart">999999</a></li>
                                 <li><a href="javascript:void(0);" class="icon fa-comment">999999</a></li>
@@ -62,7 +62,7 @@
                     <header>
                         <h3><a href="#">热门阅读1热门阅读1热门阅读1热门阅读1热门阅读1热门阅读1热门阅读1</a></h3>
                         <footer>
-                            <time class="published" datetime="2015-10-20">2018年7月18日</time>
+                            <%--<time class="published" datetime="2015-10-20">2018年7月18日</time>--%>
                             <ul class="stats">
                                 <li><a href="javascript:void(0);" class="icon fa-heart">999999</a></li>
                                 <li><a href="javascript:void(0);" class="icon fa-comment">999999</a></li>
@@ -77,7 +77,7 @@
                     <header>
                         <h3><a href="#">热门阅读1热门阅读1热门阅读1热门阅读1热门阅读1热门阅读1热门阅读1</a></h3>
                         <footer>
-                            <time class="published" datetime="2015-10-20">2018年7月18日</time>
+                            <%--<time class="published" datetime="2015-10-20">2018年7月18日</time>--%>
                             <ul class="stats">
                                 <li><a href="#" class="icon fa-heart">999999</a></li>
                                 <li><a href="#" class="icon fa-comment">999999</a></li>
