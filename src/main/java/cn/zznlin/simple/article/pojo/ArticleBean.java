@@ -6,20 +6,34 @@ package cn.zznlin.simple.article.pojo;
  * @description
  */
 public class ArticleBean {
+    //
     private String titl;
+    //
     private Long typ;
+    //
     private String cont;
+    //
     private String categories;
+    //
     private Long chnl;
+    //
     private Long level;
+    //
     private String tag2;
+    //
     private Long artid;
+    //
     private Boolean isPrivate;
+    //
     private String Description;
+    //
     private String stat;
     
     private String fileName;
+    // 是否自动保存
     private Integer isauto;
+    // 摘要
+    private String abstracts;
 
     public String getTitl() {
         return titl;
@@ -123,5 +137,13 @@ public class ArticleBean {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    public String getAbstracts() {
+        return abstracts;
+    }
+
+    public void setAbstracts(String abstracts) {
+        this.abstracts = abstracts;
     }
 }

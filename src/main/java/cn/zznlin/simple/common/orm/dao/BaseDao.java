@@ -66,4 +66,7 @@ public interface BaseDao <T extends BaseEntity> {
     DetachedCriteria createDetachedCriteria();
 
     DetachedCriteria createDetachedCriteria(String alias);
+
+    List<Map<String, Object>> findPageByNative(final String sql, final Page page);
+    List<Map<String, Object>> findPageByNative(final String sql);
 }

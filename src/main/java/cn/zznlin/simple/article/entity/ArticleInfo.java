@@ -42,6 +42,10 @@ public class ArticleInfo extends BaseEntity {
     @Column(name = "title",columnDefinition = "VARCHAR(255) COMMENT '文章标题'")
     private String title;
 
+    // 摘要
+    @Column(name="abstracts",columnDefinition = "TEXT COMMENT '文章摘要'")
+    private String abstracts;
+
     // 内容
     @Column(name="cont",columnDefinition = "TEXT COMMENT '文章内容'")
     private String cont;
@@ -205,5 +209,13 @@ public class ArticleInfo extends BaseEntity {
 
     public void setGoodCount(Long goodCount) {
         this.goodCount = goodCount;
+    }
+
+    public String getAbstracts() {
+        return abstracts;
+    }
+
+    public void setAbstracts(String abstracts) {
+        this.abstracts = abstracts;
     }
 }

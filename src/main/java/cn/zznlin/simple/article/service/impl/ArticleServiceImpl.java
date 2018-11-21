@@ -3,18 +3,26 @@ package cn.zznlin.simple.article.service.impl;
 import cn.zznlin.simple.article.dao.ArticleDao;
 import cn.zznlin.simple.article.entity.ArticleInfo;
 import cn.zznlin.simple.article.pojo.ArticleBean;
+import cn.zznlin.simple.article.pojo.ArticleCond;
 import cn.zznlin.simple.article.service.ArticleCategoryService;
 import cn.zznlin.simple.article.service.ArticleService;
 import cn.zznlin.simple.article.service.ArticleTagService;
 import cn.zznlin.simple.base.entity.User;
 import cn.zznlin.simple.base.service.SMDService;
+import cn.zznlin.simple.common.bean.Page;
+import cn.zznlin.simple.common.utils.HtmlUtils;
+import cn.zznlin.simple.common.utils.ReflectionUtils;
 import cn.zznlin.simple.common.utils.StringUtils;
 import cn.zznlin.simple.common.utils.ValidateUtils;
+import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author zhennan zhang
@@ -36,7 +44,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Resource
     private ArticleDao articleDao;
 
-
     /**
      * 保存或修改文章
      * @param user
@@ -44,7 +51,7 @@ public class ArticleServiceImpl implements ArticleService {
      * @param isPub
      */
     @Override
-    public void saveOrUpdateArticle(User user ,ArticleBean bean, int isPub) {
+    public void saveOrUpdateArticle(User user ,ArticleBean bean, int isPub) throws UnsupportedEncodingException {
         Long artid = bean.getArtid();
         ArticleInfo article = null;
         if(artid == 0){
@@ -73,6 +80,11 @@ public class ArticleServiceImpl implements ArticleService {
         if(publish && article.getStatus() == 0){
             DateTime publishDateTime = new DateTime();
             article.setPublicDateTime(publishDateTime);
+            // 生成摘要
+            if(StringUtils.isEmpty(bean.getAbstracts())){
+                String abstracts = autoAbstracts(bean.getCont());
+                article.setAbstracts(abstracts+"...");
+            }
         }
         // 发布状态
         article.setStatus( publish ? 1:0);
@@ -90,6 +102,10 @@ public class ArticleServiceImpl implements ArticleService {
         }
     }
 
+    private String autoAbstracts(String cont) throws UnsupportedEncodingException {
+        return HtmlUtils.extractContent(cont,100);
+    }
+
     @Override
     public ArticleInfo get(String articleId) {
         if(StringUtils.isEmpty(articleId)){
@@ -101,6 +117,17 @@ public class ArticleServiceImpl implements ArticleService {
         }else{
             return null;
         }
+    }
+
+    // 获得个人博客首页的信息
+    @Override
+    public List<ArticleBean> findIndex(ArticleCond cond,Page page) {
+        List<ArticleBean> datas = Lists.newArrayList();
+        List<Map<String, Object>> pageByNative = articleDao.findPageByNative(cond.findIndex(), page);
+        for (Map<String, Object> map:pageByNative) {
+            datas.add(ReflectionUtils.fillClassForMap(map,ArticleBean.class));
+        }
+        return datas;
     }
 
 }
