@@ -1,3 +1,6 @@
+/**
+ * 编辑器JS
+ */
 $(pageInit);
 var jsonData = {
     articleId: 0

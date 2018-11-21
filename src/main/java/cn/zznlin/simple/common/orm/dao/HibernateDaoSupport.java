@@ -170,6 +170,7 @@ public class HibernateDaoSupport<T extends BaseEntity> extends BaseDaoSupport<T>
         return (List<T>) page.getDatas();
     }
 
+    @Override
     public List<Map<String, Object>> findPageByNative(final String sql, final Page page) {
         return getSession().doReturningWork(new ReturningWork<List<Map<String, Object>>>() {
 
@@ -303,6 +304,7 @@ public class HibernateDaoSupport<T extends BaseEntity> extends BaseDaoSupport<T>
         });
     }
 
+    @Override
     public List<Map<String, Object>> findPageByNative(final String sql) {
         return getSession().doReturningWork(new ReturningWork<List<Map<String, Object>>>() {
 

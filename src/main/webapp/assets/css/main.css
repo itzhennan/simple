@@ -3582,3 +3582,30 @@ a > img {
     border: none;
     outline: none;
 }
+span.article-type {
+	margin-right: 0.2em;
+	margin-top: 0em;
+	vertical-align: 0.1em;
+}
+span.article-type.type-1 {
+	color: #e44949;
+	border: 0.1em solid #f4ced0;
+}
+span.article-type.type-2 {
+	color: #6ca948;
+	border: 0.1em solid #a6e082;
+}
+span.article-type.type-3 {
+	color: #5283cc;
+	border: 0.1em solid #7f9cca;
+}
+span.article-type {
+	display: inline-block;
+	width: 2em;
+	height: 2em;
+	line-height: 2em;
+	text-align: center;
+	font-size: 0.8em;
+	border-radius: 50%;
+	padding-left: 0.3em;
+}

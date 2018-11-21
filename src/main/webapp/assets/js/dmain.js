@@ -40,7 +40,9 @@
 
             $mainHeight,
             paddWidth, // 单边padding的宽度
-            rightSidebarFlag = false;
+            rightSidebarFlag = false,
+
+            scrollEnd = false;
 
 		// Disable animations/transitions until the page has loaded.
 			$body.addClass('is-loading');
@@ -154,11 +156,12 @@
 
         // 电脑上显示
         if($window.innerWidth() > 980){
-            // 个人信息展示
-            switchSideBar();
+            if($leftSidebarDiv.is(':hidden')) {　　// 左边不显示的时候，需要左中右切换
+                // 个人信息展示
+                switchSideBar();
+            }
             // 左右边框随滚动条滑动
             scrollBarStart();
-
 		}
 
 		// 全屏显示文章，不展示 评论栏
@@ -179,6 +182,12 @@
             $main.mouseout(function(event){
                 var tempX =event.clientX;
                 if(tempX <= paddWidth){
+                    // 是否滚动到底部
+                    if($("body").outerHeight() == $(document).scrollTop()+$(window).height()){
+                        scrollEnd = true;
+                    }else{
+                        scrollEnd = false;
+                    }
                 	if($main.css("position") == "fixed"){
                         $main.css({"position":"","right":"","width":"","bottom":""});
 					}
@@ -187,12 +196,22 @@
                     $leftSidebarDiv.show();
                     leftScrollFlag = false;
                     rightScrollFlag = false;
+                    if(scrollEnd){
+                        // 之前滚动底部后，现在也需要在底部
+                        $(document).scrollTop($("body").outerHeight()-$(window).height());
+                    }
                     scrollBar();
                 }
             });
             // 鼠标移入
             $main.mouseover(function(event){
                 if(!$leftSidebarDiv.is(':hidden')) {　　//
+                    // 是否滚动到底部
+                    if($("body").outerHeight() == $(document).scrollTop()+$(window).height()){
+                        scrollEnd = true;
+                    }else{
+                        scrollEnd = false;
+                    }
                     $leftSidebarDiv.hide();
                     if($main.css("position") == "fixed"){
                         $main.css({"position":"","right":"","width":"","bottom":""});
@@ -205,6 +224,10 @@
                     }
                     leftScrollFlag = false;
                     rightScrollFlag = false;
+                    if(scrollEnd){
+                        // 之前滚动底部后，现在也需要在底部
+                        $(document).scrollTop($("body").outerHeight()-$(window).height());
+                    }
                     scrollBar();
                 }
                 // 单边padding的宽度一半
@@ -236,14 +259,16 @@
             var bodyPaddingTop = parseInt($("body").css("padding-top").replace("px",""));
 			var wrapperPadding = parseInt($("#wrapper").css("padding").replace("px",""));
 
+            var bottomScrollTop,$tempBar,$tempCssUp,$tempCssDown;
+
             // 获取垂直滚动的距离
             var scrollTop = $(document).scrollTop();
-            // $("#scrop").html(scrollTop+","+$(window).height()+","+$("body").outerHeight()+","+(6.5*parseInt(em)));
+
             if(!$rightSidebarDiv.is(':hidden')){　　//
 				// 中间小，中间需要悬浮
-				var bottomScrollTop,$tempBar,$tempCssUp,$tempCssDown;
 				if($mainHeight < $rightSidebarHeight){
                     bottomScrollTop = $mainHeight+(bodyPaddingTop+wrapperPadding)-windowHeight;
+                    // $("#scrop").html(scrollTop+","+$(window).height()+","+$("body").outerHeight()+","+(6.5*parseInt(em))+","+bottomScrollTop);
                     $tempBar = $('#main');
                     var tempWidth = $(window).width()-(2*wrapperPadding)-$rightSidebarWidth;
                     $tempCssUp = {"position":"fixed","right":"19em","width":tempWidth+"px","bottom":"0em"};
@@ -262,6 +287,7 @@
                     }
 				}else{
                     bottomScrollTop = $rightSidebarHeight+(bodyPaddingTop+wrapperPadding)-windowHeight;
+                    // $("#scrop").html(scrollTop+","+$(window).height()+","+$("body").outerHeight()+","+(6.5*parseInt(em))+","+bottomScrollTop);
                     $tempBar = $rightSidebar;
                     $tempCssUp = {"position":"fixed","bottom":"0em"};
                     $tempCssDown = {"position":"","bottom":""};
@@ -286,6 +312,7 @@
                 var bottomScrollTop,$tempBar,$tempCssUp,$tempCssDown;
                 if($mainHeight < $leftSidebarHeight){
                     bottomScrollTop = $mainHeight+(bodyPaddingTop+wrapperPadding)-windowHeight;
+                    // $("#scrop").html(scrollTop+","+$(window).height()+","+$("body").outerHeight()+","+(6.5*parseInt(em))+","+bottomScrollTop);
                     $tempBar = $('#main');
                     var tempWidth = $(window).width()-(2*wrapperPadding)-$leftSidebarWidth;
                     $tempCssUp = {"position":"fixed","right":"3em","width":tempWidth+"px","bottom":"0"};
@@ -308,6 +335,7 @@
 
                 }else{
                     bottomScrollTop = $leftSidebarHeight+(bodyPaddingTop+wrapperPadding)-windowHeight;
+                    // $("#scrop").html(scrollTop+","+$(window).height()+","+$("body").outerHeight()+","+(6.5*parseInt(em))+","+bottomScrollTop);
                     $tempBar = $leftSidebar;
                     $tempCssUp = {"position":"fixed","bottom":"0"};
                     $tempCssDown = {"position":"","bottom":""};
