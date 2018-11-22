@@ -2,7 +2,7 @@ package cn.zznlin.simple.base.service.impl;
 
 import cn.zznlin.simple.base.entity.SMDInfo;
 import cn.zznlin.simple.base.service.SMDService;
-import cn.zznlin.simple.common.orm.dao.HibernateDaoSupport;
+import cn.zznlin.simple.common.orm.service.HibernateServiceSupport;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,6 +11,6 @@ import org.springframework.stereotype.Service;
  * @Description
  */
 @Service
-public class SMDServiceImpl extends HibernateDaoSupport<SMDInfo> implements SMDService {
+public class SMDServiceImpl extends HibernateServiceSupport<SMDInfo> implements SMDService {
 
 }

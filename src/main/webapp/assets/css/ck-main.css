@@ -3010,8 +3010,8 @@
 
 	body.cke_editable {
 		/*padding-top: 3.5em;*/
-		font-family: sans-serif, Arial, Verdana, "Trebuchet MS", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-		font-size: 12px;
+		font-family: 楷体,sans-serif, Verdana, "Trebuchet MS", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+		font-size: 20px;
 		color: #333;
 		background-color: #fff;
 		margin: 20px;
@@ -3527,4 +3527,7 @@ a > img {
     margin: 0;
     border: none;
     outline: none;
+}
+.cke_editable p{
+	margin: 0;
 }

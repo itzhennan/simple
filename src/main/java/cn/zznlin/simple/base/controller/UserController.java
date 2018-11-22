@@ -23,7 +23,7 @@ public class UserController extends CommonController{
     public String doLogin(User user, HttpSession session){
         String password = user.getPassword();
         String userPhone = user.getUserPhone();
-        List<User> userLists = userDao.findDatas("userPhone", userPhone);
+        List<User> userLists = userService.findDatas("userPhone", userPhone);
         if(userLists != null && userLists.size() > 0){
             User currentUser = userLists.get(0);
             if(currentUser.getPassword().equals(password)){

@@ -182,7 +182,7 @@ function draft() {
     save(0, false, false);
     checkcodeRefesh();
 }
-var artId = $("#articleId").val();
+var artId = 0;
 var saveInter = null;
 var saving = false; /*标识文章正在保存*/
 function save(isPub, isPubToBole) {

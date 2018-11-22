@@ -10,6 +10,7 @@ import cn.zznlin.simple.article.service.ArticleTagService;
 import cn.zznlin.simple.base.entity.User;
 import cn.zznlin.simple.base.service.SMDService;
 import cn.zznlin.simple.common.bean.Page;
+import cn.zznlin.simple.common.orm.service.HibernateServiceSupport;
 import cn.zznlin.simple.common.utils.HtmlUtils;
 import cn.zznlin.simple.common.utils.ReflectionUtils;
 import cn.zznlin.simple.common.utils.StringUtils;
@@ -19,7 +20,6 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +30,7 @@ import java.util.Map;
  * @description
  */
 @Service
-public class ArticleServiceImpl implements ArticleService {
+public class ArticleServiceImpl extends HibernateServiceSupport<ArticleInfo> implements ArticleService {
 
     @Autowired
     private SMDService smdService;
@@ -41,7 +41,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ArticleCategoryService articleCategoryService;
 
-    @Resource
+    @Autowired
     private ArticleDao articleDao;
 
     /**
