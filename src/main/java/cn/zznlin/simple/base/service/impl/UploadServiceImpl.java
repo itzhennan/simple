@@ -1,14 +1,11 @@
 package cn.zznlin.simple.base.service.impl;
 
-import cn.zznlin.simple.article.entity.ArticleCategoryInfo;
 import cn.zznlin.simple.base.dao.UploadDao;
 import cn.zznlin.simple.base.entity.UploadFiles;
 import cn.zznlin.simple.base.service.UploadService;
-import cn.zznlin.simple.common.orm.dao.BaseDao;
-import cn.zznlin.simple.common.orm.dao.HibernateDaoSupport;
+import cn.zznlin.simple.common.orm.service.HibernateServiceSupport;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 /**
  * @Author zhennan
@@ -16,9 +13,9 @@ import javax.annotation.Resource;
  * @Description
  */
 @Service
-public class UploadServiceImpl implements UploadService {
+public class UploadServiceImpl extends HibernateServiceSupport<UploadFiles> implements UploadService {
 
-    @Resource(name = "UploadDao")
+    @Autowired
     private UploadDao uploadDao;
 
     @Override

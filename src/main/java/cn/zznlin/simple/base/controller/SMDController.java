@@ -7,6 +7,7 @@ import cn.zznlin.simple.common.utils.HttpUtils;
 import cn.zznlin.simple.common.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,6 +31,13 @@ public class SMDController extends CommonController{
         smdService.save(smd);
         return "";
     }
+
+    @RequestMapping("/{smdId}")
+    @ResponseBody
+    public SMDInfo getSMDById(@PathVariable Long smdId) throws Exception {
+        return smdService.get(smdId);
+    }
+
     @Override
     protected String getModule() {
         return null;

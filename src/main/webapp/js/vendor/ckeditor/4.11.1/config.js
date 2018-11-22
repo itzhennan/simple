@@ -44,7 +44,7 @@ CKEDITOR.editorConfig = function( config ) {
     config.removeButtons = 'Underline,Subscript,Superscript';
 
     // Set the most common block elements.
-    config.format_tags = 'p;h1;h2;h3;pre';
+    config.format_tags = 'p;h1;h2;h3;h4;h5;h6;pre;address;div';
 
     // Simplify the dialog windows.
     // config.removeDialogTabs = 'image:advanced;link:advanced';
@@ -70,6 +70,9 @@ CKEDITOR.editorConfig = function( config ) {
         CKEDITOR.CTRL + 85 /*U*/
     ]
 
+    // Tab键时，使用编辑器向文本添加一些空格（）。如果设置为零，则该Tab键将用于将光标焦点移动到编辑器焦点之外的页面中的下一个元素。
+    config.tabSpaces = 4;
+    
     //是否在选择颜色时显示“其它颜色”选项 plugins/colorbutton/plugin.js
     config.colorButton_enableMore = true
     //区块的前景色默认值设置 plugins/colorbutton/plugin.js
@@ -77,15 +80,13 @@ CKEDITOR.editorConfig = function( config ) {
         element : 'span',
         styles : { 'color' : '#(color)' }
     };
-    //所需要添加的CSS文件 在此添加 可使用相对路径和网站的绝对路径
-    config.contentsCss = '../../../../assets/css/ck-main.css';
     // 字体默认大小 plugins/font/plugin.js
-    config.fontSize_defaultLabel = '12px';
+    config.fontSize_defaultLabel = '20px';
     //字体编辑时可选的字体大小 plugins/font/plugin.js
     config.fontSize_sizes ='8/8px;9/9px;10/10px;11/11px;12/12px;14/14px;16/16px;18/18px;20/20px;22/22px;24/24px;26/26px;28/28px;36/36px;48/48px;72/72px';
 
     //默认的字体名 plugins/font/plugin.js
-    config.font_defaultLabel = 'Arial';
+    config.font_defaultLabel = '楷体';
     //字体编辑时的字符集 可以添加常用的中文字符：宋体、楷体、黑体等 plugins/font/plugin.js
     config.font_names = '宋体;楷体;黑体;Arial;Times New Roman;Verdana';
     //是否强制复制来的内容去除格式 plugins/pastetext/plugin.js
@@ -108,7 +109,7 @@ CKEDITOR.editorConfig = function( config ) {
     //对H6标签自动进行格式化 plugins/format/plugin.js
     config.format_h1 = { element : 'h6', attributes : { class : 'contentTitle6' } };
     //对P标签自动进行格式化 plugins/format/plugin.js
-    config.format_p = { element : 'p', attributes : { class : 'normalPara' } };
+    config.format_p = { element: 'p', attributes: { 'class': 'normalPara' } };
 
     //对PRE标签自动进行格式化 plugins/format/plugin.js
     config.format_pre = { element : 'pre', attributes : { class : 'code' } };
@@ -131,5 +132,11 @@ CKEDITOR.editorConfig = function( config ) {
     config.smiley_path = './plugins/smiley/images/';
 
     config.image2_alignClasses = [ 'image_left', 'image_fit', 'image_right' ];
+    // 去掉BR
+    // config.enterMode = CKEDITOR.ENTER_BR;
+    // 去掉P
+    config.shiftEnterMode = CKEDITOR.ENTER_P;
 
+    //所需要添加的CSS文件 在此添加 可使用相对路径和网站的绝对路径
+    config.contentsCss = '../../../../assets/css/ck-main.css';
 };

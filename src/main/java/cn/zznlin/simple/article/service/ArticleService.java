@@ -5,6 +5,7 @@ import cn.zznlin.simple.article.pojo.ArticleBean;
 import cn.zznlin.simple.article.pojo.ArticleCond;
 import cn.zznlin.simple.base.entity.User;
 import cn.zznlin.simple.common.bean.Page;
+import cn.zznlin.simple.common.orm.service.BaseService;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  * @Date 2018/10/28 22:51
  * @Description
  */
-public interface ArticleService {
+public interface ArticleService extends BaseService<ArticleInfo> {
     void saveOrUpdateArticle(User user,ArticleBean bean, int isPub) throws UnsupportedEncodingException;
 
     ArticleInfo get(String articleId);

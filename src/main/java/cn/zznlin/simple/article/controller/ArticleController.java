@@ -121,7 +121,7 @@ public class ArticleController extends CommonController {
         ReturnJsonBean returnBean = new ReturnJsonBean();
         try {
             LoggerUtils.debug(SIMPLE_CLASS_NAME, "请求数据："+ JSONHelper.toJson(bean));
-            User user = userDao.get(1L);
+            User user = userService.get(1L);
             articleService.saveOrUpdateArticle(user,bean,isPub);
 
         }catch (Exception e){

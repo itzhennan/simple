@@ -33,7 +33,7 @@ public class HtmlUtils {
         StringBuffer sb = new StringBuffer();
         try {
              // 1、构造一个Parser，并设置相关的属性
-            Parser parser = Parser.createParser(new String(content.getBytes(), "8859_1"), "");
+            Parser parser = Parser.createParser(content,"UTF-8");
 
             // 2.1、自定义一个Filter，用于过滤<Frame >标签，然后取得标签中的src属性值
             NodeFilter pNodeFilter = new NodeFilter() {
@@ -79,7 +79,11 @@ public class HtmlUtils {
         } catch (ParserException e) {
             e.printStackTrace();
         }
-        return sb.toString().substring(0, length);
+        if(sb.length() < length){
+            return sb.toString();
+        }else{
+            return sb.toString().substring(0, length);
+        }
     }
 
 }

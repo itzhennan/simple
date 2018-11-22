@@ -5,12 +5,13 @@ import cn.zznlin.simple.article.entity.ArticleCategoryInfo;
 import cn.zznlin.simple.article.entity.ArticleInfo;
 import cn.zznlin.simple.article.pojo.ArticleBean;
 import cn.zznlin.simple.article.service.ArticleCategoryService;
+import cn.zznlin.simple.common.orm.service.HibernateServiceSupport;
 import cn.zznlin.simple.common.utils.ValidateUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,9 +21,9 @@ import java.util.List;
  * @description
  */
 @Service
-public class ArticleCategoryServiceImpl implements ArticleCategoryService {
+public class ArticleCategoryServiceImpl extends HibernateServiceSupport<ArticleCategoryInfo> implements ArticleCategoryService {
 
-    @Resource
+    @Autowired
     private ArticleCategoryDao articleCategoryDao;
 
     /**
