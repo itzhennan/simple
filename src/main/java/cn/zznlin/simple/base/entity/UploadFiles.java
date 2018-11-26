@@ -12,7 +12,7 @@
  *****************************************************************************/
 package cn.zznlin.simple.base.entity;
 
-import cn.zznlin.simple.common.BaseCons;
+import cn.zznlin.simple.common.cons.Cons;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -22,11 +22,11 @@ import javax.persistence.*;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "simple_base_upload")
+@Table(name = Cons.TABLEHEAD+"base_upload")
 public class UploadFiles extends BaseEntity {
 	@Id
-	@GeneratedValue(generator = "simple_generator")
-	@GenericGenerator(name = "simple_generator", strategy = BaseCons.STRATEGY)
+	@GeneratedValue(generator = Cons.GENERATOR)
+	@GenericGenerator(name = Cons.GENERATOR, strategy = Cons.STRATEGY)
 	@Column(name = "upload_id", columnDefinition = "bigint")
 	private Long uploadId;
 

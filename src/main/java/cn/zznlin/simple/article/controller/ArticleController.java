@@ -1,9 +1,7 @@
 package cn.zznlin.simple.article.controller;
 
-import cn.zznlin.simple.article.entity.ArticleCategoryInfo;
-import cn.zznlin.simple.article.entity.ArticleInfo;
-import cn.zznlin.simple.article.entity.ArticleTagInfo;
 import cn.zznlin.simple.article.pojo.ArticleBean;
+import cn.zznlin.simple.article.service.ArticleCategoryService;
 import cn.zznlin.simple.article.service.ArticleService;
 import cn.zznlin.simple.base.entity.SMDInfo;
 import cn.zznlin.simple.base.entity.User;
@@ -12,8 +10,6 @@ import cn.zznlin.simple.common.cons.AuthorCons;
 import cn.zznlin.simple.common.controller.CommonController;
 import cn.zznlin.simple.common.helper.JSONHelper;
 import cn.zznlin.simple.common.utils.LoggerUtils;
-import cn.zznlin.simple.common.utils.StringUtils;
-import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +34,10 @@ public class ArticleController extends CommonController {
     @Autowired
     private ArticleService articleService;
 
+    @Autowired
+    private ArticleCategoryService articleCategoryService;
+
+
     /**
      * 添加
      * @param request
@@ -47,8 +47,8 @@ public class ArticleController extends CommonController {
      */
     @RequestMapping("/edit")
     public String save(HttpServletRequest request, HttpServletResponse response, Model model){
-        List<SMDInfo> categorys = smdService.findDatas("type", 2);
-        model.addAttribute("categorys", categorys);
+        List<SMDInfo> blogCategorys = smdService.findDatas("type", 2);
+        model.addAttribute("blogCategorys", blogCategorys);
         return "/article/article-edit";
     }
 
@@ -61,57 +61,9 @@ public class ArticleController extends CommonController {
      */
     @RequestMapping("/edit/{articleId}")
     public String edit(@PathVariable String articleId,HttpServletRequest request, HttpServletResponse response, Model model){
-        List<SMDInfo> categorys = smdService.findDatas("type", 2);
-        model.addAttribute("categorys", categorys);
-
-        ArticleInfo bean =  articleService.get(articleId);
-        model.addAttribute("bean",bean);
-
-        // 文章标签
-        List<ArticleTagInfo> articleTags = bean.getArticleTags();
-        List<String> tagList = Lists.newArrayList();
-        for (ArticleTagInfo tag:articleTags) {
-            tagList.add(tag.getTagName());
-        }
-        String tagStr = StringUtils.join(tagList, ",");
-        model.addAttribute("tagStr",tagStr);
-
-        // 个人分类
-        List<ArticleCategoryInfo> articleCategorys = bean.getArticleCategorys();
-        List<String> catList = Lists.newArrayList();
-        for (ArticleCategoryInfo cat:articleCategorys) {
-            catList.add(cat.getCategoryName());
-        }
-        String catStr = StringUtils.join(catList, ",");
-        model.addAttribute("catStr",catStr);
-
-        ArticleBean articleBean = new ArticleBean();
-        articleBean.setArtid(bean.getArticleId());
-        articleBean.setFileName(bean.getArticleId().toString());
-        articleBean.setTitl(bean.getTitle());
-        articleBean.setStat(bean.getStatus().toString());
-        articleBean.setTag2(tagStr);
-        articleBean.setCategories(catStr);
-        articleBean.setChnl(bean.getBlogCategory() != null  ? bean.getBlogCategory().getSmdId() : 0L);
-        articleBean.setTyp(bean.getType() != null  ? bean.getType().getSmdId() : 0L);
-
-        model.addAttribute("articleBean",articleBean);
+        User user = userService.get(1L);
+        articleService.getEditById(articleId,model,user);
         return "/article/article-edit";
-    }
-
-    /**
-     * 查看文章
-     * @param articleId
-     * @param request
-     * @param response
-     * @param model
-     * @return
-     */
-    @RequestMapping("/{articleId}")
-    public String detail(@PathVariable String articleId, HttpServletRequest request, HttpServletResponse response, Model model){
-        ArticleInfo bean =  articleService.get(articleId);
-        model.addAttribute("bean",bean);
-        return "/article/article-detail";
     }
 
     @RequestMapping("/saveArticle")

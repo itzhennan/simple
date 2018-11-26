@@ -1,7 +1,7 @@
 package cn.zznlin.simple.article.entity;
 
 import cn.zznlin.simple.base.entity.BaseEntity;
-import cn.zznlin.simple.common.BaseCons;
+import cn.zznlin.simple.common.cons.Cons;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -13,12 +13,12 @@ import javax.persistence.*;
  *    文章标签 一个文章可以有多个标签
  */
 @Entity
-@Table(name = "simple_article_tag")
+@Table(name = Cons.TABLEHEAD+"article_tag")
 public class ArticleTagInfo extends BaseEntity {
 
     @Id
-    @GeneratedValue(generator = "simple_generator")
-    @GenericGenerator(name = "simple_generator", strategy = BaseCons.STRATEGY)
+    @GeneratedValue(generator = Cons.GENERATOR)
+    @GenericGenerator(name = Cons.GENERATOR, strategy = Cons.STRATEGY)
     @Column(name = "article_tag_id", columnDefinition = "bigint")
     private Long articleTagId;
 
@@ -28,10 +28,6 @@ public class ArticleTagInfo extends BaseEntity {
 
     @Column(name = "is_del",columnDefinition = "INT(1) DEFAULT 0 NOT NULL COMMENT'是否作废 0:否  1:是'")
     private Integer isDel = 0;
-
-    @ManyToOne
-    @JoinColumn(name = "article_id",columnDefinition = "BIGINT(11) NOT NULL COMMENT '文章'")
-    private ArticleInfo article;
 
     public Long getArticleTagId() {
         return articleTagId;
@@ -55,14 +51,6 @@ public class ArticleTagInfo extends BaseEntity {
 
     public void setIsDel(Integer isDel) {
         this.isDel = isDel;
-    }
-
-    public ArticleInfo getArticle() {
-        return article;
-    }
-
-    public void setArticle(ArticleInfo article) {
-        this.article = article;
     }
 
 }

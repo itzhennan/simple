@@ -7,7 +7,7 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<jsp:include page="/common/base/head.jsp"   />
-		<link rel="stylesheet" href="${csshost}/assets/css/ck-main.css"/>
+		<link rel="stylesheet" href="${csshost}/css/assets/ck-main.css"/>
 	</head>
 	<body style="padding-top: 3.5em;">
 		<div id="wrapper">
@@ -53,30 +53,23 @@
 		                                        </i>添加新分类
 		                                    </button>
 		                                </div>
-		                                <div class="categorie-list" style="">
-		                                    <div class="form-check">
-		                                        <label class="form-check-label">
-		                                            <input class="form-check-input" type="checkbox" value="JAVA" id="7720445">
-		                                            <i class="lab-chk-icon" for="chk01">
-		                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" t="1514450759045" class="icon-checked" viewBox="0 0 1024 1024">
-		                                                    <path d="M768 0H256C115.2 0 0 115.2 0 256v512c0 140.8 115.2 256 256 256h512c140.8 0 256-115.2 256-256V256c0-140.8-115.2-256-256-256z m17.6 377.6L460.8 728c-9.6 9.6-27.2 14.4-40 14.4-14.4 0-32-3.2-41.6-14.4l-142.4-153.6c-17.6-19.2-17.6-49.6 0-68.8 17.6-19.2 46.4-19.2 64 0l120 128 300.8-324.8c17.6-19.2 46.4-19.2 64 0s17.6 49.6 0 68.8z" p-id="2164" fill="#7ed321" data-spm-anchor-id="a313x.7781069.0.i4" class=""></path>
-		                                                </svg>
-		                                            </i>
-		                                            <span class="spanIsAgree">JAVA</span>
-		                                        </label>
-		                                    </div>
-		                                    <div class="form-check">
-		                                        <label class="form-check-label">
-		                                            <input class="form-check-input" type="checkbox" value="JVM" id="7720454">
-		                                            <i class="lab-chk-icon" for="chk01">
-		                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" t="1514450759045" class="icon-checked" viewBox="0 0 1024 1024">
-		                                                    <path d="M768 0H256C115.2 0 0 115.2 0 256v512c0 140.8 115.2 256 256 256h512c140.8 0 256-115.2 256-256V256c0-140.8-115.2-256-256-256z m17.6 377.6L460.8 728c-9.6 9.6-27.2 14.4-40 14.4-14.4 0-32-3.2-41.6-14.4l-142.4-153.6c-17.6-19.2-17.6-49.6 0-68.8 17.6-19.2 46.4-19.2 64 0l120 128 300.8-324.8c17.6-19.2 46.4-19.2 64 0s17.6 49.6 0 68.8z" p-id="2164" fill="#7ed321" data-spm-anchor-id="a313x.7781069.0.i4" class=""></path>
-		                                                </svg>
-		                                            </i>
-		                                            <span class="spanIsAgree">JVM</span>
-		                                        </label>
-		                                    </div>
-		                                </div>
+										<c:if test="${not empty categorys}">
+											<div class="categorie-list" style="">
+												<c:forEach items="${categorys}" var="category">
+													<div class="form-check">
+														<label class="form-check-label">
+															<input class="form-check-input" type="checkbox" value="${category.smdName}" id="${category.smdId}">
+															<i class="lab-chk-icon" for="chk01">
+																<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" t="1514450759045" class="icon-checked" viewBox="0 0 1024 1024">
+																	<path d="M768 0H256C115.2 0 0 115.2 0 256v512c0 140.8 115.2 256 256 256h512c140.8 0 256-115.2 256-256V256c0-140.8-115.2-256-256-256z m17.6 377.6L460.8 728c-9.6 9.6-27.2 14.4-40 14.4-14.4 0-32-3.2-41.6-14.4l-142.4-153.6c-17.6-19.2-17.6-49.6 0-68.8 17.6-19.2 46.4-19.2 64 0l120 128 300.8-324.8c17.6-19.2 46.4-19.2 64 0s17.6 49.6 0 68.8z" p-id="2164" fill="#7ed321" data-spm-anchor-id="a313x.7781069.0.i4" class=""></path>
+																</svg>
+															</i>
+															<span class="spanIsAgree">${category.smdName}</span>
+														</label>
+													</div>
+												</c:forEach>
+											</div>
+										</c:if>
 		                            </div>
 		                    </div>
 		                    <div class="form-group row form-control-sm d-flex">
@@ -94,7 +87,7 @@
 		                        <div class="txt-box">
 									<select class="droBlogType" id="radChl" name="radChl">
 										<option value="0">选择分类</option>
-										<c:forEach items="${categorys}" var="category">
+										<c:forEach items="${blogCategorys}" var="category">
 											<<option value="${category.smdId}">${category.smdName}</option>
 										</c:forEach>
 		                            </select>

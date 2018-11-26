@@ -3,7 +3,7 @@ package cn.zznlin.simple.article.entity;
 import cn.zznlin.simple.base.entity.BaseEntity;
 import cn.zznlin.simple.base.entity.SMDInfo;
 import cn.zznlin.simple.base.entity.User;
-import cn.zznlin.simple.common.BaseCons;
+import cn.zznlin.simple.common.cons.Cons;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
@@ -19,12 +19,12 @@ import java.util.List;
  * @Description
  */
 @Entity
-@Table(name = "simple_article")
+@Table(name = Cons.TABLEHEAD+"article")
 public class ArticleInfo extends BaseEntity {
 
     @Id
-    @GeneratedValue(generator = "simple_generator")
-    @GenericGenerator(name = "simple_generator", strategy = BaseCons.STRATEGY)
+    @GeneratedValue(generator = Cons.GENERATOR)
+    @GenericGenerator(name = Cons.GENERATOR, strategy = Cons.STRATEGY)
     @Column(name = "article_id", columnDefinition = "bigint")
     private Long articleId;
 
@@ -53,11 +53,11 @@ public class ArticleInfo extends BaseEntity {
     //文章标签
     @OneToMany(mappedBy = "article",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @Fetch(FetchMode.SUBSELECT)
-    private List<ArticleTagInfo> articleTags;
+    private List<ArticleTagMapperInfo> articleMapperTags;
 
-    //文章标签
+    //个人分类
     @OneToMany(mappedBy = "article",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private List<ArticleCategoryInfo> articleCategorys;
+    private List<ArticleCategoryMapperInfo> articleMapperCategorys;
 
     //文章类型  文章类型 1:原创 2:转载  3:翻译
     @ManyToOne
@@ -82,7 +82,7 @@ public class ArticleInfo extends BaseEntity {
     private Integer isDel = 0;
 
     // 是否置顶
-    @Column(name = "is_top",columnDefinition = "INT(1) DEFAULT 0 NOT NULL COMMENT'是否作废 0:否  1:是'")
+    @Column(name = "is_top",columnDefinition = "INT(1) DEFAULT 0 NOT NULL COMMENT'是否置顶 0:否  1:是'")
     private Integer isTop = 0;
 
     @Column(name = "read_count",columnDefinition = "BIGINT(11) default 0 COMMENT '阅读量'")
@@ -131,20 +131,20 @@ public class ArticleInfo extends BaseEntity {
         this.cont = cont;
     }
 
-    public List<ArticleTagInfo> getArticleTags() {
-        return articleTags;
+    public List<ArticleTagMapperInfo> getArticleMapperTags() {
+        return articleMapperTags;
     }
 
-    public void setArticleTags(List<ArticleTagInfo> articleTags) {
-        this.articleTags = articleTags;
+    public void setArticleMapperTags(List<ArticleTagMapperInfo> articleMapperTags) {
+        this.articleMapperTags = articleMapperTags;
     }
 
-    public List<ArticleCategoryInfo> getArticleCategorys() {
-        return articleCategorys;
+    public List<ArticleCategoryMapperInfo> getArticleMapperCategorys() {
+        return articleMapperCategorys;
     }
 
-    public void setArticleCategorys(List<ArticleCategoryInfo> articleCategorys) {
-        this.articleCategorys = articleCategorys;
+    public void setArticleMapperCategorys(List<ArticleCategoryMapperInfo> articleMapperCategorys) {
+        this.articleMapperCategorys = articleMapperCategorys;
     }
 
     public SMDInfo getType() {

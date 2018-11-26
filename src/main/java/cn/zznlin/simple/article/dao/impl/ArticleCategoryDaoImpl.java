@@ -16,11 +16,5 @@ import java.util.List;
  */
 @Repository
 public class ArticleCategoryDaoImpl extends HibernateDaoSupport<ArticleCategoryInfo> implements ArticleCategoryDao {
-    @Override
-    public List<ArticleCategoryInfo> getNowArticleCategorys(Long articleId) {
-        Criteria criteria = createDetachedCriteria().getExecutableCriteria(getSession());
-        criteria.add(Restrictions.eq("article.articleId", articleId));
-        criteria.add(Restrictions.eq("isDel", 0));
-        return criteria.list();
-    }
+
 }

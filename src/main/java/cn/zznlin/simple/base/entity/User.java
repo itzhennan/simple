@@ -1,9 +1,11 @@
 package cn.zznlin.simple.base.entity;
 
-import cn.zznlin.simple.common.BaseCons;
+import cn.zznlin.simple.common.cons.Cons;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @Author zhennan
@@ -11,11 +13,11 @@ import javax.persistence.*;
  * @Description
  */
 @Entity
-@Table(name = "simple_user")
+@Table(name = Cons.TABLEHEAD+"user")
 public class User extends BaseEntity {
     @Id
-    @GeneratedValue(generator = "simple_generator")
-    @GenericGenerator(name = "simple_generator", strategy = BaseCons.STRATEGY)
+    @GeneratedValue(generator = Cons.GENERATOR)
+    @GenericGenerator(name = Cons.GENERATOR, strategy = Cons.STRATEGY)
     @Column(name = "user_id", columnDefinition = "bigint")
     private Long userId;
 
@@ -37,6 +39,12 @@ public class User extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "file_id", columnDefinition = "BIGINT COMMENT'用户头像'")
     private UploadFiles uploadFiles;
+
+    @ManyToMany
+    @JoinTable(name = Cons.TABLEHEAD + "user_role", joinColumns = {
+            @JoinColumn(name = "user_id", referencedColumnName = "user_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "role_id", referencedColumnName = "role_id") })
+    private Set<Role> roles = new HashSet<Role>(0);
 
     public Long getUserId() {
         return userId;

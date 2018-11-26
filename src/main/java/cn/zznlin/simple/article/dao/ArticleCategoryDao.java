@@ -11,5 +11,5 @@ import java.util.List;
  * @Description
  */
 public interface ArticleCategoryDao extends BaseDao<ArticleCategoryInfo> {
-    List<ArticleCategoryInfo> getNowArticleCategorys(Long articleId);
+
 }

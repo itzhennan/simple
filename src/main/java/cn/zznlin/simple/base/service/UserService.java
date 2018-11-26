@@ -9,4 +9,5 @@ import cn.zznlin.simple.common.orm.service.BaseService;
  * @Description
  */
 public interface UserService extends BaseService<User>{
+    User findByNameAndPassword(String username, String password);
 }

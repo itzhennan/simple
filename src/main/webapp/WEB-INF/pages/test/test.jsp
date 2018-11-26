@@ -5,9 +5,9 @@
 
     <body>
         <a class="copy_data" data-popup2="Q29weSBQYXNzd29yZA==" data-clicktoclipboard="aaaaaaaaaaaaaaaa">
-            <img src="${pageContext.request.contextPath}/images/logo.jpg">
+            <img src="${pageContext.request.contextPath}/images/blog/logo.jpg">
         </a>
-        <script src="${pageContext.request.contextPath}/admin/js/jquery-3.1.1.min.js"></script>
+        <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.0/js/bootstrap.min.js"></script>
         <script>
 
 

@@ -1,6 +1,6 @@
 package cn.zznlin.simple.base.entity;
 
-import cn.zznlin.simple.common.BaseCons;
+import cn.zznlin.simple.common.cons.Cons;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -12,12 +12,12 @@ import javax.persistence.*;
  *     项目字典表
  */
 @Entity
-@Table(name = "simple_smd")
+@Table(name = Cons.TABLEHEAD +"smd")
 public class SMDInfo extends BaseEntity {
 
     @Id
-    @GeneratedValue(generator = "simple_generator")
-    @GenericGenerator(name = "simple_generator", strategy = BaseCons.STRATEGY)
+    @GeneratedValue(generator = Cons.GENERATOR)
+    @GenericGenerator(name = Cons.GENERATOR, strategy = Cons.STRATEGY)
     @Column(name = "smd_id", columnDefinition = "bigint")
     private Long smdId;
 

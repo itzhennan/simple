@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd ">
+
+    <!--       shiro security -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!--    安全管理   相当于人类的大脑  中央枢纽 -->
+        <property name="securityManager" ref="securityManager" />
+        <!-- 		在未登录情况下访问页面或请求时 跳转到login.html -->
+        <property name="loginUrl" value="/login.html" />
+        <!-- 		未授权时访问页面或请求  跳转到error.html -->
+        <property name="unauthorizedUrl" value="/error.html" />
+        <!--           过滤器链 -->
+        <property name="filterChainDefinitions">
+            <value>
+
+                <!-- 对静态资源设置匿名访问-->
+                /images/** = anon
+                /js/** = anon
+                /common/** = anon
+                /css/** = anon
+                /html/** = anon
+
+                <!-- 对提示页面设置匿名访问-->
+                /error.html = anon
+                /404.html = anon
+                /500.html = anon
+
+                <!-- 验证码，可匿名访问 -->
+                /code/** = anon
+                /user/login = anon
+
+                <!-- 查看博客  可匿名访问-->
+                /blog/** = anon
+
+
+                /**.html = anon
+                / = anon
+
+                <!-- /** = authc 所有url都必须认证通过才可以访问 -->
+                /**=authc
+
+                <!--请求logout，shrio擦除sssion-->
+                /user/logout = logout
+
+            </value>
+        </property>
+    </bean>
+
+    <!-- shiro 访问数据库 -->
+    <bean id="realm" class="cn.zznlin.simple.base.security.Realm"></bean>
+
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="realm"></property>
+    </bean>
+
+
+
+</beans>

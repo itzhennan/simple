@@ -23,8 +23,6 @@ public class AuthorController extends CommonController{
         return "/author/index";
     }
 
-
-
     @Override
     protected String getModule() {
         return null;

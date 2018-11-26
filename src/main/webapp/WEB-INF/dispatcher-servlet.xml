@@ -57,11 +57,8 @@
 	<mvc:resources mapping="/json/**" location="/json/" />
 	<mvc:resources mapping="/js/**" location="/js/" />
 	<mvc:resources mapping="/css/**" location="/css/" />
-	<mvc:resources mapping="/assets/**" location="/assets/" />
-	<mvc:resources mapping="/admin/**" location="/admin/" />
 	<mvc:resources mapping="/index.html" location="/index.html" />
+	<mvc:resources mapping="/login.html" location="/login.html" />
 	<mvc:resources mapping="/html/**" location="/html/" />
-	<!--<mvc:resources mapping="/upload/**" location="/upload/" />-->
-	<!--<mvc:resources mapping="/videoswf/**" location="/videoswf/" />-->
 
 </beans>
