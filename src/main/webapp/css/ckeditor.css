@@ -234,6 +234,7 @@ select.droBlogType,
   background-color: #f4f4f4;
   box-sizing: border-box;
   padding-left: 16px;
+  display: inline-block;
 }
 span.required {
   margin-left: 2px;

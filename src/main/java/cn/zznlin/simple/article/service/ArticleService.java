@@ -6,6 +6,7 @@ import cn.zznlin.simple.article.pojo.ArticleCond;
 import cn.zznlin.simple.base.entity.User;
 import cn.zznlin.simple.common.bean.Page;
 import cn.zznlin.simple.common.orm.service.BaseService;
+import org.springframework.ui.Model;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -20,5 +21,9 @@ public interface ArticleService extends BaseService<ArticleInfo> {
 
     ArticleInfo get(String articleId);
 
-    List<ArticleBean> findIndex(ArticleCond cond,Page page);
+    List<ArticleBean> findPublicIndex(ArticleCond cond,Page page);
+
+    List<ArticleBean> findPrivateIndex(ArticleCond cond,Page page);
+
+    void getEditById(String articleId, Model model, User user);
 }

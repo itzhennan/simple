@@ -1,26 +1,31 @@
 package cn.zznlin.simple.common.controller;
 
 import cn.zznlin.simple.base.entity.User;
-import cn.zznlin.simple.base.pojo.SessionBean;
-import cn.zznlin.simple.base.pojo.ValidateResult;
 import cn.zznlin.simple.base.service.SMDService;
 import cn.zznlin.simple.base.service.UserService;
-import cn.zznlin.simple.common.config.ResultPath;
 import cn.zznlin.simple.common.config.ViewName;
 import cn.zznlin.simple.common.cons.AuthorCons;
-import cn.zznlin.simple.common.cons.Cons;
 import cn.zznlin.simple.common.init.SystemPropertyInit;
 import cn.zznlin.simple.common.utils.LoggerUtils;
 import cn.zznlin.simple.common.utils.StringUtils;
+import com.alibaba.fastjson.JSON;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author zhennan
@@ -89,51 +94,41 @@ public abstract class CommonController
         }
     }
 
-//    /**
-//     * 下载资源
-//     * @param response
-//     * @param url
-//     */
-//	@RequestMapping("/downloadFile/{url}")
-//	public void download(HttpServletResponse response, @PathVariable String url){
-//		try {
-//			int lastIndexOf = url.lastIndexOf("/");
-//			String resourceFile = url.substring(lastIndexOf+1);
-//			response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(resourceFile, "UTF-8"));
-//			URL uri = new URL(url);
-//			InputStream inputStream = uri.openStream();
-//			OutputStream outputStream = response.getOutputStream();
-//
-//			int read = -1;
-//			int len = inputStream.available();
-//			byte[] buffer = new byte[len];
-//			while ( (read = inputStream.read(buffer)) != -1) {
-//				outputStream.write(buffer, 0, read);
-//			}
-//			outputStream.flush();
-//			inputStream.close();
-//			outputStream.close();
-//		} catch (Exception e) {
-//			saveException(AuthodType.wangqijun.getName(), SIMPLE_CLASS_NAME, "download()", e);
-//			e.printStackTrace();
-//		}
-//	}
+
 
     /**
-     * 返回JSON结果集：{"status":"SUCCESS/FAILURE"}
-     *
-     * @throws Exception
+     * 返回JSON结果集： data={"success":true|false,"message":"保存成功"|"保存失败"}
+     * @param success
+     * @param message
      */
-//    protected void rtnResponseData(boolean isTrue, HttpServletResponse response)
-//            throws Exception {
-//        boolean rtnType = ReturnModule.success.getStatus();
-//        if (!isTrue) {
-//            rtnType = ReturnModule.failure.getStatus();
-//        }
-//        LoggerUtils.debug(CLASS_NAME, "[rtnResponseData] rtnType ==> "
-//                + rtnType);
-//        HttpUtils.respWrite(response, new ReturnJsonBean(rtnType).toJson());
-//    }
+    public void ajaxReturn(Boolean success,String message){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("success", success);
+        map.put("message", message);
+//		把对象转json字符串
+        String jsonString = JSON.toJSONString(map);
+//		回写到浏览器上
+        HttpServletResponse response = getCurrentResponse();
+        response.setContentType("application/json;charset=utf-8");
+        try {
+            response.getWriter().write(jsonString);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 从 shiro 中取出当前登录的用户
+     * @return
+     */
+    public User getCurrentUser(){
+        // 获取 程序与shiro交互的管理对象
+        Subject subject = SecurityUtils.getSubject();
+        // 获得主角 其实就是 realm 认证放入的User
+        User user = (User)subject.getPrincipal();
+        return user;
+    }
+
 
     @SuppressWarnings("unchecked")
     public <T> List<T> loop(List<T> list, List<T> nodes, int rows) {
@@ -153,24 +148,22 @@ public abstract class CommonController
         return list;
     }
 
+    /**
+     * 获得当前请求
+     * @return
+     */
+    public HttpServletRequest getCurrentRequest(){
+        HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
+        return request;
+    }
 
-
-    public ValidateResult controllerValidate(HttpSession session){
-        ValidateResult validateResult = new ValidateResult();
-        SessionBean sessionBean = (SessionBean) session.getAttribute(Cons.ZZNLIN_SESSION_BEAN);
-        if (sessionBean == null) {
-            validateResult.setStatus(1);
-            validateResult.setUrl(ResultPath.TO_LOGIN);
-            return validateResult;
-        }
-        User currentUser = sessionBean.getCurrentUser();
-        if (currentUser == null) {
-            validateResult.setStatus(1);
-            validateResult.setUrl(ResultPath.TO_LOGIN);
-            return validateResult;
-        }
-        validateResult.setCurrentUser(currentUser);
-        return validateResult;
+    /**
+     * 获得当前请求的响应
+     * @return
+     */
+    public HttpServletResponse getCurrentResponse(){
+        HttpServletResponse response = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getResponse();
+        return response;
     }
 
     @Autowired

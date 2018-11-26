@@ -1,8 +1,12 @@
 package cn.zznlin.simple.article.service.impl;
 
+import cn.zznlin.simple.article.dao.ArticleCategoryMapperDao;
 import cn.zznlin.simple.article.dao.ArticleTagDao;
+import cn.zznlin.simple.article.dao.ArticleTagMapperDao;
+import cn.zznlin.simple.article.entity.ArticleCategoryMapperInfo;
 import cn.zznlin.simple.article.entity.ArticleInfo;
 import cn.zznlin.simple.article.entity.ArticleTagInfo;
+import cn.zznlin.simple.article.entity.ArticleTagMapperInfo;
 import cn.zznlin.simple.article.pojo.ArticleBean;
 import cn.zznlin.simple.article.service.ArticleTagService;
 import cn.zznlin.simple.common.orm.service.HibernateServiceSupport;
@@ -26,6 +30,11 @@ public class ArticleTagServiceImpl extends HibernateServiceSupport<ArticleTagInf
     @Autowired
     private ArticleTagDao articleTagDao;
 
+    @Autowired
+    private ArticleTagMapperDao articleTagMapperDao;
+
+
+
     /**
      * 保存或更新个人分类
      * @param bean
@@ -34,32 +43,39 @@ public class ArticleTagServiceImpl extends HibernateServiceSupport<ArticleTagInf
     @Override
     public void saveOrUpdateArticleTag(ArticleBean bean, ArticleInfo article) {
         // 拿到未被删除的
-        List<ArticleTagInfo> articleTags = articleTagDao.getNowArticleTags(article.getArticleId());
+        List<ArticleTagMapperInfo> articleMapperTags = article.getArticleMapperTags();
 
-        if(articleTags == null){
-            articleTags = Lists.newArrayList();
+        if(articleMapperTags == null){
+            articleMapperTags = Lists.newArrayList();
         }
-        HashMap<String,ArticleTagInfo> tagMaps = Maps.newHashMap();
-        for (ArticleTagInfo tag :articleTags ) {
-            tag.setIsDel(1);
-            tagMaps.put(tag.getTagName(), tag);
+        // 暂时全部置1
+        HashMap<String,ArticleTagMapperInfo> tagMaps = Maps.newHashMap();
+        for (ArticleTagMapperInfo tagMapper :articleMapperTags ) {
+            tagMapper.setIsDel(1);
+            tagMaps.put(tagMapper.getTag().getTagName(), tagMapper);
         }
 
+        // 新增的保存。  以前存在的，现在还存在的，修改del
         String[] tags = bean.getTag2().split(",");
         for (String tag: tags) {
-            ArticleTagInfo tempTag = tagMaps.get(tag);
-            if(ValidateUtils.isNotEmpty(tempTag)){
-                tempTag.setIsDel(0);
+            ArticleTagMapperInfo articleTagMapper = tagMaps.get(tag);
+            if(ValidateUtils.isNotEmpty(articleTagMapper)){
+                articleTagMapper.setIsDel(0);
             }else{
-                tempTag = new ArticleTagInfo();
+                ArticleTagInfo tempTag = new ArticleTagInfo();
                 tempTag.setTagName(tag);
-                tempTag.setArticle(article);
                 articleTagDao.save(tempTag);
+
+                ArticleTagMapperInfo articleTagMapperInfo = new ArticleTagMapperInfo();
+                articleTagMapperInfo.setTag(tempTag);
+                articleTagMapperInfo.setArticle(article);
+                articleTagMapperDao.save(articleTagMapperInfo);
             }
         }
-        for (ArticleTagInfo tag :articleTags ) {
+        // 更新删除的数据
+        for (ArticleTagMapperInfo tag :articleMapperTags ) {
             if(tag.getIsDel() == 1){
-                articleTagDao.update(tag);
+                articleTagMapperDao.update(tag);
             }
         }
     }

@@ -1,5 +1,7 @@
 package cn.zznlin.simple.article.pojo;
 
+import org.joda.time.DateTime;
+
 /**
  * @author zhennan zhang
  * @date 2018/11/12 12:34
@@ -34,6 +36,8 @@ public class ArticleBean {
     private Integer isauto;
     // 摘要
     private String abstracts;
+
+    private String publicDateTime;
 
     public String getTitl() {
         return titl;
@@ -145,5 +149,17 @@ public class ArticleBean {
 
     public void setAbstracts(String abstracts) {
         this.abstracts = abstracts;
+    }
+
+    public String getPublicDateTime() {
+        return publicDateTime;
+    }
+
+    public void setPublicDateTime(String publicDateTime) {
+        //2018-11-15 13:58:59.0
+        if(publicDateTime.length() > 19){
+            publicDateTime = publicDateTime.substring(0, 19);
+        }
+        this.publicDateTime = publicDateTime;
     }
 }

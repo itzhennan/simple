@@ -8,7 +8,7 @@
 		<meta charset="UTF-8">
 		<title>查看文章</title>
 		<jsp:include page="/common/base/head.jsp"   />
-		<link rel="stylesheet" href="${csshost}/assets/css/main.css"/>
+		<link rel="stylesheet" href="${csshost}/css/assets/main.css"/>
 		<%--代码主题css--%>
 		<link rel="stylesheet" href="${csshost}/js/vendor/ckeditor/4.11.1/plugins/codesnippet/lib/highlight/styles/xcode.css">
 		<style>
@@ -141,7 +141,7 @@
 	</body>
 	<jsp:include page="/common/base/footer.jsp"   />
 	<%--文章详情--%>
-	<script type="text/javascript" src="${jshost}/assets/js/dmain.js"></script>
+	<script type="text/javascript" src="${jshost}/js/article/dmain.js"></script>
 	<%--代码高亮--%>
 	<script type="text/javascript" src="${jshost}/js/vendor/ckeditor/4.11.1/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
 	<%--数学公式--%>

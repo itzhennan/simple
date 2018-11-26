@@ -5,7 +5,7 @@
 
     <!-- Intro -->
     <section id="intro">
-        <a href="#" class="logo"><img src="${imgServer}/images/logo.jpg" alt="" /></a>
+        <a href="#" class="logo"><img src="${imgServer}/images/blog/logo.jpg" alt="" /></a>
         <header>
 
             <h2>Zznlin Blog</h2>
@@ -22,9 +22,9 @@
                 <header>
                     <h3><a href="#">学习</a></h3>
                     <time class="published" datetime="2015-10-20">2015年10月20日</time>
-                    <a href="#" class="author"><img src="${imgServer}/images/avatar.jpg" alt="" /></a>
+                    <a href="#" class="author"><img src="${imgServer}/images/blog/avatar.jpg" alt="" /></a>
                 </header>
-                <a href="#" class="image"><img src="${imgServer}/images/pic04.jpg" alt="" /></a>
+                <a href="#" class="image"><img src="${imgServer}/images/blog/pic04.jpg" alt="" /></a>
             </article>
 
             <!-- Mini Post -->
@@ -32,9 +32,9 @@
                 <header>
                     <h3><a href="#">个人随笔</a></h3>
                     <time class="published" datetime="2015-10-19">2015年10月19日</time>
-                    <a href="#" class="author"><img src="${imgServer}/images/avatar.jpg" alt="" /></a>
+                    <a href="#" class="author"><img src="${imgServer}/images/blog/avatar.jpg" alt="" /></a>
                 </header>
-                <a href="#" class="image"><img src="${imgServer}/images/pic05.jpg" alt="" /></a>
+                <a href="#" class="image"><img src="${imgServer}/images/blog/pic05.jpg" alt="" /></a>
             </article>
         </div>
     </section>
@@ -54,7 +54,7 @@
                             </ul>
                         </footer>
                     </header>
-                    <a href="#" class="image"><img src="${imgServer}/images/pic08.jpg" alt="" /></a>
+                    <a href="#" class="image"><img src="${imgServer}/images/blog/pic08.jpg" alt="" /></a>
                 </article>
             </li>
             <li>
@@ -69,7 +69,7 @@
                             </ul>
                         </footer>
                     </header>
-                    <a href="#" class="image"><img src="${imgServer}/images/pic09.jpg" alt="" /></a>
+                    <a href="#" class="image"><img src="${imgServer}/images/blog/pic09.jpg" alt="" /></a>
                 </article>
             </li>
             <li>
@@ -84,7 +84,7 @@
                             </ul>
                         </footer>
                     </header>
-                    <a href="#" class="image"><img src="${imgServer}/images/pic10.jpg" alt="" /></a>
+                    <a href="#" class="image"><img src="${imgServer}/images/blog/pic10.jpg" alt="" /></a>
                 </article>
             </li>
         </ul>

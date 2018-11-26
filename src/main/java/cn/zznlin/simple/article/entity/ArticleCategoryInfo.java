@@ -1,7 +1,8 @@
 package cn.zznlin.simple.article.entity;
 
 import cn.zznlin.simple.base.entity.BaseEntity;
-import cn.zznlin.simple.common.BaseCons;
+import cn.zznlin.simple.base.entity.User;
+import cn.zznlin.simple.common.cons.Cons;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -10,15 +11,15 @@ import javax.persistence.*;
  * @Author zhennan
  * @Date 2018/10/29 19:23
  * @Description
- *    文章个人分类一个文章可以有多个个人分类
+ *    文章个人分类 一个文章可以有多个个人分类,一个个人分类可以归属多个文章
  */
 @Entity
-@Table(name = "simple_article_category")
+@Table(name = Cons.TABLEHEAD+"article_category")
 public class ArticleCategoryInfo extends BaseEntity {
 
     @Id
-    @GeneratedValue(generator = "simple_generator")
-    @GenericGenerator(name = "simple_generator", strategy = BaseCons.STRATEGY)
+    @GeneratedValue(generator = Cons.GENERATOR)
+    @GenericGenerator(name = Cons.GENERATOR, strategy = Cons.STRATEGY)
     @Column(name = "article_category_id", columnDefinition = "bigint")
     private Long articleCategoryId;
 
@@ -26,12 +27,13 @@ public class ArticleCategoryInfo extends BaseEntity {
     @Column(name = "category_name",columnDefinition = "VARCHAR(255) NOT NULL COMMENT '文章个人分类名称'")
     private String categoryName;
 
+    // 作者
+    @ManyToOne
+    @JoinColumn(name = "user_id",columnDefinition = "BIGINT(11) NOT NULL COMMENT '创作者'")
+    private User user;
+
     @Column(name = "is_del",columnDefinition = "INT(1) DEFAULT 0 NOT NULL COMMENT'是否作废 0:否  1:是'")
     private Integer isDel = 0;
-
-    @ManyToOne
-    @JoinColumn(name = "article_id",columnDefinition = "BIGINT(11) NOT NULL COMMENT '文章'")
-    private ArticleInfo article;
 
     public Long getArticleCategoryId() {
         return articleCategoryId;
@@ -57,12 +59,11 @@ public class ArticleCategoryInfo extends BaseEntity {
         this.isDel = isDel;
     }
 
-    public ArticleInfo getArticle() {
-        return article;
+    public User getUser() {
+        return user;
     }
 
-    public void setArticle(ArticleInfo article) {
-        this.article = article;
+    public void setUser(User user) {
+        this.user = user;
     }
-
 }

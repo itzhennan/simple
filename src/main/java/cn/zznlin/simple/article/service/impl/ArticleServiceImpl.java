@@ -1,12 +1,16 @@
 package cn.zznlin.simple.article.service.impl;
 
 import cn.zznlin.simple.article.dao.ArticleDao;
+import cn.zznlin.simple.article.entity.ArticleCategoryInfo;
+import cn.zznlin.simple.article.entity.ArticleCategoryMapperInfo;
 import cn.zznlin.simple.article.entity.ArticleInfo;
+import cn.zznlin.simple.article.entity.ArticleTagMapperInfo;
 import cn.zznlin.simple.article.pojo.ArticleBean;
 import cn.zznlin.simple.article.pojo.ArticleCond;
 import cn.zznlin.simple.article.service.ArticleCategoryService;
 import cn.zznlin.simple.article.service.ArticleService;
 import cn.zznlin.simple.article.service.ArticleTagService;
+import cn.zznlin.simple.base.entity.SMDInfo;
 import cn.zznlin.simple.base.entity.User;
 import cn.zznlin.simple.base.service.SMDService;
 import cn.zznlin.simple.common.bean.Page;
@@ -19,6 +23,7 @@ import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -119,8 +124,73 @@ public class ArticleServiceImpl extends HibernateServiceSupport<ArticleInfo> imp
         }
     }
 
-    // 获得个人博客首页的信息
+    // 获得公开个人博客首页的信息 无须权限登录
     @Override
+    public List<ArticleBean> findPublicIndex(ArticleCond cond, Page page) {
+        cond.setIsDel(0);
+        cond.setIsPrivate(0);
+        cond.setStatus(1);
+        return findIndex(cond,page);
+    }
+
+    // 获得私人个人博客首页的信息 必须登录
+    @Override
+    public List<ArticleBean> findPrivateIndex(ArticleCond cond, Page page) {
+        cond.setIsDel(0);
+        return findIndex(cond,page);
+    }
+
+    // 获得需要修改的文章信息
+    @Override
+    public void getEditById(String articleId,Model model,User user) {
+        // 博客分类
+        List<SMDInfo> blogCategorys = smdService.findDatas("type", 2);
+        model.addAttribute("blogCategorys", blogCategorys);
+
+        // 个人分类
+        List<ArticleCategoryInfo> categorys =  articleCategoryService.findAllByUser(user);
+        model.addAttribute("categorys",categorys);
+
+        // 文章对象
+        ArticleInfo bean =  get(articleId);
+        // 文章标签
+        String tagStr = "";
+        List<ArticleTagMapperInfo> articleMapperTags = bean.getArticleMapperTags();
+        if(ValidateUtils.isNotEmpty(articleMapperTags)){
+            List<String> tagList = Lists.newArrayList();
+            for (ArticleTagMapperInfo tagMapper: articleMapperTags) {
+                tagList.add(tagMapper.getTag().getTagName());
+            }
+            tagStr = StringUtils.join(tagList, ",");
+        }
+
+
+        // 个人分类
+        String catStr = "";
+        List<ArticleCategoryMapperInfo> articleMapperCategorys = bean.getArticleMapperCategorys();
+        if(ValidateUtils.isNotEmpty(articleMapperCategorys)){
+            List<String> catList = Lists.newArrayList();
+            for (ArticleCategoryMapperInfo catMapper:articleMapperCategorys) {
+                catList.add(catMapper.getCategory().getCategoryName());
+            }
+            catStr = StringUtils.join(catList, ",");
+        }
+
+        ArticleBean articleBean = new ArticleBean();
+        articleBean.setArtid(bean.getArticleId());
+        articleBean.setFileName(bean.getArticleId().toString());
+        articleBean.setTitl(bean.getTitle());
+        articleBean.setStat(bean.getStatus().toString());
+        articleBean.setTag2(tagStr);
+        articleBean.setCategories(catStr);
+        articleBean.setChnl(bean.getBlogCategory() != null  ? bean.getBlogCategory().getSmdId() : 0L);
+        articleBean.setTyp(bean.getType() != null  ? bean.getType().getSmdId() : 0L);
+        articleBean.setCont(bean.getCont());
+
+        model.addAttribute("articleBean",articleBean);
+    }
+
+
     public List<ArticleBean> findIndex(ArticleCond cond,Page page) {
         List<ArticleBean> datas = Lists.newArrayList();
         List<Map<String, Object>> pageByNative = articleDao.findPageByNative(cond.findIndex(), page);

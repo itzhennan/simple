@@ -17,6 +17,11 @@ CKEDITOR.editorConfig = function( config ) {
     config.filebrowserUploadUrl = 'http://localhost:9999/upload/uploadFile?file=file';
     config.filebrowserImageUploadUrl = 'http://localhost:9999/upload/uploadFile?type=image';
 
+    // config.filebrowserBrowseUrl = 'http://101.132.105.24/';
+    // config.filebrowserImageBrowseUrl = 'http://101.132.105.24/';
+    // config.filebrowserUploadUrl = 'http://101.132.105.24/upload/uploadFile?file=file';
+    // config.filebrowserImageUploadUrl = 'http://101.132.105.24/upload/uploadFile?type=image';
+
     // Define changes to default configuration here.
     // For complete reference see:
     // http://docs.ckeditor.com/#!/api/CKEDITOR.config
@@ -81,7 +86,7 @@ CKEDITOR.editorConfig = function( config ) {
         styles : { 'color' : '#(color)' }
     };
     // 字体默认大小 plugins/font/plugin.js
-    config.fontSize_defaultLabel = '20px';
+    config.fontSize_defaultLabel = '16px';
     //字体编辑时可选的字体大小 plugins/font/plugin.js
     config.fontSize_sizes ='8/8px;9/9px;10/10px;11/11px;12/12px;14/14px;16/16px;18/18px;20/20px;22/22px;24/24px;26/26px;28/28px;36/36px;48/48px;72/72px';
 
