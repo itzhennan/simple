@@ -16,7 +16,7 @@
         <!--           过滤器链 -->
         <property name="filterChainDefinitions">
             <value>
-
+                /admin/**  = anon
                 <!-- 对静态资源设置匿名访问-->
                 /images/** = anon
                 /js/** = anon
@@ -36,6 +36,9 @@
                 <!-- 查看博客  可匿名访问-->
                 /blog/** = anon
 
+
+                /login2.html = anon
+                /login3.html = anon
 
                 /**.html = anon
                 / = anon

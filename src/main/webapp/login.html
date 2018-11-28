@@ -1,76 +1,132 @@
 <!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
 <html lang="en">
+<!--<![endif]-->
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/3.3.0/css/bootstrap.min.css">
-	<!--<link rel="stylesheet" href="css/assets/main.css" />-->
-    <link rel="stylesheet" type="text/css" href="css/b_login.css">
-	<title>后台登录页面</title>
+	<meta charset="utf-8" />
+	<title>Color Admin | Login Page</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+	<link href="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" />
+	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
+	<!--<link href="./admin/assets/plugins/font-awesome/5.3/css/all.min.css" rel="stylesheet" />-->
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet" />
+	<link href="./admin/assets/css/default/style.min.css" rel="stylesheet" />
+	<link href="./admin/assets/css/default/style-responsive.min.css" rel="stylesheet" />
+	<link href="./admin/assets/css/default/theme/default.css" rel="stylesheet" id="theme" />
+	<!-- ================== END BASE CSS STYLE ================== -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="./admin/assets/plugins/pace/pace.min.js"></script>
+	<!-- ================== END BASE JS ================== -->
 </head>
-<body>
-<div class="login">
-	<div class="loginmain">
-		<h2>登录管理系统</h2>
-			<form action="#" class="form-horizontal">
-		           <!-- 让表单在一行中显示form-horizontal -->
-		          <div class="form-group">
-		              <label for="username" class="col-lg-1 control-label">用户名</label>
-		              <div class="col-lg-4">
-		                <input type="text" name="username" id="username" class="form-control" placeholder="name">
-		              </div>              
-		          </div>
-				  <div class="form-group"></div>
-				  <div class="form-group"></div>
-
-		          <div class="form-group">
-		              <label for="password" class="col-lg-1 control-label">密&nbsp;&nbsp;&nbsp;码</label>
-		              <div class="col-lg-4">
-		                <input type="password" name="password" id="password" class="form-control" placeholder="password">
-		              </div>              
-		          </div>
-                   <div class="form-group"></div>
-                   <!-- <div class="form-group"></div> -->
-
-		          <div class="form-group">
-		            <div class="col-lg-11 col-lg-offset-1">              
-						<input type="radio" name="">
-						<label for="demo-priority-low">记住我</label>
-		            </div>
-		          </div>
-
-		          <div class="form-group">
-		            <div class="col-lg-4 col-lg-offset-1">
-		                <input type="button" name="button" value="登录" class="btn btn-danger btn-lg">
-		                <span class="text"></span>              
-		            </div>
-
-		          </div>
-
-		    </form>
+<body class="pace-top">
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade show"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin login-cover -->
+	<div class="login-cover">
+		<div class="login-cover-image" style="background-image: url(./admin/assets/img/login-bg/login-bg-17.jpg)" data-id="login-cover-image"></div>
+		<div class="login-cover-bg"></div>
 	</div>
-	<div class="rightpic">
-		<div id="container">
-			<!-- <img src="../picture/1.jpg" alt="" width="500px" height="330px"> -->
+	<!-- end login-cover -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade">
+		<!-- begin login -->
+		<div class="login login-v2" data-pageload-addclass="animated fadeIn">
+			<!-- begin brand -->
+			<div class="login-header">
+				<div class="brand">
+					<span class="logo"></span> <b>ZZNLin</b> Console
+					<small>管理员可以在这里登录哦~</small>
+				</div>
+				<div class="icon">
+					<i class="fa fa-lock"></i>
+				</div>
+			</div>
+			<!-- end brand -->
+			<!-- begin login-content -->
+			<div class="login-content">
+				<form action="index.html" method="GET" class="margin-bottom-0">
+					<div class="form-group m-b-20">
+						<input type="text" class="form-control form-control-lg" placeholder="Email Address" required />
+					</div>
+					<div class="form-group m-b-20">
+						<input type="password" class="form-control form-control-lg" placeholder="Password" required />
+					</div>
+					<div class="checkbox checkbox-css m-b-20">
+						<input type="checkbox" id="remember_checkbox" /> 
+						<label for="remember_checkbox">
+							Remember Me
+						</label>
+					</div>
+					<div class="login-buttons">
+						<button type="submit" class="btn btn-success btn-block btn-lg">Sign me in</button>
+					</div>
+					<div class="m-t-20">
+						Not a member yet? Click <a href="javascript:;">here</a> to register.
+					</div>
+				</form>
+			</div>
+			<!-- end login-content -->
 		</div>
+		<!-- end login -->
+		
+		<!-- begin login-bg -->
+		<ul class="login-bg-list clearfix">
+			<li class="active"><a href="javascript:;" data-click="change-bg" data-img="./admin/assets/img/login-bg/login-bg-17.jpg" style="background-image: url(./admin/assets/img/login-bg/login-bg-17.jpg)"></a></li>
+			<li><a href="javascript:;" data-click="change-bg" data-img="./admin/assets/img/login-bg/login-bg-16.jpg" style="background-image: url(./admin/assets/img/login-bg/login-bg-16.jpg)"></a></li>
+			<li><a href="javascript:;" data-click="change-bg" data-img="./admin/assets/img/login-bg/login-bg-15.jpg" style="background-image: url(./admin/assets/img/login-bg/login-bg-15.jpg)"></a></li>
+			<li><a href="javascript:;" data-click="change-bg" data-img="./admin/assets/img/login-bg/login-bg-14.jpg" style="background-image: url(./admin/assets/img/login-bg/login-bg-14.jpg)"></a></li>
+			<li><a href="javascript:;" data-click="change-bg" data-img="./admin/assets/img/login-bg/login-bg-13.jpg" style="background-image: url(./admin/assets/img/login-bg/login-bg-13.jpg)"></a></li>
+			<li><a href="javascript:;" data-click="change-bg" data-img="./admin/assets/img/login-bg/login-bg-12.jpg" style="background-image: url(./admin/assets/img/login-bg/login-bg-12.jpg)"></a></li>
+		</ul>
+		<!-- end login-bg -->
+
 	</div>
-</div>
+	<!-- end page container -->
 
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="js/login/delaunay.js"></script>
-<script src="js/login/TweenMax.js"></script>
-<script src="js/login/effect.js"></script>
-<script src="js/login/b_login.js"></script>
-<script>
-	var imageUrls = [
-					'./images/login/a80883e9-80c1-4376-948b-c32c06abc811.jpg',
-					'./images/login/5050a8b7-64a4-41c0-82d4-5c5a688793fe.jpg',
-					'./images/login/c0b98c20-ff5b-46c7-831e-64af649f6e34.jpg',
-					'./images/login/f1d7e00c-3e39-4a3c-821f-cbc63ae50eef.jpg'
-				];
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://cdn.bootcss.com/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+	<!--[if lt IE 9]>
+		<script src="./admin/assets/crossbrowserjs/html5shiv.js"></script>
+		<script src="./admin/assets/crossbrowserjs/respond.min.js"></script>
+		<script src="./admin/assets/crossbrowserjs/excanvas.min.js"></script>
+	<![endif]-->
+	<script src="https://cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
+	<script src="https://cdn.bootcss.com/js-cookie/2.2.0/js.cookie.min.js"></script>
+	<script src="./admin/assets/js/theme/default.min.js"></script>
+	<script src="./admin/assets/js/apps.min.js"></script>
+	<!-- ================== END BASE JS ================== -->
+	
+	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
+	<script src="./admin/assets/js/demo/login-v2.demo.min.js"></script>
+	<!-- ================== END PAGE LEVEL JS ================== -->
 
-</script>
+	<script>
+		$(document).ready(function() {
+			App.init();
+			LoginV2.init();
+		});
+	</script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130054770-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'UA-130054770-1');
+	</script>
+
 </body>
 </html>
