@@ -25,7 +25,7 @@ public class MyTest extends BaseJunitTest{
         LoggerUtils.debug(this.getClass().getName(),"index.html模板生成中....");
         final String url = SystemPropertyInit.class.getResource("/").getPath();
         String srcPath = url+"/freemarker/index.ftl";
-        String tarPath = url+"/main/login.html";
+        String tarPath = url+"/main/login2.html";
         System.out.println("index模板路径-->"+srcPath);
         System.out.println("index模板路径-->"+tarPath);
         LoggerUtils.debug(this.getClass().getName(),"index模板路径-->"+srcPath);
