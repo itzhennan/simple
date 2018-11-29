@@ -18,7 +18,7 @@ var IECommon = function() {
 	return {
 		/**
 		 * AJAX基础访问方法
-		 * 
+		 *
 		 * @param args
 		 * @returns
 		 */
@@ -41,7 +41,8 @@ var IECommon = function() {
 
 			var dataStr = "";
 			return $.ajax({
-				url : args.uri + '?' + Math.floor(Math.random() * 100),
+				// url : args.uri + '?' + Math.floor(Math.random() * 100),
+				url : args.uri,
 				type : args.type,
 				headers : args.headers,
 				timeout : args.timeout,
@@ -54,7 +55,7 @@ var IECommon = function() {
 
 		/**
 		 * 获得CHECKBOX集合数据
-		 * 
+		 *
 		 * @param ckName
 		 * @returns
 		 */
@@ -68,9 +69,40 @@ var IECommon = function() {
 			return ckValAry;
 		},
 
+		getCurrentURI : function(){
+			var strFullPath=window.document.location.href;
+			var strPath=window.document.location.pathname;
+			var pos=strFullPath.indexOf(strPath);
+			var prePath=strFullPath.substring(0,pos);
+			var postPath=strPath.substring(0,strPath.substr(1).indexOf('/')+1);
+			return(prePath);
+		},
+
+        /**
+		 * get 参数 转 post 参数
+         * @param data
+         * @returns {*}
+         */
+		getSwitchPost : function(data){
+			var jsonData = {};
+			if(!data || data == ""){
+				return jsonData;
+			}
+			var dataArr = data.split("&");
+			if(dataArr.length == 0){ return jsonData; }
+			for (var i = 0;i<dataArr.length;i++){
+                var obj = dataArr[i].split("=");
+                if(dataArr.length == 0){ return true; }
+                var key = obj[0];
+                var value = obj[1];
+                jsonData[key] = value;
+			}
+			return jsonData;
+		},
+
 		/**
 		 * 网址验证
-		 * 
+		 *
 		 * @param url
 		 * @returns
 		 */
@@ -82,7 +114,7 @@ var IECommon = function() {
 
 		/**
 		 * 手机固话验证
-		 * 
+		 *
 		 * @param phoneNum
 		 * @returns
 		 */
@@ -105,10 +137,10 @@ var IECommon = function() {
 			var phoneRegex = /^0?(13[0-9]|14[0-9]|15[0-9]|16[0-9]|17[0-9]|18[0-9]|19[0-9])[0-9]{8}$/;
 			return phoneRegex.test(phone);
 		},
-		
+
 		/**
 		 * 数字验证
-		 * 
+		 *
 		 * @param num
 		 * @returns
 		 */
@@ -119,7 +151,7 @@ var IECommon = function() {
 
 		/**
 		 * 数字加小数位验证
-		 * 
+		 *
 		 * @param num
 		 * @returns
 		 */
@@ -127,7 +159,7 @@ var IECommon = function() {
 			var regs = /^\d+\.?\d*$/;
 			return regs.test(num);
 		},
-		
+
 		/**
 		 * 数字加一位小数位验证
 		 * @param num
@@ -149,7 +181,7 @@ var IECommon = function() {
 
 		/**
 		 * 是否超过长度限制
-		 * 
+		 *
 		 */
 		isMaxLen : function(val, len) {
 			val = $.trim(val);
@@ -182,7 +214,7 @@ var IECommon = function() {
 
 		/**
 		 * 身份证验证
-		 * 
+		 *
 		 * @param num
 		 * @returns
 		 */
@@ -193,7 +225,7 @@ var IECommon = function() {
 
 		/**
 		 * Email验证
-		 * 
+		 *
 		 * @param str
 		 * @returns
 		 */
@@ -204,7 +236,7 @@ var IECommon = function() {
 
 		/**
 		 * 是否含有特殊字符
-		 * 
+		 *
 		 * @param str
 		 * @returns
 		 */
@@ -215,7 +247,7 @@ var IECommon = function() {
 
 		/**
 		 * 只能包含数字，大小写字母
-		 * 
+		 *
 		 * @param str
 		 * @returns
 		 */
@@ -223,243 +255,22 @@ var IECommon = function() {
 			var pattern = /^[0-9a-zA-Z]*$/g;
 			return pattern.test(str);
 		},
-		
+
 		/**
 		 * 截取url字符串
-		 * 
+		 *
 		 */
 		subUrl: function (url){
 			if(url.indexOf(';') > 0){
 				return url.substring(0, url.indexOf(';'));
 			}
-			
+
 			return url;
-		},
-		
-		/**
-		 * 组装院校排名信息
-		 * 
-		 * @param data
-		 * @returns
-		 */
-		doGetForeignSchoolType : function(data, objId, typeId) {
-			if (data.length > 0) {
-				$("#" + objId).append($("<option value='-99'>-排名类型-</option>"));
-				for ( var i = 0; i < data.length; i++) {
-					var optVal = "<option value='" + data[i].fstypeId+"' ";
-					if(typeId === data[i].fstypeId){
-						optVal += "selected";
-					}
-					optVal += ">" + data[i].fstypeName + "</option>";
-					
-					$("#" + objId).append($(optVal));
-				}
-			} else {
-				$("#" + objId).append($("<option value='-99'>-无-</option>"));
-			}
-		},
-
-		/**
-		 * 组装活动子类
-		 * 
-		 * @param data
-		 * @returns
-		 */
-		doCategory : function(data, objId) {
-			$("#" + objId).empty();
-			$("#" + objId).append($("<option value='-99'>-请选择-</option>"));
-			if (data.length > 0) {
-				for ( var i = 0; i < data.length; i++) {
-					$("#" + objId).append(
-							$("<option value=" + data[i].categoryId + " title= "
-									+ data[i].categoryName + ">"
-									+ data[i].categoryName + "</option>"));
-				}
-			}
-		},
-		
-		/**
-		 * 组装城市信息
-		 * 
-		 * @param data
-		 * @returns
-		 */
-		doGetCity : function(data, objId) {
-			if (data.length > 0) {
-				$("#" + objId).append($("<option value=''>-选择城市-</option>"));
-				for ( var i = 0; i < data.length; i++) {
-					$("#" + objId).append(
-							$("<option value=" + data[i].cityId + " title= "
-									+ data[i].chineseName + ">"
-									+ data[i].chineseName + "</option>"));
-				}
-			} else {
-				$("#" + objId).append($("<option value='-1'>-无-</option>"));
-			}
-		},
-
-		/**
-		 * 组装城市信息
-		 * 
-		 * @param data
-		 * @returns
-		 */
-		doGetCitys : function(data, objId) {
-			if (data.length > 0) {
-				$("#" + objId).append($("<option value=''>-选择城市-</option>"));
-				for ( var i = 0; i < data.length; i++) {
-					$("#" + objId).append(
-							$("<option value=" + data[i].cityId + " title= "
-									+ data[i].chineseName + ">"
-									+ data[i].chineseName + "</option>"));
-				}
-			} else {
-				$("#" + objId).append($("<option value='-99'>-不限-</option>"));
-			}
-		},
-		
-		/**
-		 * 组装国外州信息
-		 * 
-		 * @param data
-		 * @returns
-		 */
-		doGetState : function(data, objId) {
-			if (data.length > 0) {
-				$("#" + objId).append($("<option value=''>-州-</option>"));
-				for ( var i = 0; i < data.length; i++) {
-					$("#" + objId).append(
-							$("<option value=" + data[i].fstateId + " title= "
-									+ data[i].fstateName + ">"
-									+ data[i].fstateName + "</option>"));
-				}
-			} else {
-				$("#" + objId).append($("<option value='-1'>-无-</option>"));
-			}
-		},
-
-		/**
-		 * 组装国外城市信息
-		 * 
-		 * @param data
-		 * @returns
-		 */
-		doGetForeignCity : function(data, objId) {
-			if (data.length > 0) {
-				$("#" + objId).append($("<option value=''>-城市-</option>"));
-				for ( var i = 0; i < data.length; i++) {
-					$("#" + objId).append(
-							$("<option value=" + data[i].fcityId + " title= "
-									+ data[i].fcityName + ">"
-									+ data[i].fcityName + "</option>"));
-				}
-			} else {
-				$("#" + objId).append($("<option value='-1'>-无-</option>"));
-			}
-		},
-
-		/**
-		 * 组装国外学校信息
-		 * 
-		 * @param data
-		 * @returns
-		 */
-		doGetForeignSchool : function(data, objId) {
-			if (data.length > 0) {
-				$("#" + objId).append($("<option value=''>-学校-</option>"));
-				for ( var i = 0; i < data.length; i++) {
-					$("#" + objId).append(
-							$("<option value=" + data[i].fschoolId + " title= "
-									+ data[i].fschoolName + ">"
-									+ data[i].fschoolName + "</option>"));
-				}
-			} else {
-				$("#" + objId).append($("<option value='-1'>-无-</option>"));
-			}
-		},
-		/**
-		 * 组装国外学校院系专业信息
-		 * 
-		 * @param data
-		 * @returns
-		 */
-		doGetForeignDiscipline : function(data, objId) {
-			if (data.length > 0) {
-				$("#" + objId).append($("<option value=''>-专业-</option>"));
-				for ( var i = 0; i < data.length; i++) {
-					$("#" + objId).append(
-							$("<option value=" + data[i].fdisciplineId + " title= "
-									+ data[i].fdisciplineEname + ">"
-									+ data[i].fdisciplineEname + "</option>"));
-				}
-			} else {
-				$("#" + objId).append($("<option value=''>-无-</option>"));
-			}
-		},
-		/**
-		* 组装国外学校院系信息
-		* 
-		* @param data
-		* @returns
-		*/
-		
-		doGetForeignFaculty : function(data, objId) {
-			if (data.length > 0) {
-				$("#" + objId).append($("<option value=''>-院系-</option>"));
-				for ( var i = 0; i < data.length; i++) {
-					$("#" + objId).append(
-							$("<option value=" + data[i].ffacultyId + " title= "
-									+ data[i].ffacultyEname + ">"
-									+ data[i].ffacultyEname + "</option>"));
-				}
-			} else {
-				$("#" + objId).append($("<option value='-1'>-无-</option>"));
-			}
-		},
-
-		/**
-		 * 组装机构信息
-		 * 
-		 * @param data
-		 * @returns
-		 */
-		doGetAgent : function(data, objId) {
-			if (data.length > 0) {
-				$("#" + objId).append($("<option value=''>-所属机构-</option>"));
-				for ( var i = 0; i < data.length; i++) {
-					$("#" + objId).append(
-							$("<option value=" + data[i].agentId + " title= "
-									+ data[i].agentName + ">"
-									+ data[i].agentName + "</option>"));
-				}
-			} else {
-				$("#" + objId).append($("<option value=''>-无-</option>"));
-			}
-		},
-
-		/**
-		 * 组装客服信息
-		 * 
-		 * @param data
-		 * @returns
-		 */
-		doGetCustom : function(data, objId) {
-			if (data.length > 0) {
-				$("#" + objId).append($("<option value=''>-客服-</option>"));
-				for ( var i = 0; i < data.length; i++) {
-					$("#" + objId).append(
-							$("<option value=" + data[i].fnuserId + " title= "
-									+ data[i].nickname + ">" + data[i].nickname
-									+ "</option>"));
-				}
-			} else {
-				$("#" + objId).append($("<option value='-1'>-无-</option>"));
-			}
 		},
 
 		/**
 		 * 基本地址访问
-		 * 
+		 *
 		 * @param url
 		 * @returns
 		 */
@@ -469,7 +280,7 @@ var IECommon = function() {
 
 		/**
 		 * 基本PUSH方法
-		 * 
+		 *
 		 * @param args
 		 * @returns
 		 */
@@ -495,7 +306,7 @@ var IECommon = function() {
 		},
 		/**
 		 * 删除之前需要确认
-		 * 
+		 *
 		 * @param url
 		 * @returns
 		 */
@@ -515,7 +326,7 @@ var IECommon = function() {
 				}else{
 					$(this).removeAttr("checked");
 				}
-				
+
 			});
 		},
 		/**

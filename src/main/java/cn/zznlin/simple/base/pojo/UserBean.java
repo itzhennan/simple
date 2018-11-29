@@ -10,6 +10,14 @@ public class UserBean {
     private String name;
     private String password;
 
+    public UserBean() {
+    }
+
+    public UserBean(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
+
     public String getName() {
         return name;
     }

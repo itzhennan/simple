@@ -16,7 +16,7 @@
         <!--           过滤器链 -->
         <property name="filterChainDefinitions">
             <value>
-                /admin/**  = anon
+                /admin/assets/**  = anon
                 <!-- 对静态资源设置匿名访问-->
                 /images/** = anon
                 /js/** = anon
@@ -32,6 +32,10 @@
                 <!-- 验证码，可匿名访问 -->
                 /code/** = anon
                 /user/login = anon
+                /user/getShiroMD5/** = anon
+
+                <!--请求logout，shrio擦除sssion-->
+                /user/logout = logout
 
                 <!-- 查看博客  可匿名访问-->
                 /blog/** = anon
@@ -40,21 +44,26 @@
                 /login2.html = anon
                 /login3.html = anon
 
-                /**.html = anon
                 / = anon
 
                 <!-- /** = authc 所有url都必须认证通过才可以访问 -->
                 /**=authc
 
-                <!--请求logout，shrio擦除sssion-->
-                /user/logout = logout
+
 
             </value>
         </property>
     </bean>
 
     <!-- shiro 访问数据库 -->
-    <bean id="realm" class="cn.zznlin.simple.base.security.Realm"></bean>
+    <bean id="realm" class="cn.zznlin.simple.base.security.Realm">
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <property name="hashAlgorithmName" value="MD5"></property> <!-- 加密算法的名称 -->
+                <property name="hashIterations" value="1024"></property> <!-- 配置加密的次数 -->
+            </bean>
+        </property>
+    </bean>
 
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="realm"></property>

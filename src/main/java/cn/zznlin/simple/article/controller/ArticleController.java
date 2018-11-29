@@ -5,7 +5,7 @@ import cn.zznlin.simple.article.service.ArticleCategoryService;
 import cn.zznlin.simple.article.service.ArticleService;
 import cn.zznlin.simple.base.entity.SMDInfo;
 import cn.zznlin.simple.base.entity.User;
-import cn.zznlin.simple.common.bean.ReturnJsonBean;
+import cn.zznlin.simple.common.bean.ReturnListJson;
 import cn.zznlin.simple.common.cons.AuthorCons;
 import cn.zznlin.simple.common.controller.CommonController;
 import cn.zznlin.simple.common.helper.JSONHelper;
@@ -68,9 +68,9 @@ public class ArticleController extends CommonController {
 
     @RequestMapping("/saveArticle")
     @ResponseBody
-    public ReturnJsonBean postSaveArticle(HttpServletRequest request, HttpServletResponse response,
+    public ReturnListJson postSaveArticle(HttpServletRequest request, HttpServletResponse response,
                                           ArticleBean bean, @RequestParam(defaultValue = "0") int isPub) throws Exception {
-        ReturnJsonBean returnBean = new ReturnJsonBean();
+        ReturnListJson returnBean = new ReturnListJson();
         try {
             LoggerUtils.debug(SIMPLE_CLASS_NAME, "请求数据："+ JSONHelper.toJson(bean));
             User user = userService.get(1L);
