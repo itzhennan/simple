@@ -1,7 +1,7 @@
 package cn.zznlin.simple.common.controller;
 
+import cn.zznlin.simple.common.bean.ReturnBaseJson;
 import cn.zznlin.simple.common.helper.KaptchaHelper;
-import cn.zznlin.simple.common.utils.CommonJsonFlagBean;
 import cn.zznlin.simple.common.utils.HttpUtils;
 import cn.zznlin.simple.common.utils.JsonUtils;
 import cn.zznlin.simple.common.utils.LoggerUtils;
@@ -69,13 +69,13 @@ public class CodeController {
 	
 	@RequestMapping("/checkCode/{code}")
 	public void checkCode(HttpServletRequest request,HttpServletResponse response,@PathVariable String code){
-		CommonJsonFlagBean commonJsonFlagBean = null;
+		ReturnBaseJson commonJsonFlagBean = null;
 		try {
 			boolean checkStatus = KaptchaHelper.getInstance().checkValidateCode(request, code);
 			if(checkStatus)
-				commonJsonFlagBean = new CommonJsonFlagBean();
+				commonJsonFlagBean = new ReturnBaseJson();
 			else
-				commonJsonFlagBean = new CommonJsonFlagBean(false, "验证码错误");
+				commonJsonFlagBean = new ReturnBaseJson(1, "验证码错误");
 		}catch (Exception e){
 			e.printStackTrace();
 		} finally {

@@ -25,4 +25,10 @@ public class UserServiceImpl extends HibernateServiceSupport<User> implements Us
         List<User> datas = findDatas(map);
         return ValidateUtils.isNotEmpty(datas) ? datas.get(0) : null;
     }
+
+    @Override
+    public User findByName(String username) {
+        List<User> datas = findDatas("userName", username);
+        return ValidateUtils.isNotEmpty(datas) ? datas.get(0) : null;
+    }
 }

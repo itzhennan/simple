@@ -18,6 +18,7 @@ public class RegexUtils {
     private static final String REGEX_2 = "[/simple]?.*/css/.*";
     private static final String REGEX_3 = "[/simple]?.*/images/.*";
     private static final String REGEX_4 = "[/simple]?.*/fonts/.*";
+    private static final String REGEX_5 = "[/simple]?.*/admin/assets/.*";
 
     private RegexUtils(){
     }
@@ -36,7 +37,7 @@ public class RegexUtils {
      * @return
      */
     public boolean isSystemPath(String excue){
-        return isRegex(excue,REGEX_1) || isRegex(excue,REGEX_2) || isRegex(excue,REGEX_3) || isRegex(excue,REGEX_4);
+        return isRegex(excue,REGEX_1) || isRegex(excue,REGEX_2) || isRegex(excue,REGEX_3) || isRegex(excue,REGEX_4) || isRegex(excue,REGEX_5);
     }
 
     /**
