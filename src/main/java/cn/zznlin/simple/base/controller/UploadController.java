@@ -6,8 +6,6 @@ import cn.zznlin.simple.base.service.UploadService;
 import cn.zznlin.simple.common.controller.CommonController;
 import cn.zznlin.simple.common.helper.UploadHelper;
 import cn.zznlin.simple.common.init.SystemPropertyInit;
-import cn.zznlin.simple.common.utils.ImageUtils;
-import cn.zznlin.simple.common.utils.StringUtils;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,7 +49,6 @@ public class UploadController extends CommonController {
             responseMap.put("url",imageHost + filePath + ext);
 		} catch (Exception e) {
 			responseMap.put("uploaded","0");
-			e.printStackTrace();
 		}
 		return responseMap;
 	}

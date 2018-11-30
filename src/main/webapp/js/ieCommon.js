@@ -121,7 +121,7 @@ var IECommon = function() {
 		doPhoneNum: function(phoneNum){
 			//var result = /(^([0-9][0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$)|(^((\(\d{3}\))|(\d{3}\-))?(1[358]\d{9})$)/;
 			var phoneRegexp=/^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/;
-			var mobileRegexp=/^0{0,1}(13[0-9]|14[0-9]|15[0-9]|16[0-9]|17[0-9]|18[0-9]|19[0-9])[0-9]{8}$/;
+			var mobileRegexp=/^(13[0-9]|14[0-9]|15[0-9]|16[0-9]|17[0-9]|18[0-9]|19[0-9])[0-9]{8}$/;
 			var isCheck = false;
 			if (phoneRegexp.test(phoneNum)) {
 				isCheck = true;
@@ -241,6 +241,8 @@ var IECommon = function() {
 		 * @returns
 		 */
 		isSpecial : function(str) {
+		    //
+            // var pattern = new RegExp("[~'!@#$%^&*()-+_=:]");
 			var pattern = new RegExp("[~'!@#$%^&*()-+_=:]");
 			return pattern.test(str);
 		},

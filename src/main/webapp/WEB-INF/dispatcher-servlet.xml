@@ -11,6 +11,13 @@
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
+	<!-- 注解支持 -->
+	<mvc:annotation-driven conversion-service="myDateConverter"/>
+
+	<!-- 全局包扫描 -->
+	<context:component-scan base-package="cn.zznlin.simple.*.controller" />
+	<context:component-scan base-package="cn.zznlin.simple.*.*.controller" />
+
 	<!--ResponseBody 中文乱码处理-->
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" >
 		<property name="messageConverters">
@@ -42,18 +49,17 @@
 			<bean class="cn.zznlin.simple.common.converter.DateConverter"></bean>
 		</property>
 	</bean>
-	<mvc:annotation-driven conversion-service="myDateConverter"/>
 
-	<context:component-scan base-package="cn.zznlin.simple.*.controller" />
-	<context:component-scan base-package="cn.zznlin.simple.*.*.controller" />
+	<!-- 全局异常处理 -->
+	<bean class="cn.zznlin.simple.common.exception.resolver.SimpleExceptionResolver"></bean>
 
-
+	<!-- 视图配置 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/pages/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<mvc:resources mapping="/admin/**" location="/admin/" />
+
 
 	<mvc:resources mapping="/images/**" location="/images/" />
 	<mvc:resources mapping="/json/**" location="/json/" />
@@ -61,8 +67,10 @@
 	<mvc:resources mapping="/css/**" location="/css/" />
 	<mvc:resources mapping="/index.html" location="/index.html" />
 	<mvc:resources mapping="/login.html" location="/login.html" />
-	<mvc:resources mapping="/login2.html" location="/login2.html" />
-	<mvc:resources mapping="/login3.html" location="/login3.html" />
+	<mvc:resources mapping="/404.html" location="/404.html" />
+	<mvc:resources mapping="/500.html" location="/500.html" />
+
+	<mvc:resources mapping="/admin/**" location="/admin/" />
 	<mvc:resources mapping="/html/**" location="/html/" />
 
 </beans>

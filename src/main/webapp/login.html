@@ -57,7 +57,7 @@
 			<div class="login-content">
 				<form class="margin-bottom-0 needs-validation" method="post" onsubmit="return false;">
 					<div class="form-group m-b-20">
-						<input type="text" name="name" class="form-control form-control-lg" placeholder="User Name" required />
+						<input type="text" name="name" onblur="blurt(this)" class="form-control form-control-lg" placeholder="User Name" required />
 					</div>
 					<div class="form-group m-b-20">
 						<input id="login-pwd" type="password" name="password" class="form-control form-control-lg is-valid" placeholder="Password"  required  data-container="body" data-toggle="popover" data-trigger="manual" data-placement="bottom" data-content="用户名或密码错误！" />
@@ -85,9 +85,9 @@
 			<li  class="active"><a href="javascript:;" data-click="change-bg" data-img="./admin/assets/img/login-bg/login-bg-15.jpg" style="background-image: url(./admin/assets/img/login-bg/login-bg-15.jpg)"></a></li>
 			<!--<li><a href="javascript:;" data-click="change-bg" data-img="./admin/assets/img/login-bg/login-bg-17.jpg" style="background-image: url(./admin/assets/img/login-bg/login-bg-17.jpg)"></a></li>-->
 			<li><a href="javascript:;" data-click="change-bg" data-img="./admin/assets/img/login-bg/login-bg-16.jpg" style="background-image: url(./admin/assets/img/login-bg/login-bg-16.jpg)"></a></li>
-			<li><a href="javascript:;" data-click="change-bg" data-img="./admin/assets/img/login-bg/login-bg-14.jpg" style="background-image: url(./admin/assets/img/login-bg/login-bg-14.jpg)"></a></li>
 			<li><a href="javascript:;" data-click="change-bg" data-img="./admin/assets/img/login-bg/login-bg-13.jpg" style="background-image: url(./admin/assets/img/login-bg/login-bg-13.jpg)"></a></li>
 			<li><a href="javascript:;" data-click="change-bg" data-img="./admin/assets/img/login-bg/login-bg-12.jpg" style="background-image: url(./admin/assets/img/login-bg/login-bg-12.jpg)"></a></li>
+			<li><a href="javascript:;" data-click="change-bg" data-img="./admin/assets/img/login-bg/login-bg-14.jpg" style="background-image: url(./admin/assets/img/login-bg/login-bg-14.jpg)"></a></li>
 			<li><a href="javascript:;" data-click="change-bg" data-img="./images/newlogin/demo-1-bg.jpg" style="background-image: url(./images/newlogin/demo-1-bg.jpg)"></a></li>
 		</ul>
 		<!-- end login-bg -->
@@ -127,6 +127,14 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'UA-130054770-1');
+
+        function blurt(data){
+            var val = $(data).val();
+            if($IEC.isSpecial(val)){
+                alert(val);
+            }
+		}
+
 	</script>
 </body>
 </html>

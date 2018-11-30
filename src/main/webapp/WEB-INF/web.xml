@@ -46,6 +46,11 @@
             <!--<param-name>contextConfigLocation</param-name>-->
             <!--<param-value>classpath:/WEB-INF/dispatcher-servlet.xml</param-value>-->
         <!--</init-param>-->
+        <init-param>
+            <!-- 如果未发现映射路径，抛出异常，而不是跳转到在web.xml配置的404错误页 -->
+            <param-name>throwExceptionIfNoHandlerFound</param-name>
+            <param-value>true</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>

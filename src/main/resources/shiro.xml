@@ -12,7 +12,7 @@
         <!-- 		在未登录情况下访问页面或请求时 跳转到login.html -->
         <property name="loginUrl" value="/login.html" />
         <!-- 		未授权时访问页面或请求  跳转到error.html -->
-        <property name="unauthorizedUrl" value="/error.html" />
+        <property name="unauthorizedUrl" value="/404.html" />
         <!--           过滤器链 -->
         <property name="filterChainDefinitions">
             <value>
@@ -56,7 +56,7 @@
     </bean>
 
     <!-- shiro 访问数据库 -->
-    <bean id="realm" class="cn.zznlin.simple.base.security.Realm">
+    <bean id="realm" class="cn.zznlin.simple.common.security.Realm">
         <property name="credentialsMatcher">
             <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
                 <property name="hashAlgorithmName" value="MD5"></property> <!-- 加密算法的名称 -->
