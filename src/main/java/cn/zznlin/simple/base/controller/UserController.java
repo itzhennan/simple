@@ -45,7 +45,6 @@ public class UserController extends CommonController{
         } catch (AuthenticationException e) {
             returnBaseJson.setCode(1);
             returnBaseJson.setMsg("用户名或密码错误");
-            e.printStackTrace();
         }finally {
             return returnBaseJson;
         }
@@ -85,7 +84,6 @@ public class UserController extends CommonController{
         } catch (AuthenticationException e) {
             returnBaseJson.setCode(1);
             returnBaseJson.setMsg("数据异常");
-            e.printStackTrace();
         }finally {
             return returnBaseJson;
         }

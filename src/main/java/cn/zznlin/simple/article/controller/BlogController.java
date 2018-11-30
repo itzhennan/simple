@@ -5,6 +5,8 @@ import cn.zznlin.simple.article.pojo.ArticleCond;
 import cn.zznlin.simple.article.service.ArticleService;
 import cn.zznlin.simple.common.bean.Page;
 import cn.zznlin.simple.common.controller.CommonController;
+import cn.zznlin.simple.common.exception.pojo.Code404Exception;
+import cn.zznlin.simple.common.utils.ValidateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,8 +50,11 @@ public class BlogController extends CommonController {
      * @return
      */
     @RequestMapping("/{articleId}")
-    public String detail(@PathVariable String articleId, HttpServletRequest request, HttpServletResponse response, Model model){
+    public String detail(@PathVariable String articleId, HttpServletRequest request, HttpServletResponse response, Model model) throws Code404Exception {
         ArticleInfo bean =  articleService.get(articleId);
+        if(ValidateUtils.isEmpty(bean)){
+            throw new Code404Exception("文章不存在");
+        }
         model.addAttribute("bean",bean);
         return "/article/article-detail";
     }

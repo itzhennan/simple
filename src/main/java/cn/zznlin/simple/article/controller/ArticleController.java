@@ -6,10 +6,11 @@ import cn.zznlin.simple.article.service.ArticleService;
 import cn.zznlin.simple.base.entity.SMDInfo;
 import cn.zznlin.simple.base.entity.User;
 import cn.zznlin.simple.common.bean.ReturnListJson;
-import cn.zznlin.simple.common.cons.AuthorCons;
 import cn.zznlin.simple.common.controller.CommonController;
+import cn.zznlin.simple.common.exception.pojo.DefaultException;
 import cn.zznlin.simple.common.helper.JSONHelper;
 import cn.zznlin.simple.common.utils.LoggerUtils;
+import cn.zznlin.simple.common.utils.ValidateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,8 +61,11 @@ public class ArticleController extends CommonController {
      * @return
      */
     @RequestMapping("/edit/{articleId}")
-    public String edit(@PathVariable String articleId,HttpServletRequest request, HttpServletResponse response, Model model){
+    public String edit(@PathVariable String articleId,HttpServletRequest request, HttpServletResponse response, Model model) throws DefaultException {
         User user = userService.get(1L);
+        if(ValidateUtils.isNotEmpty(user)){
+            throw  new DefaultException("用户为空！");
+        }
         articleService.getEditById(articleId,model,user);
         return "/article/article-edit";
     }
@@ -75,10 +79,8 @@ public class ArticleController extends CommonController {
             LoggerUtils.debug(SIMPLE_CLASS_NAME, "请求数据："+ JSONHelper.toJson(bean));
             User user = userService.get(1L);
             articleService.saveOrUpdateArticle(user,bean,isPub);
-
         }catch (Exception e){
             returnBean.setCode(2);
-            saveException(AuthorCons.zhangzhennan,SIMPLE_CLASS_NAME ,"postSaveArticle" , e);
         }finally {
             return returnBean;
         }
