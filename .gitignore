@@ -10,8 +10,8 @@ build/
 target/
 out
 .project
-#src/main/resources/app.properties
-#src/main/resources/system.properties
+src/main/resources/app.properties
+src/main/resources/system.properties
 #gen### Java template
 # Compiled class file
 *.class
