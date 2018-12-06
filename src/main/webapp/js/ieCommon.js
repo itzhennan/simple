@@ -342,7 +342,59 @@ var IECommon = function() {
 			}else{
 				$("#"+id).removeAttr("checked");
 			}
-		}
+		},
+        simplePrompt : function(args){
+			var defaults = {
+                title: "Your Msg",
+                placeholder: "",
+                content: "",
+				type: "text",
+				callback: function(willDelete){
+                    if (willDelete) {
+                        // Submit!
+                    } else {
+                        // Close!
+                    }
+				}
+			};
+            args = $.extend(true, defaults, args);
+            swal({
+                title: args.title,
+                content: {
+                    element: "input",
+                    attributes: {
+                        placeholder: args.placeholder,
+                        type: args.type,
+						value: args.content,
+                    },
+                },
+                buttons: {
+                    cancel: {text: "Cancel", value: null, visible: !0, className: "btn btn-default", closeModal: !0},
+                    confirm: {text: "Submit", value: !0, visible: !0, className: "btn btn-success", closeModal: !0}
+                }
+            }).then(
+                function (willDelete) {
+                    args.callback(willDelete);
+                }
+			);
+		},
+        simpleAlert : function(args){
+        	// icon : {error,warning,success,danger};
+            var defaults = {
+                title: "Hello World!",
+                content: "",
+                icon:""
+            };
+            args = $.extend(true, defaults, args);
+            swal({
+                title: args.title,
+                text: args.content,
+                icon: args.icon,
+                buttons: {
+                    cancel: {text: "Cancel", value: null, visible: !0, className: "btn btn-default", closeModal: !0},
+                }
+            })
+        }
 	};
 }();
 window.$IEC = IECommon;
