@@ -17,10 +17,13 @@ public class Permission extends BaseEntity{
 	@GeneratedValue
 	@Column(name = "permission_id")
 	private int id;
+
 	@Column(name = "name")
 	private String name; // 权限名称
+
 	@Column(name = "keyword")
 	private String keyword; // 权限关键字，用于权限控制
+
 	@Column(name = "description")
 	private String description; // 描述
 

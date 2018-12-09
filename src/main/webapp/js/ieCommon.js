@@ -28,7 +28,6 @@ var IECommon = function() {
 				},
 				"erorr" : function() {
 				},
-				"data" : {},
 				"timeout" : 30000,
 				"headers" : {
 					"Content-Type" : "application/json",
@@ -39,10 +38,11 @@ var IECommon = function() {
 
 			args = $.extend(true, defaults, args);
 
-			var dataStr = "";
+			if(args.type == "get" || args.type == "GET"){
+                args.data = "";
+			}
 			return $.ajax({
-				// url : args.uri + '?' + Math.floor(Math.random() * 100),
-				url : args.uri,
+				url : args.uri + '?' + Math.floor(Math.random() * 100),
 				type : args.type,
 				headers : args.headers,
 				timeout : args.timeout,
@@ -343,21 +343,54 @@ var IECommon = function() {
 				$("#"+id).removeAttr("checked");
 			}
 		},
+        setStyles : function (code) {
+			var array = code.split(/[{}]/g);
+			var selector = array[0].trim();
+
+			var el = document.querySelector(selector);
+
+			var css = array[1].trim();
+			css = css.replace(/\s+/g, ' ');
+			css = css.replace(/;\s?/g, '; ');
+			css = css.replace(/:\s?/g, ': ');
+
+			el.style.cssText = css;
+		},
         simplePrompt : function(args){
 			var defaults = {
                 title: "Your Msg",
                 placeholder: "",
                 content: "",
 				type: "text",
-				callback: function(willDelete){
+                defaultButtons:true, // 是否使用默认的按钮
+				callback: function(willDelete){ // 点击按钮后的回调函数
                     if (willDelete) {
                         // Submit!
                     } else {
                         // Close!
                     }
+				},
+				default:function(){ // 默认的CSS样式
+                    var cancelCss = ".swal-button--cancel{background-color:#5a6268}";
+                    $IEC.setStyles(cancelCss);
+				},
+				css:function(){ // 另加的css样式
+
 				}
 			};
             args = $.extend(true, defaults, args);
+
+            // 按钮可能需要自定义排序，如果没有按钮，使用默认的按钮。如果有按钮，不在用默认的按钮
+            if(args.defaultButtons){
+            	var temp = {
+                    buttons: {
+                        cancel: {text: "Cancel", value: null, visible: !0, className: "btn btn-secondary", closeModal: !0},
+                        confirm: {text: "Submit", value: !0, visible: !0, className: "btn btn-success", closeModal: !0}
+                    }
+				};
+                args = $.extend(true, temp, args);
+			}
+			// 弹窗
             swal({
                 title: args.title,
                 content: {
@@ -368,22 +401,29 @@ var IECommon = function() {
 						value: args.content,
                     },
                 },
-                buttons: {
-                    cancel: {text: "Cancel", value: null, visible: !0, className: "btn btn-default", closeModal: !0},
-                    confirm: {text: "Submit", value: !0, visible: !0, className: "btn btn-success", closeModal: !0}
-                }
+                buttons: args.buttons
             }).then(
                 function (willDelete) {
                     args.callback(willDelete);
                 }
 			);
+            // set css
+            args.default();
+            args.css();
 		},
         simpleAlert : function(args){
         	// icon : {error,warning,success,danger};
             var defaults = {
                 title: "Hello World!",
                 content: "",
-                icon:""
+                icon:"",
+                default:function(){
+                    var cancelCss = ".swal-button--cancel{background-color:#5a6268}";
+                    $IEC.setStyles(cancelCss);
+                },
+                css:function(){
+
+           		}
             };
             args = $.extend(true, defaults, args);
             swal({
@@ -391,9 +431,51 @@ var IECommon = function() {
                 text: args.content,
                 icon: args.icon,
                 buttons: {
-                    cancel: {text: "Cancel", value: null, visible: !0, className: "btn btn-default", closeModal: !0},
+                    cancel: {text: "Cancel", value: null, visible: !0, className: "btn btn-secondary", closeModal: !0},
                 }
-            })
+            });
+            // set css
+            args.default();
+            args.css();
+        },
+        simpleConfirm : function(args){
+            // icon : {error,warning,success,danger,info};
+            var defaults = {
+                title: "Hello World!",
+                content: "",
+                icon:"info",
+                callback: function(willDelete){
+                    if (willDelete) {
+                        // Submit!
+                    } else {
+                        // Close!
+                    }
+                },
+                default:function(){
+                    var cancelCss = ".swal-button--cancel{background-color:#5a6268}";
+                    $IEC.setStyles(cancelCss);
+                },
+                css:function(){
+
+                }
+            };
+            args = $.extend(true, defaults, args);
+            swal({
+                title: args.title,
+                text: args.content,
+                icon: args.icon,
+                buttons: {
+                    cancel: {text: "Cancel", value: null, visible: !0, className: "btn btn-secondary", closeModal: !0},
+                    confirm: {text: "Submit", value: !0, visible: !0, className: "btn btn-success", closeModal: !0}
+                }
+            }).then(
+                function (willDelete) {
+                    args.callback(willDelete);
+                }
+            );
+            // set css
+            args.default();
+            args.css();
         }
 	};
 }();

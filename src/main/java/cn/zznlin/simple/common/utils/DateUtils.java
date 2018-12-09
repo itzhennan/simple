@@ -29,11 +29,14 @@ public class DateUtils {
 	public static final String PATTERN_MONTH = "yyyy-MM";
 	public static final String YEAR = "yyyy";
 	public static final String PATTERN_DATETIME_ENGLISH = "MMMM d, yyyy";
+	public static final String PATTERN_DATETIME_ISO8601 = "yyyy-MM-dd'T'HH:mm:ss";
+
 
 	public static final Locale LOCAL_ENGLISH = Locale.ENGLISH;
 	public static final Locale LOCAL_CHINA = Locale.CHINA;
 
 	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	private static String currentTimeStr;
 
 	public static DateTime toDateTime(String dateTime) {
 		if (StringUtils.isBlank(dateTime)) {
@@ -1135,4 +1138,7 @@ public class DateUtils {
         System.out.println(toLocalString("2018-11-14T23:48:02.000+08:00",LOCAL_ENGLISH,PATTERN_DATETIME_ENGLISH));
     }
 
+    public static String getCurrentTimeStr() {
+        return new LocalDate().toString(PATTERN_DATETIME);
+    }
 }

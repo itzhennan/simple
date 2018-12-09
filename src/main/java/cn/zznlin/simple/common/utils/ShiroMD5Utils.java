@@ -1,6 +1,5 @@
 package cn.zznlin.simple.common.utils;
 
-import cn.zznlin.simple.base.entity.User;
 import cn.zznlin.simple.base.pojo.UserBean;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;

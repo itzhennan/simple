@@ -6,7 +6,7 @@ package cn.zznlin.simple.common.cons;
  * @description
  */
 public enum AuthorCons {
-    zhangzhennan("张振楠");
+    zznlin("ZZNLin");
 
     String name;
 

@@ -48,6 +48,7 @@
 		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<!-- Configure the multipart resolver -->
@@ -119,6 +120,7 @@
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
 
-	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<!-- 不在使用 aspectj-autoproxy 配置 aop 因为shiro 需要配置 AOP，因此在 shiro.xml里面已经进行了配置  -->
+	<!--<aop:aspectj-autoproxy proxy-target-class="true" />-->
 
 </beans>

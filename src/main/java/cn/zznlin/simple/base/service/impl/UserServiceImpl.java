@@ -6,6 +6,7 @@ import cn.zznlin.simple.common.orm.service.HibernateServiceSupport;
 import cn.zznlin.simple.common.utils.ValidateUtils;
 import com.google.common.collect.Maps;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl extends HibernateServiceSupport<User> implements UserService {
+
     @Override
     public User findByNameAndPassword(String username, String password) {
         HashMap<String,Object> map = Maps.newHashMap();
@@ -27,6 +29,7 @@ public class UserServiceImpl extends HibernateServiceSupport<User> implements Us
     }
 
     @Override
+    @Transactional
     public User findByName(String username) {
         List<User> datas = findDatas("userName", username);
         return ValidateUtils.isNotEmpty(datas) ? datas.get(0) : null;

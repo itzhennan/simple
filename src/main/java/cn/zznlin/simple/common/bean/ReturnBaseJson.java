@@ -1,5 +1,7 @@
 package cn.zznlin.simple.common.bean;
 
+import java.util.Map;
+
 /**
  * @author zhennan zhang
  * @date 2018/11/29 17:50
@@ -13,6 +15,7 @@ public class ReturnBaseJson {
 
     protected int code = CODE_SUCCESS;
     protected String msg;
+    protected Map<String,Object> data;
 
     public ReturnBaseJson(){
         msg = MSG_SUCCES;
@@ -38,5 +41,13 @@ public class ReturnBaseJson {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public Map<String, Object> getData() {
+        return data;
+    }
+
+    public void setData(Map<String, Object> data) {
+        this.data = data;
     }
 }

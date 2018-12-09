@@ -16,10 +16,13 @@ public class Role extends BaseEntity{
 	@GeneratedValue
 	@Column(name = "role_id")
 	private int id;
+
 	@Column(name = "name")
 	private String name; // 角色名称
+
 	@Column(name = "keyword")
 	private String keyword; // 角色关键字，用于权限控制
+
 	@Column(name = "description")
 	private String description; // 描述
 

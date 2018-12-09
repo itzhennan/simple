@@ -101,4 +101,12 @@ public class User extends BaseEntity {
     public void setUploadFiles(UploadFiles uploadFiles) {
         this.uploadFiles = uploadFiles;
     }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }

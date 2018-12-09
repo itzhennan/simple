@@ -50,7 +50,7 @@ public class BaseServiceSupport<T extends BaseEntity> implements BaseService<T> 
 
     @Override
     public void saveOrUpdate(T entity) {
-        baseDao.update(entity);
+        baseDao.saveOrUpdate(entity);
     }
 
     @Override

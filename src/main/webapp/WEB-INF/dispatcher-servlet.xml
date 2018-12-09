@@ -60,7 +60,6 @@
 	</bean>
 
 
-
 	<mvc:resources mapping="/images/**" location="/images/" />
 	<mvc:resources mapping="/json/**" location="/json/" />
 	<mvc:resources mapping="/js/**" location="/js/" />

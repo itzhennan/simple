@@ -1,19 +1,14 @@
 package cn.zznlin.simple.common.exception.resolver;
 
-import cn.zznlin.simple.common.bean.ReturnBaseJson;
 import cn.zznlin.simple.common.cons.AuthorCons;
 import cn.zznlin.simple.common.exception.pojo.Code404Exception;
 import cn.zznlin.simple.common.exception.pojo.IgnoreException;
 import cn.zznlin.simple.common.init.SystemPropertyInit;
 import cn.zznlin.simple.common.senum.HttpExceptionEnum;
+import cn.zznlin.simple.common.utils.LoggerUtils;
 import cn.zznlin.simple.common.utils.MailSendUtils;
 import cn.zznlin.simple.common.utils.StringUtils;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonJsonView;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.core.Ordered;
@@ -49,33 +44,55 @@ import java.util.Map;
  */
 public class SimpleExceptionResolver implements HandlerExceptionResolver,Ordered {
 
-    private static Logger logger = LoggerFactory.getLogger(SimpleExceptionResolver.class);
+    private static String SIMPLE_CLASS_NAME = SimpleExceptionResolver.class.getSimpleName();
 
-    // 给最高优先级，使用我们的默认排序
-    private static int order = Ordered.HIGHEST_PRECEDENCE;
+    /**
+     * 自定义全局异常处理器 在SpringMVC中的异常处理器链中处于最高优先级
+     */
+    private static int ORDER = Ordered.HIGHEST_PRECEDENCE;
 
-    // 是否发送异常邮件  true 发送
-    private static Boolean isSendMail = SystemPropertyInit.getInstance().getBooleanProperty("isSendCodeMail",true);
+    /**
+     * 是否发送异常邮件  true 发送
+     */
+    private static Boolean IS_SEND_MAIL = SystemPropertyInit.getInstance().getBooleanProperty("isSendCodeMail",true);
 
-    // 服务器host
-    private static String host = SystemPropertyInit.getInstance().getProperty("server.host");
+    /**
+     * 是否发送异常邮件  true 发送
+     */
+    private static String RECEIVE_EMAIL = SystemPropertyInit.getInstance().getProperty("receiveEmail");
 
-    private FastJsonConfig fastJsonConfig;
+    /**
+     * 服务器Host
+     */
+    private static String HOST = SystemPropertyInit.getInstance().getProperty("server.host");
 
+    private static final String REDIRCT_404 = "redirect:/404.html";
+    private static final String REDIRCT_500 = "redirect:/500.html";
 
+    /**
+     *  自定义异常解析器
+     * @param request   当前请求对象
+     * @param response  当前响应对象
+     * @param handler   springMVC的映射处理对象
+     * @param ex        异常信息
+     * @return          视图模型对象
+     */
     @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         ModelAndView mv = specialExceptionResolve(ex, request,handler);
+        if(null != mv && !mv.getModel().get("code").equals("404")){
+            ex.printStackTrace();
+        }
         if (null == mv) {
             if(ex instanceof IgnoreException){
                 return null;
             }else if(ex instanceof Code404Exception){
                 // 404报错
-                mv = errorResult("404", "redirect:/404.html", request);
+                mv = errorResult(HttpServletResponse.SC_NOT_FOUND,"页面不存在~", REDIRCT_404, request);
             }else{
                 saveException(handler,ex);
                 // 500 报错
-                mv = errorResult("500", "redirect:/500.html", request);
+                mv = errorResult(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"服务器崩溃了~", REDIRCT_500, request);
             }
         }
         return mv;
@@ -137,7 +154,7 @@ public class SimpleExceptionResolver implements HandlerExceptionResolver,Ordered
                 return result(HttpExceptionEnum.BIND_EXCEPTION, request);
             }
         } catch (Exception handlerException) {
-            logger.warn("Handling of [" + ex.getClass().getName() + "] resulted in Exception", handlerException);
+            LoggerUtils.warn(SIMPLE_CLASS_NAME, "Handling of [" + ex.getClass().getName() + "] resulted in Exception", handlerException);
         }
         return null;
     }
@@ -160,12 +177,12 @@ public class SimpleExceptionResolver implements HandlerExceptionResolver,Ordered
      * @param request 请求对象
      * @return 模型视图对象
      */
-    private ModelAndView errorResult(String message, String url, HttpServletRequest request) {
-        logger.warn("请求处理失败，请求url=[{}], 失败原因 : {}", request.getRequestURI(), message);
+    private ModelAndView errorResult(int code,String message, String url, HttpServletRequest request) {
+        LoggerUtils.warn(SIMPLE_CLASS_NAME, "请求处理失败，请求url=["+request.getRequestURI()+"], 失败原因 : "+message);
         if (isAjax(request)) {
-            return jsonResult(500, message);
+            return jsonResult(code, message);
         } else {
-            return normalResult(message, url);
+            return normalResult(code,message, url);
         }
     }
 
@@ -177,11 +194,15 @@ public class SimpleExceptionResolver implements HandlerExceptionResolver,Ordered
      * @return 模型视图对象
      */
     private ModelAndView result(HttpExceptionEnum httpException, HttpServletRequest request) {
-        logger.warn("请求处理失败，请求url=[{}], 失败原因 : {}", request.getRequestURI(), httpException.getMsg());
+        LoggerUtils.warn(SIMPLE_CLASS_NAME, "请求处理失败，请求url=["+request.getRequestURI()+"], 失败原因 : "+httpException.getMsg());
         if (isAjax(request)) {
             return jsonResult(httpException.getCode(), httpException.getMsg());
         } else {
-            return normalResult(httpException.getMsg(), "/error");
+            // 500
+            if(httpException.getCode() == HttpServletResponse.SC_INTERNAL_SERVER_ERROR){
+                return normalResult(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,httpException.getMsg(), REDIRCT_500);
+            }
+            return normalResult(httpException.getCode(),httpException.getMsg(), REDIRCT_404);
         }
     }
 
@@ -192,8 +213,9 @@ public class SimpleExceptionResolver implements HandlerExceptionResolver,Ordered
      * @param url     错误页url
      * @return 模型视图对象
      */
-    private ModelAndView normalResult(String message, String url) {
+    private ModelAndView normalResult(int code ,String message, String url) {
         Map<String, String> model = new HashMap<String, String>();
+        model.put("code", code+"");
         model.put("errorMessage", message);
         return new ModelAndView(url, model);
     }
@@ -206,16 +228,21 @@ public class SimpleExceptionResolver implements HandlerExceptionResolver,Ordered
      */
     private ModelAndView jsonResult(int code, String message) {
         ModelAndView mv = new ModelAndView();
+        /*  使用FastJson提供的FastJsonJsonView视图返回，不需要捕获异常   */
         FastJsonJsonView view = new FastJsonJsonView();
-        view.setFastJsonConfig(fastJsonConfig);
-        view.setAttributesMap((JSONObject) JSON.toJSON(new ReturnBaseJson(code, message)));
+        Map<String, Object> attributes = new HashMap<String, Object>();
+        attributes.put("code", code);
+        attributes.put("msg", message);
+        view.setAttributesMap(attributes);
         mv.setView(view);
         return mv;
     }
 
+
     /**
-     * 保存异常信息
-     * @param handler
+     * 异步发送邮件，保存异常信息
+     * @param handler   springMVC的映射处理对象
+     * @param e         异常信息
      */
     private void saveException(Object handler, Exception e) {
         try {
@@ -232,15 +259,12 @@ public class SimpleExceptionResolver implements HandlerExceptionResolver,Ordered
                 modelName = method.getMethod().getDeclaringClass().getSimpleName();
                 functionName = method.getMethod().getName();
             }
-            String mailSubject = StringUtils.getRandomCode()+"Simple:[(" + host + ")]"
-                    + AuthorCons.zhangzhennan + ":" + modelName + "==>" + functionName;
+            String mailSubject = StringUtils.getRandomCode()+"Simple:[(" + HOST + ")]"
+                    + AuthorCons.zznlin + ":" + modelName + "==>" + functionName;
 
-            // 打印错误信息
-            e.printStackTrace();
-
-            if(isSendMail){
+            if(IS_SEND_MAIL){
                 // 发送错误的邮件
-                MailSendUtils.sendSyncErrorMail("18519149312@163.com", mailSubject, exception);
+                MailSendUtils.sendSyncErrorMail(RECEIVE_EMAIL, mailSubject, exception);
             }
         } catch (Exception e1) {
             e1.printStackTrace();
@@ -249,12 +273,6 @@ public class SimpleExceptionResolver implements HandlerExceptionResolver,Ordered
 
     @Override
     public int getOrder() {
-        return order;
+        return ORDER;
     }
-
-    public void setOrder(int order){
-        this.order = order;
-    }
-
-
 }

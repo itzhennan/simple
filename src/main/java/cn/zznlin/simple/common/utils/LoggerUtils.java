@@ -99,4 +99,17 @@ public class LoggerUtils {
             logger.warn("["+className+"] "+content);
         }
     }
+
+    /**
+     * WARN信息
+     *
+     * @param className
+     * @param content
+     */
+    public static void warn(String className, String content,Object obj){
+        if(IS_LOG) {
+            logger.warn("["+className+"] "+content,obj);
+        }
+    }
+
 }

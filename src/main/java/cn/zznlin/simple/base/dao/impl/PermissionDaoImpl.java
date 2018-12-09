@@ -12,4 +12,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class PermissionDaoImpl extends HibernateDaoSupport<Permission> implements PermissionDao {
+
 }

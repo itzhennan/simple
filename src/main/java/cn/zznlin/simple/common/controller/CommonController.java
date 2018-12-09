@@ -3,20 +3,24 @@ package cn.zznlin.simple.common.controller;
 import cn.zznlin.simple.base.entity.User;
 import cn.zznlin.simple.base.service.SMDService;
 import cn.zznlin.simple.base.service.UserService;
+import cn.zznlin.simple.common.bean.LoginInfo;
 import cn.zznlin.simple.common.config.ViewName;
 import cn.zznlin.simple.common.cons.AuthorCons;
+import cn.zznlin.simple.common.exception.pojo.Code404Exception;
 import cn.zznlin.simple.common.init.SystemPropertyInit;
 import cn.zznlin.simple.common.utils.LoggerUtils;
 import cn.zznlin.simple.common.utils.StringUtils;
+import cn.zznlin.simple.common.utils.ValidateUtils;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
@@ -117,18 +121,6 @@ public abstract class CommonController
         }
     }
 
-    /**
-     * 从 shiro 中取出当前登录的用户
-     * @return
-     */
-    public User getCurrentUser(){
-        // 获取 程序与shiro交互的管理对象
-        Subject subject = SecurityUtils.getSubject();
-        // 获得主角 其实就是 realm 认证放入的User
-        User user = (User)subject.getPrincipal();
-        return user;
-    }
-
 
     @SuppressWarnings("unchecked")
     public <T> List<T> loop(List<T> list, List<T> nodes, int rows) {
@@ -163,7 +155,35 @@ public abstract class CommonController
      */
     public HttpServletResponse getCurrentResponse(){
         HttpServletResponse response = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getResponse();
+
         return response;
+    }
+
+    /**
+     * 获得  ServletContext
+     * @return
+     */
+    public ServletContext getServletContext(){
+        return ContextLoader.getCurrentWebApplicationContext().getServletContext();
+    }
+
+
+    /**
+     * 从 shiro 中取出当前登录的用户
+     * @return
+     */
+    public User getCurrentUser() throws Code404Exception{
+        // 获取 程序与shiro交互的管理对象  获得主角
+        Object principal = SecurityUtils.getSubject().getPrincipal();
+        if(ValidateUtils.isEmpty(principal)){
+            throw new Code404Exception();
+        }
+        LoginInfo login = (LoginInfo) principal;
+        User user = userService.get(login.getId());
+        if(ValidateUtils.isEmpty(user)){
+            throw new Code404Exception();
+        }
+        return user;
     }
 
     @Autowired

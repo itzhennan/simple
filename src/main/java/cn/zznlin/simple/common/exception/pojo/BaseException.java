@@ -6,13 +6,13 @@ import java.io.Serializable;
  * @author zhennan zhang
  * @date 2018/11/30 15:40
  * @description
- *
- *
- *
+ *      基础异常基类
  */
 public class BaseException extends RuntimeException implements Serializable {
 
-    //异常信息
+    /**
+     * 异常信息
+     */
     protected String message;
 
     public BaseException() {

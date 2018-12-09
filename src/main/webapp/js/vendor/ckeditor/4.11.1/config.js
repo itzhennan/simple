@@ -12,15 +12,15 @@ CKEDITOR.editorConfig = function( config ) {
     config.mathJaxLib = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML';
     config.codeSnippet_theme = 'monokai_sublime';
 
-    config.filebrowserBrowseUrl = 'http://localhost:18800/';
-    config.filebrowserImageBrowseUrl = 'http://localhost:18800/';
-    config.filebrowserUploadUrl = 'http://localhost:9999/upload/uploadFile?file=file';
-    config.filebrowserImageUploadUrl = 'http://localhost:9999/upload/uploadFile?type=image';
+    // config.filebrowserBrowseUrl = 'http://localhost:18800/';
+    // config.filebrowserImageBrowseUrl = 'http://localhost:18800/';
+    // config.filebrowserUploadUrl = 'http://localhost:9999/upload/uploadFile?file=file';
+    // config.filebrowserImageUploadUrl = 'http://localhost:9999/upload/uploadFile?type=image';
 
-    // config.filebrowserBrowseUrl = 'http://101.132.105.24/';
-    // config.filebrowserImageBrowseUrl = 'http://101.132.105.24/';
-    // config.filebrowserUploadUrl = 'http://101.132.105.24/upload/uploadFile?file=file';
-    // config.filebrowserImageUploadUrl = 'http://101.132.105.24/upload/uploadFile?type=image';
+    config.filebrowserBrowseUrl = 'http://www.zznlin.cn/';
+    config.filebrowserImageBrowseUrl = 'http://www.zznlin.cn/';
+    config.filebrowserUploadUrl = 'http://www.zznlin.cn/upload/uploadFile?file=file';
+    config.filebrowserImageUploadUrl = 'http://www.zznlin.cn/upload/uploadFile?type=image';
 
     // Define changes to default configuration here.
     // For complete reference see:

@@ -17,10 +17,7 @@ public class ReturnJsonBean {
 	protected List datas;
 	protected int code;
 	protected String msg;
-	
-	private int pageNum = 1;
-	
-	private int totalPage = 1;
+
 
 	public ReturnJsonBean(){
 		datas = new ArrayList();
@@ -50,22 +47,6 @@ public class ReturnJsonBean {
 
 	public void setMsg(String msg) {
 		this.msg = msg;
-	}
-
-	public int getPageNum() {
-		return pageNum;
-	}
-
-	public void setPageNum(int pageNum) {
-		this.pageNum = pageNum;
-	}
-
-	public int getTotalPage() {
-		return totalPage;
-	}
-
-	public void setTotalPage(int totalPage) {
-		this.totalPage = totalPage;
 	}
 
 	public static String getMsgSucces() {

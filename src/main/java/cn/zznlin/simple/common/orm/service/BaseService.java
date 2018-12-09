@@ -43,5 +43,4 @@ public interface BaseService<T extends BaseEntity> {
 
     Long count();
 
-
 }
