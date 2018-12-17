@@ -40,11 +40,7 @@
 
                 <!-- 查看博客  可匿名访问-->
                 /blog/** = anon
-
-
-                /login2.html = anon
-                /login3.html = anon
-
+                /frontend/comment/** = anon
                 / = anon
 
                 <!-- /** = authc 所有url都必须认证通过才可以访问 -->

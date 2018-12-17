@@ -49,15 +49,20 @@ public class SimpleExceptionResolver implements HandlerExceptionResolver,Ordered
     /**
      * 自定义全局异常处理器 在SpringMVC中的异常处理器链中处于最高优先级
      */
-    private static int ORDER = Ordered.HIGHEST_PRECEDENCE;
+    private static final int ORDER = Ordered.HIGHEST_PRECEDENCE;
 
     /**
      * 是否发送异常邮件  true 发送
      */
-    private static Boolean IS_SEND_MAIL = SystemPropertyInit.getInstance().getBooleanProperty("isSendCodeMail",true);
+    private static final Boolean IS_SEND_MAIL = SystemPropertyInit.getInstance().getBooleanProperty("isSendCodeMail",true);
 
     /**
-     * 是否发送异常邮件  true 发送
+     * 是否是测试模式   true 开发测试模式
+     */
+    private static final Boolean IS_TEST = SystemPropertyInit.getInstance().getBooleanProperty("isTest",true);
+
+    /**
+     * 错误邮件接收者的邮箱地址
      */
     private static String RECEIVE_EMAIL = SystemPropertyInit.getInstance().getProperty("receiveEmail");
 
@@ -79,13 +84,16 @@ public class SimpleExceptionResolver implements HandlerExceptionResolver,Ordered
      */
     @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        // 如果是开发测试阶段，不对异常做任何处理
+        ex.printStackTrace();
+        if (IS_TEST) return null;
         ModelAndView mv = specialExceptionResolve(ex, request,handler);
-        if(null != mv && !mv.getModel().get("code").equals("404")){
+        if( mv !=null  && mv.getModel().get("code")!=null &&  mv.getModel().get("code").equals("404")){
             ex.printStackTrace();
         }
-        if (null == mv) {
+        if (mv == null) {
             if(ex instanceof IgnoreException){
-                return null;
+                    return null;
             }else if(ex instanceof Code404Exception){
                 // 404报错
                 mv = errorResult(HttpServletResponse.SC_NOT_FOUND,"页面不存在~", REDIRCT_404, request);
@@ -215,8 +223,8 @@ public class SimpleExceptionResolver implements HandlerExceptionResolver,Ordered
      */
     private ModelAndView normalResult(int code ,String message, String url) {
         Map<String, String> model = new HashMap<String, String>();
-        model.put("code", code+"");
-        model.put("errorMessage", message);
+//        model.put("code", code+"");
+//        model.put("errorMessage", message);
         return new ModelAndView(url, model);
     }
 

@@ -32,7 +32,7 @@
         </repository>
     </repositories>
 
-    <!-- 锁定版本，struts2-2.3.24、spring4.2.4、hibernate5.0.7 -->
+    <!-- 锁定版本  spring4.2.4、hibernate5.0.7 -->
     <dependencyManagement>
         <dependencies>
             <dependency>

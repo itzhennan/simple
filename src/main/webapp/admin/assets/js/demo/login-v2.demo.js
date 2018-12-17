@@ -30,7 +30,7 @@ var currentIndex,lastIndex=0,switchInt, handleLoginPageChangeBackground = functi
                     data : $IEC.getSwitchPost($(this).serialize()),
                     success : function(data) {
                         if(data.code == 0){
-                            $IEC.doHref(host+"/admin/html/index.html");
+                            $IEC.doHref(host+"/admin/html/index_2.html");
                         }else {
                             // Login error msg and close msg after next click
                             $("#login-pwd").popover('show');

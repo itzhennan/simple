@@ -11,12 +11,17 @@
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<!-- 注解支持 -->
+	<!-- Spring MVC 提供的一键配置  自动注册组件 注解支持 -->
 	<mvc:annotation-driven conversion-service="myDateConverter"/>
 
 	<!-- 全局包扫描 -->
-	<context:component-scan base-package="cn.zznlin.simple.*.controller" />
-	<context:component-scan base-package="cn.zznlin.simple.*.*.controller" />
+	<!--<context:component-scan base-package="cn.zznlin.simple.*.controller" />-->
+	<!--<context:component-scan base-package="cn.zznlin.simple.*.*.controller" />-->
+
+	<!-- Spring MVC 需要扫描的包  如果集成了Spring的话，就可以只扫描Controller即可 如下配置  -->
+	<context:component-scan base-package="cn.zznlin.simple" use-default-filters="false" >
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"></context:include-filter>
+	</context:component-scan>
 
 	<!--ResponseBody 中文乱码处理-->
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" >
@@ -34,6 +39,7 @@
 			</list>
 		</property>
 	</bean>
+
 	<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 		<property name="supportedMediaTypes">
 			<list>
@@ -53,12 +59,17 @@
 	<!-- 全局异常处理 -->
 	<bean class="cn.zznlin.simple.common.exception.resolver.SimpleExceptionResolver"></bean>
 
-	<!-- 视图配置 -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<!-- JSP 视图配置 -->
+	<!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/pages/" />
 		<property name="suffix" value=".jsp" />
-	</bean>
+	</bean>-->
 
+	<!-- HTML 视图配置 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/frontend" />
+		<property name="suffix" value=".html" />
+	</bean>
 
 	<mvc:resources mapping="/images/**" location="/images/" />
 	<mvc:resources mapping="/json/**" location="/json/" />
