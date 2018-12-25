@@ -82,5 +82,6 @@
 
 	<mvc:resources mapping="/admin/**" location="/admin/" />
 	<mvc:resources mapping="/html/**" location="/html/" />
+	<mvc:resources mapping="/public/**" location="/public/" />
 
 </beans>
